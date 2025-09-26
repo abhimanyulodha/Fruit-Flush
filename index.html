@@ -25,7 +25,6 @@
             --fruit-purple: #AF52DE;
             --diagonal-highlight: #FFE6CC;
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg);
@@ -33,45 +32,36 @@
             overflow-y: auto;
             -webkit-font-smoothing: antialiased;
         }
-
         .rounded-card {
             border-radius: 14px;
             background-color: var(--card);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
-
         .fruit-text {
             font-weight: 600;
             color: var(--text);
         }
-
         .fruit-accent {
             color: var(--accent);
         }
-
         .fruit-button {
             font-weight: 600;
             border-radius: 10px;
             transition: all 0.2s ease;
         }
-
         .fruit-button:active {
             transform: scale(0.98);
         }
-
         .fruit-shadow {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-
         .fruit-highlight {
             background-color: var(--accent-light);
         }
-
         .fruit-grid {
             display: grid;
             gap: 4px;
         }
-
         .fruit-cell {
             aspect-ratio: 1;
             border-radius: 8px;
@@ -82,22 +72,18 @@
             transition: all 0.15s ease;
             background-color: rgba(255, 255, 255, 0.8);
         }
-
         .fruit-cell:hover {
             background-color: rgba(255, 230, 180, 0.7);
         }
-
         .fruit-score {
             font-weight: 600;
             color: var(--text-secondary);
         }
-
         .fruit-modal {
             border-radius: 16px;
             background-color: var(--card);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
-
         .fruit-confetti {
             position: fixed;
             width: 8px;
@@ -106,16 +92,13 @@
             pointer-events: none;
             z-index: 100;
         }
-
         @keyframes pop-in {
             0% { opacity: 0; transform: scale(0.8); }
             100% { opacity: 1; transform: scale(1); }
         }
-
         .pop-in {
             animation: pop-in 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
         @keyframes dice-tumble {
             0%   { transform: rotate(0deg) scale(1); }
             20%  { transform: rotate(-90deg) scale(1.05); }
@@ -123,68 +106,54 @@
             60%  { transform: rotate(-270deg) scale(1.05); }
             100% { transform: rotate(-360deg) scale(1); }
         }
-
         .dice-tumble {
             animation: dice-tumble 0.5s ease-in-out;
         }
-
         @keyframes score-flash {
             0% { color: var(--accent); }
             50% { color: var(--fruit-green); }
             100% { color: var(--accent); }
         }
-
         .score-flash {
             animation: score-flash 0.5s ease-out;
         }
-
         @keyframes roll-up {
             0% { transform: translateY(10px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
         }
-
         .score-roll-up {
             animation: roll-up 0.3s ease-out;
         }
-
         .modal {
             transition: opacity 0.25s ease, visibility 0.25s ease;
         }
-
         .modal-content {
             transition: transform 0.25s ease;
         }
-
         .modal.is-open {
             opacity: 1;
             visibility: visible;
         }
-
         .modal.is-open .modal-content {
             transform: scale(1) translateY(0);
         }
-
         @keyframes invalid-move-shake {
             10%, 90% { transform: translateX(-2px); }
             20%, 80% { transform: translateX(2px); }
             30%, 50%, 70% { transform: translateX(-3px); }
             40%, 60% { transform: translateX(3px); }
         }
-
         .invalid-move-shake {
             animation: invalid-move-shake 0.3s ease;
         }
-
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
-
         #roll-dice-btn:not(:disabled) {
             animation: pulse 1.5s infinite;
         }
-
         .diagonal-cell {
             background-color: var(--diagonal-highlight) !important;
         }
@@ -199,7 +168,6 @@
     <audio id="sound-combo-5" src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_e56f8f0532.mp3" preload="auto"></audio>
     <audio id="sound-combo-6" src="https://cdn.pixabay.com/download/audio/2022/08/16/audio_3c3b839540.mp3" preload="auto"></audio>
     <audio id="sound-combo-7" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_c6d1d7318d.mp3" preload="auto"></audio>
-
     <main id="game-container" class="w-full max-w-5xl mx-auto flex flex-col lg:flex-row gap-6 items-start p-4">
         <div class="w-full lg:w-2/3 flex flex-col gap-4">
             <div class="flex justify-between items-center px-2">
@@ -240,13 +208,16 @@
                     <p id="diag-total-score" class="text-2xl font-bold mt-1" style="color: #FFD700;">0</p>
                 </div>
             </div>
+            <div class="text-center py-2">
+                <h3 class="text-base font-semibold uppercase tracking-widest" style="color: #FF6B6B;">Bonus Grid</h3>
+                <p id="bonus-grid-score" class="text-2xl font-bold mt-1" style="color: #FFD700;">0</p>
+            </div>
             <div class="text-center py-2 border-t border-[#FFD700] mt-3 pt-3">
                 <h3 class="text-lg font-semibold uppercase tracking-widest" style="color: #FF6B6B;">Turn</h3>
                 <p id="turn-counter" class="text-2xl font-bold mt-1" style="color: #FF6B6B;">0 / 24</p>
             </div>
         </div>
     </main>
-
     <!-- Help Modal -->
     <div id="help-modal" class="modal fixed inset-0 bg-black/50 flex items-center justify-center p-4 opacity-0 invisible z-50">
         <div class="modal-content w-full max-w-lg bg-white p-6 rounded-xl transform scale-95 -translate-y-4" style="border: 2px solid #FF6B6B;">
@@ -280,18 +251,29 @@
                     <p class="mt-3 p-3 bg-[#FFD700]/30 rounded-lg border border-[#FFD700]/50 text-gray-800">
                         <strong class="text-[#FF6B6B]">Diagonal Bonus:</strong> The score for any sequence on the specially colored diagonal line is <em>doubled!</em> This is key to a high score.
                     </p>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2" style="color: #FF6B6B;">Bonus Grid</h3>
+                        <p class="mb-2 text-gray-800">Points are awarded for creating grids of the same symbol:</p>
+                        <ul class="list-disc list-inside space-y-1 pl-4 text-gray-800">
+                            <li><strong>2x2 Grid</strong> = 4 points</li>
+                            <li><strong>3x3 Grid</strong> = 9 points</li>
+                            <li><strong>4x4 Grid</strong> = 16 points</li>
+                            <li><strong>5x5 Grid</strong> = 25 points</li>
+                            <li><strong>6x6 Grid</strong> = 36 points</li>
+                            <li><strong>7x7 Grid</strong> = 49 points</li>
+                        </ul>
+                    </div>
                     <p class="mt-3 p-3 bg-[#FF6B6B]/30 rounded-lg border border-[#FF6B6B]/50 text-gray-800">
                         <strong class="text-[#FF6B6B]">Penalty:</strong> Be careful! Any row or column where it's <strong>no longer possible</strong> to form a 3-symbol sequence will receive a <strong>-5 point penalty</strong>.
                     </p>
                 </div>
                 <div>
                     <h3 class="font-bold text-lg mb-2" style="color: #FF6B6B;">End of the Game</h3>
-                    <p class="text-gray-800">The game ends when the entire grid is filled with symbols, or when there are no more valid moves left. Your final score is the sum of all your row scores, column scores, and the doubled diagonal score.</p>
+                    <p class="text-gray-800">The game ends when the entire grid is filled with symbols, or when there are no more valid moves left. Your final score is the sum of all your row scores, column scores, diagonal scores, and bonus grid points.</p>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Game Over Modal -->
     <div id="game-over-modal" class="modal fixed inset-0 bg-black/50 flex items-center justify-center p-4 opacity-0 invisible z-50">
         <div class="modal-content w-full max-w-md text-center bg-white p-8 rounded-xl transform scale-95 -translate-y-4 relative" style="border: 2px solid #FF6B6B;">
@@ -304,7 +286,6 @@
             <button id="play-again-btn" class="w-full mt-6 bg-[#FF6B6B] text-white font-bold py-3 px-4 rounded-lg text-xl transition-all hover:bg-[#FF5252]">Play Again</button>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const FRUIT_SYMBOLS = {
@@ -338,6 +319,7 @@
                 rowsTotalScore: document.getElementById('rows-total-score'),
                 colsTotalScore: document.getElementById('cols-total-score'),
                 diagTotalScore: document.getElementById('diag-total-score'),
+                bonusGridScore: document.getElementById('bonus-grid-score'),
                 turnCounter: document.getElementById('turn-counter'),
                 helpBtn: document.getElementById('help-btn'),
                 helpModal: document.getElementById('help-modal'),
@@ -365,6 +347,7 @@
                 DOMElements.rowsTotalScore.textContent = '0';
                 DOMElements.colsTotalScore.textContent = '0';
                 DOMElements.diagTotalScore.textContent = '0';
+                DOMElements.bonusGridScore.textContent = '0';
                 DOMElements.turnCounter.textContent = `0 / ${MAX_TURNS}`;
             }
 
@@ -641,9 +624,37 @@
                 else return { score: 0 };
             }
 
+            function detectBonusGrids(gridData) {
+                let bonusPoints = 0;
+                const gridSize = gridData.length;
+                for (let size = 2; size <= 7; size++) {
+                    for (let r = 0; r <= gridSize - size; r++) {
+                        for (let c = 0; c <= gridSize - size; c++) {
+                            const symbol = gridData[r][c];
+                            if (!symbol) continue;
+                            let isGrid = true;
+                            for (let i = r; i < r + size; i++) {
+                                for (let j = c; j < c + size; j++) {
+                                    if (gridData[i][j] !== symbol) {
+                                        isGrid = false;
+                                        break;
+                                    }
+                                }
+                                if (!isGrid) break;
+                            }
+                            if (isGrid) {
+                                bonusPoints += size * size;
+                            }
+                        }
+                    }
+                }
+                return bonusPoints;
+            }
+
             function calculateAllScores() {
                 let totalScore = 0;
                 let totalScores = { rows: 0, cols: 0, diag: 0 };
+                let bonusGridScore = 0;
                 for (let i = 0; i < GRID_SIZE; i++) {
                     const { score } = calculateLine(gridData[i]);
                     updateScoreElement(`row-score-${i}`, score);
@@ -658,11 +669,13 @@
                 const diagLine = Array.from({ length: GRID_SIZE }, (_, i) => gridData[i][GRID_SIZE - 1 - i]);
                 const { score: diagBaseScore } = calculateLine(diagLine);
                 totalScores.diag = diagBaseScore * 2;
-                totalScore = totalScores.rows + totalScores.cols + totalScores.diag;
+                bonusGridScore = detectBonusGrids(gridData);
+                totalScore = totalScores.rows + totalScores.cols + totalScores.diag + bonusGridScore;
                 DOMElements.totalScore.textContent = totalScore;
                 DOMElements.rowsTotalScore.textContent = totalScores.rows;
                 DOMElements.colsTotalScore.textContent = totalScores.cols;
                 DOMElements.diagTotalScore.textContent = totalScores.diag;
+                DOMElements.bonusGridScore.textContent = bonusGridScore;
             }
 
             function createConfetti() {
