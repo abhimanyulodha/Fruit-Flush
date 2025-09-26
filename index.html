@@ -221,7 +221,6 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
-    <audio id="audio-unlocker" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" preload="auto"></audio>
     
     <!-- Centered Title -->
     <div class="fixed top-8 left-1/2 transform -translate-x-1/2 z-10">
@@ -402,7 +401,7 @@
             const SCORE_FLASH_DURATION = 500;
 
             // Game state
-            let gameState, gridData, currentRoll, firstPlacementCell, turnCount, audioUnlocked, highScore, stuckBlocks;
+            let gameState, gridData, currentRoll, firstPlacementCell, turnCount, highScore, stuckBlocks;
             let scoreCache = new Map();
             let confettiPool = [];
 
@@ -430,70 +429,6 @@
                 playAgainBtn: document.getElementById('play-again-btn')
             };
 
-            // Audio system
-            const audioSystem = {
-                unlocked: false,
-                sounds: new Map(),
-                
-                init() {
-                    this.createSounds();
-                },
-                
-                createSounds() {
-                    // Create audio contexts for different game events using Web Audio API
-                    try {
-                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                        
-                        this.sounds.set('place', () => this.playTone(audioContext, 440, 0.1, 0.1));
-                        this.sounds.set('roll', () => this.playTone(audioContext, 220, 0.2, 0.2));
-                        this.sounds.set('combo-3', () => this.playTone(audioContext, 523, 0.3, 0.15));
-                        this.sounds.set('combo-4', () => this.playTone(audioContext, 659, 0.4, 0.2));
-                        this.sounds.set('combo-5', () => this.playTone(audioContext, 784, 0.5, 0.25));
-                        this.sounds.set('combo-6', () => this.playTone(audioContext, 880, 0.6, 0.3));
-                        this.sounds.set('combo-7', () => this.playTone(audioContext, 1047, 0.7, 0.35));
-                    } catch (e) {
-                        // Fallback if Web Audio API not available
-                        this.sounds.clear();
-                    }
-                },
-                
-                playTone(audioContext, frequency, volume, duration) {
-                    if (!this.unlocked) return;
-                    try {
-                        const oscillator = audioContext.createOscillator();
-                        const gainNode = audioContext.createGain();
-                        
-                        oscillator.connect(gainNode);
-                        gainNode.connect(audioContext.destination);
-                        
-                        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-                        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-                        gainNode.gain.linearRampToValueAtTime(volume * 0.1, audioContext.currentTime + 0.01);
-                        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
-                        
-                        oscillator.start(audioContext.currentTime);
-                        oscillator.stop(audioContext.currentTime + duration);
-                    } catch (e) {
-                        // Ignore audio errors
-                    }
-                },
-                
-                unlock() {
-                    if (this.unlocked) return;
-                    const audioUnlocker = document.getElementById('audio-unlocker');
-                    if (audioUnlocker) {
-                        audioUnlocker.play().then(() => {
-                            this.unlocked = true;
-                        }).catch(() => {});
-                    }
-                },
-                
-                play(soundName) {
-                    const sound = this.sounds.get(soundName);
-                    if (sound) sound();
-                }
-            };
-
             // Confetti system with object pooling
             const confettiSystem = {
                 pool: [],
@@ -501,6 +436,7 @@
                 
                 init() {
                     // Pre-create confetti elements for better performance
+                    if (this.pool.length) return; // prevent duplicates on multiple inits
                     for (let i = 0; i < CONFETTI_COUNT; i++) {
                         const particle = document.createElement('div');
                         particle.className = 'fruit-confetti confetti-particle';
@@ -523,10 +459,8 @@
                         particle.style.setProperty('--duration', duration + 's');
                         particle.style.display = 'block';
                         
-                        // Reset animation
-                        particle.style.animation = 'none';
-                        particle.offsetHeight; // Trigger reflow
-                        particle.style.animation = null;
+                        // Assign explicit animation to ensure restart
+                        particle.style.animation = `confetti-fall ${duration}s ${delay}s ease-out forwards`;
                         
                         // Hide particle after animation
                         setTimeout(() => {
@@ -598,16 +532,26 @@
                 },
                 
                 isLineDead(line) {
+                    // Robust dead-line detection: if any sliding window of size MIN_SEQUENCE_LENGTH
+                    // can still be completed (by filling nulls), then the line is NOT dead.
                     for (let i = 0; i <= line.length - MIN_SEQUENCE_LENGTH; i++) {
                         const window = line.slice(i, i + MIN_SEQUENCE_LENGTH);
-                        const symbolsInWindow = window.filter(s => s !== null);
-                        const uniqueSymbols = new Set(symbolsInWindow);
-                        if (uniqueSymbols.size <= 1) return false;
+                        const nullCount = window.filter(x => x === null).length;
+                        const counts = {};
+                        for (const s of window) {
+                            if (s === null) continue;
+                            counts[s] = (counts[s] || 0) + 1;
+                        }
+                        // If any symbol can reach MIN_SEQUENCE_LENGTH by filling nulls, not dead
+                        for (const sym in counts) {
+                            if (counts[sym] + nullCount >= MIN_SEQUENCE_LENGTH) return false;
+                        }
+                        if (nullCount >= MIN_SEQUENCE_LENGTH) return false;
                     }
                     return true;
                 },
                 
-                // Optimized bonus grid detection
+                // Existing grid-based detection preserved (can be optimized later)
                 calculateBonusGrids(gridData) {
                     let bonusPoints = 0;
                     const processed = new Set();
@@ -649,6 +593,24 @@
                 }
             };
 
+            // Compute stuck blocks (pure function)
+            function computeStuckBlocks() {
+                const newStuck = new Set();
+                const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+                for (let r = 0; r < GRID_SIZE; r++) {
+                    for (let c = 0; c < GRID_SIZE; c++) {
+                        if (gridData[r][c] !== null) continue;
+                        const isStuck = neighbors.every(([dr, dc]) => {
+                            const nr = r + dr;
+                            const nc = c + dc;
+                            return nr < 0 || nr >= GRID_SIZE || nc < 0 || nc >= GRID_SIZE || gridData[nr][nc] !== null;
+                        });
+                        if (isStuck) newStuck.add(`${r},${c}`);
+                    }
+                }
+                return newStuck;
+            }
+
             // Game logic functions
             function initGame() {
                 gameState = 'PRE_GAME';
@@ -657,14 +619,16 @@
                 firstPlacementCell = null;
                 turnCount = 0;
                 stuckBlocks = new Set();
-                highScore = localStorage.getItem('fruitFlushHighScore') || 0;
+                // defensive UI reset so previous UI values don't persist
+                DOMElements.emptyBlockPenalty.textContent = '0';
+
+                highScore = parseInt(localStorage.getItem('fruitFlushHighScore') || '0', 10);
                 
                 // Clear caches
                 scoreCache.clear();
                 scoreCalculator.clearCache();
                 
                 // Initialize systems
-                audioSystem.init();
                 confettiSystem.init();
                 
                 DOMElements.highScore.textContent = highScore;
@@ -678,7 +642,10 @@
             }
 
             function renderGrid() {
+                // Use DocumentFragment for slightly better performance
                 DOMElements.gameBoard.innerHTML = '';
+                const frag = document.createDocumentFragment();
+
                 for (let r = 0; r < GRID_SIZE; r++) {
                     for (let c = 0; c < GRID_SIZE; c++) {
                         const cell = document.createElement('div');
@@ -691,6 +658,9 @@
                         if (stuckBlocks.has(`${r},${c}`)) baseClasses += ' stuck-cell';
                         
                         cell.className = baseClasses;
+                        cell.tabIndex = 0;
+                        cell.setAttribute('role', 'button');
+                        cell.setAttribute('aria-label', `Cell ${r+1}-${c+1}`);
                         
                         const symbol = gridData[r][c];
                         if (symbol) {
@@ -700,9 +670,11 @@
                             cell.textContent = '💣';
                         }
                         
-                        DOMElements.gameBoard.appendChild(cell);
+                        frag.appendChild(cell);
                     }
                 }
+
+                DOMElements.gameBoard.appendChild(frag);
             }
 
             function renderScorePlaceholders() {
@@ -825,7 +797,6 @@
             function handleSymbolSelect(symbol) {
                 if (gameState !== 'PRE_GAME') return;
                 
-                audioSystem.unlock();
                 gridData[0][0] = symbol;
                 gameState = 'AWAITING_ROLL';
                 renderGrid();
@@ -837,7 +808,6 @@
                 
                 gameState = 'ANIMATING_ROLL';
                 updateControlsState();
-                audioSystem.play('roll');
                 
                 const dice1El = document.getElementById('dice-1');
                 const dice2El = document.getElementById('dice-2');
@@ -910,11 +880,9 @@
                 DOMElements.turnCounter.textContent = `${turnCount}/${MAX_TURNS}`;
                 clearHighlights();
                 renderGrid();
-                audioSystem.play('place');
                 
                 const longestSequenceAfter = findLongestSequence(gridData);
                 if (longestSequenceAfter > longestSequenceBefore && longestSequenceAfter >= MIN_SEQUENCE_LENGTH) {
-                    audioSystem.play(`combo-${longestSequenceAfter}`);
                     if (longestSequenceAfter >= 5) {
                         confettiSystem.trigger();
                     }
@@ -924,7 +892,12 @@
             }
 
             function processTurnEnd() {
-                detectStuckBlocks();
+                // Compute stuck blocks (pure computation) and update UI immediately
+                stuckBlocks = computeStuckBlocks();
+                DOMElements.emptyBlockPenalty.textContent = `-${stuckBlocks.size}`;
+                // Re-render board so bombs appear immediately
+                renderGrid();
+
                 calculateAllScores();
                 
                 const isGridFull = turnCount >= MAX_TURNS;
@@ -1018,25 +991,6 @@
                 maxLen = Math.max(maxLen, checkLine(Array.from({ length: GRID_SIZE }, (_, i) => board[i][GRID_SIZE - 1 - i])));
                 
                 return maxLen;
-            }
-
-            function detectStuckBlocks() {
-                const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-                for (let r = 0; r < GRID_SIZE; r++) {
-                    for (let c = 0; c < GRID_SIZE; c++) {
-                        if (gridData[r][c] === null && !stuckBlocks.has(`${r},${c}`)) {
-                            const isStuck = neighbors.every(([dr, dc]) => {
-                                const nr = r + dr;
-                                const nc = c + dc;
-                                return nr < 0 || nr >= GRID_SIZE || nc < 0 || nc >= GRID_SIZE || gridData[nr][nc] !== null;
-                            });
-                            if (isStuck) {
-                                stuckBlocks.add(`${r},${c}`);
-                            }
-                        }
-                    }
-                }
-                DOMElements.emptyBlockPenalty.textContent = -stuckBlocks.size;
             }
 
             function calculateAllScores() {
