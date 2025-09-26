@@ -47,14 +47,50 @@
         }
         .fruit-button {
             font-weight: 600;
-            border-radius: 10px;
-            transition: all 0.2s ease;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: none;
         }
         .fruit-button:active {
             transform: scale(0.98);
         }
+        .fruit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
         .fruit-shadow {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Enhanced glassmorphism with better browser support */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 
+                        0 0 0 1px rgba(255, 255, 255, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: none !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18), 
+                        0 0 0 1px rgba(255, 255, 255, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        
+        .glass-card-prominent {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 
+                        0 0 0 1px rgba(255, 255, 255, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            border: none !important;
         }
         .fruit-highlight {
             background-color: var(--accent-light);
@@ -204,7 +240,7 @@
         </div>
         
         <div class="w-full lg:w-1/3 scoring-panel-container">
-            <div class="flex-1 flex flex-col gap-3 p-4 rounded-card fruit-shadow">
+            <div class="flex-1 flex flex-col gap-3 p-4 bg-white/10 glass-card rounded-2xl">
                 <!-- Header Section with Rules -->
                 <div class="flex justify-between items-center">
                     <div class="flex gap-4">
@@ -725,24 +761,24 @@
                 diceContainer.appendChild(title);
                 
                 const diceFlex = document.createElement('div');
-                diceFlex.className = 'flex justify-center gap-2 mb-3';
+                diceFlex.className = 'flex justify-center gap-3 mb-3';
                 diceFlex.innerHTML = `
-                    <div id="dice-1" class="w-12 h-12 rounded-md bg-white border border-[#FFE4E1] flex items-center justify-center text-3xl">?</div>
-                    <div id="dice-2" class="w-12 h-12 rounded-md bg-white border border-[#FFE4E1] flex items-center justify-center text-3xl">?</div>`;
+                    <div id="dice-1" class="w-16 h-16 rounded-xl bg-white/50 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl">?</div>
+                    <div id="dice-2" class="w-16 h-16 rounded-xl bg-white/50 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl">?</div>`;
                 diceContainer.appendChild(diceFlex);
                 
                 const buttonContainer = document.createElement('div');
-                buttonContainer.className = 'flex gap-2';
+                buttonContainer.className = 'flex gap-3';
                 
                 const rollBtn = document.createElement('button');
                 rollBtn.id = 'roll-dice-btn';
-                rollBtn.className = 'flex-1 py-2.5 px-3 bg-[#FF6B6B] text-white font-semibold rounded-md text-sm transition-all hover:bg-[#FF5252] disabled:bg-[#FFB3B3] disabled:cursor-not-allowed';
+                rollBtn.className = 'flex-1 py-3 px-4 bg-[#FF6B6B]/80 glass-card text-white font-semibold rounded-2xl text-sm disabled:bg-[#FFB3B3]/60 disabled:cursor-not-allowed';
                 rollBtn.textContent = 'Roll Dice';
                 rollBtn.onclick = handleRollDice;
                 
                 const newGameBtn = document.createElement('button');
                 newGameBtn.id = 'new-game-btn';
-                newGameBtn.className = 'flex-1 py-2.5 px-3 bg-white text-[#FF6B6B] font-semibold rounded-md text-sm transition-all hover:bg-[#FFD700] border border-[#FFE4E1]';
+                newGameBtn.className = 'flex-1 py-3 px-4 bg-white/15 glass-card text-[#FF6B6B] font-semibold rounded-2xl text-sm';
                 newGameBtn.textContent = 'New Game';
                 newGameBtn.onclick = initGame;
                 
@@ -774,16 +810,16 @@
 
             function updateDiceDisplay(dice1, dice2) {
                 dice1.textContent = currentRoll[0];
-                dice1.className = `w-12 h-12 rounded-md bg-[#FFE4E1] border-2 border-[#FF6B6B] flex items-center justify-center text-3xl ${SYMBOL_COLORS[currentRoll[0]]}`;
+                dice1.className = `w-16 h-16 rounded-xl bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[0]]}`;
                 dice2.textContent = currentRoll[1];
-                dice2.className = `w-12 h-12 rounded-md bg-[#FFE4E1] border-2 border-[#FF6B6B] flex items-center justify-center text-3xl ${SYMBOL_COLORS[currentRoll[1]]}`;
+                dice2.className = `w-16 h-16 rounded-xl bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[1]]}`;
             }
 
             function resetDiceDisplay(dice1, dice2) {
                 dice1.textContent = '?';
-                dice1.className = 'w-12 h-12 rounded-md bg-white border border-[#FFE4E1] flex items-center justify-center text-3xl fruit-text';
+                dice1.className = 'w-16 h-16 rounded-xl bg-white/50 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl fruit-text';
                 dice2.textContent = '?';
-                dice2.className = 'w-12 h-12 rounded-md bg-white border border-[#FFE4E1] flex items-center justify-center text-3xl fruit-text';
+                dice2.className = 'w-16 h-16 rounded-xl bg-white/50 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl fruit-text';
             }
 
             function handleSymbolSelect(symbol) {
