@@ -7,15 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #FFF5F5;
-            --card: #FFFFFF;
-            --text: #333333;
-            --text-secondary: #8A93A2;
+            --bg: linear-gradient(135deg, #FFF5F5 0%, #FFF0F8 100%);
+            --card: rgba(255, 255, 255, 0.95);
+            --text: #2D3748;
+            --text-secondary: #718096;
             --accent: #FF6B6B;
             --accent-light: #FFE4E1;
+            --accent-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
             --fruit-red: #FF6B6B;
             --fruit-yellow: #FFD700;
             --fruit-green: #5AC8FA;
@@ -23,204 +24,405 @@
             --fruit-pink: #FF2D55;
             --fruit-teal: #88D8C0;
             --fruit-purple: #AF52DE;
-            --diagonal-highlight: #FFE6CC;
-            --stuck-block: #FFB3B3;
+            --diagonal-highlight: linear-gradient(135deg, #FFE6CC 0%, #FFF2E0 100%);
+            --stuck-block: linear-gradient(135deg, #FFB3B3 0%, #FFC1C1 100%);
+            --glass-primary: rgba(255, 255, 255, 0.25);
+            --glass-secondary: rgba(255, 255, 255, 0.15);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.12);
+            --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
+            background: var(--bg);
             color: var(--text);
             overflow-y: auto;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+        
         .rounded-card {
-            border-radius: 14px;
-            background-color: var(--card);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            background: var(--card);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
+        
         .fruit-text {
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text);
         }
+        
         .fruit-accent {
             color: var(--accent);
         }
+        
         .fruit-button {
             font-weight: 600;
             border-radius: 16px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: var(--shadow-soft);
             border: none;
-        }
-        .fruit-button:active {
-            transform: scale(0.98);
-        }
-        .fruit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        }
-        .fruit-shadow {
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
         
-        /* Enhanced glassmorphism with better browser support */
+        .fruit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .fruit-button:hover::before {
+            left: 100%;
+        }
+        
+        .fruit-button:active {
+            transform: scale(0.96);
+        }
+        
+        .fruit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .fruit-shadow {
+            box-shadow: var(--shadow-soft);
+        }
+        
         .glass-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 
-                        0 0 0 1px rgba(255, 255, 255, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: var(--glass-secondary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-soft), 
+                        0 0 0 1px rgba(255, 255, 255, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
             border: none !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .glass-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18), 
-                        0 0 0 1px rgba(255, 255, 255, 0.15),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-strong), 
+                        0 0 0 1px rgba(255, 255, 255, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
         
         .glass-card-prominent {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 
-                        0 0 0 1px rgba(255, 255, 255, 0.15),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            background: var(--glass-primary);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: var(--shadow-medium), 
+                        0 0 0 1px rgba(255, 255, 255, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.35);
             border: none !important;
         }
+        
         .fruit-highlight {
-            background-color: var(--accent-light);
+            background: var(--diagonal-highlight) !important;
+            animation: highlight-pulse 1s ease-in-out infinite alternate;
         }
+        
+        @keyframes highlight-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            100% { transform: scale(1.02); box-shadow: 0 0 0 8px rgba(255, 107, 107, 0); }
+        }
+        
         .fruit-grid {
             display: grid;
             gap: 4px;
         }
+        
         .fruit-cell {
             aspect-ratio: 1;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            transition: all 0.15s ease;
-            background-color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.9);
+            position: relative;
+            overflow: hidden;
         }
+        
+        .fruit-cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .fruit-cell:hover::before {
+            opacity: 1;
+        }
+        
         .fruit-cell:hover {
-            background-color: rgba(255, 230, 180, 0.7);
+            background: rgba(255, 230, 180, 0.8);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
         }
+        
         .fruit-score {
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text-secondary);
+            transition: all 0.3s ease;
         }
+        
         .fruit-modal {
-            border-radius: 16px;
-            background-color: var(--card);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+            background: var(--card);
+            box-shadow: var(--shadow-strong);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
         }
+        
         .fruit-confetti {
             position: fixed;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             pointer-events: none;
             z-index: 100;
         }
+        
         @keyframes pop-in {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+            0% { opacity: 0; transform: scale(0.5) rotate(-180deg); }
+            50% { opacity: 1; transform: scale(1.1) rotate(-90deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
         }
+        
         .pop-in {
-            animation: pop-in 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: pop-in 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
+        
         @keyframes dice-tumble {
             0%   { transform: rotate(0deg) scale(1); }
-            20%  { transform: rotate(-90deg) scale(1.05); }
-            40%  { transform: rotate(-180deg) scale(1); }
-            60%  { transform: rotate(-270deg) scale(1.05); }
+            25%  { transform: rotate(-90deg) scale(1.05); }
+            50%  { transform: rotate(-180deg) scale(1.1); }
+            75%  { transform: rotate(-270deg) scale(1.05); }
             100% { transform: rotate(-360deg) scale(1); }
         }
+        
         .dice-tumble {
-            animation: dice-tumble 0.5s ease-in-out;
+            animation: dice-tumble 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
+        
         @keyframes score-flash {
-            0% { color: var(--accent); }
-            50% { color: var(--fruit-green); }
-            100% { color: var(--accent); }
+            0% { color: var(--accent); transform: scale(1); }
+            50% { color: var(--fruit-green); transform: scale(1.1); }
+            100% { color: var(--accent); transform: scale(1); }
         }
+        
         .score-flash {
-            animation: score-flash 0.5s ease-out;
+            animation: score-flash 0.6s ease-out;
         }
+        
         @keyframes roll-up {
-            0% { transform: translateY(10px); opacity: 0; }
+            0% { transform: translateY(20px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
         }
+        
         .score-roll-up {
-            animation: roll-up 0.3s ease-out;
+            animation: roll-up 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+        
+        @keyframes sequence-highlight {
+            0% { background-color: rgba(255, 215, 0, 0.3); transform: scale(1); }
+            50% { background-color: rgba(255, 215, 0, 0.6); transform: scale(1.05); }
+            100% { background-color: rgba(255, 215, 0, 0); transform: scale(1); }
+        }
+        
+        .sequence-highlight {
+            animation: sequence-highlight 1s ease-out;
+        }
+        
         .modal {
-            transition: opacity 0.25s ease, visibility 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
         .modal-content {
-            transition: transform 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
         .modal.is-open {
             opacity: 1;
             visibility: visible;
         }
+        
         .modal.is-open .modal-content {
             transform: scale(1) translateY(0);
         }
+        
         @keyframes invalid-move-shake {
-            10%, 90% { transform: translateX(-2px); }
-            20%, 80% { transform: translateX(2px); }
-            30%, 50%, 70% { transform: translateX(-3px); }
-            40%, 60% { transform: translateX(3px); }
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+            20%, 40%, 60%, 80% { transform: translateX(4px); }
         }
+        
         .invalid-move-shake {
-            animation: invalid-move-shake 0.3s ease;
+            animation: invalid-move-shake 0.4s ease;
         }
+        
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
         }
+        
         #roll-dice-btn:not(:disabled) {
-            animation: pulse 1.5s infinite;
+            animation: pulse 2s infinite;
         }
+        
         .diagonal-cell {
-            background-color: var(--diagonal-highlight) !important;
+            background: var(--diagonal-highlight) !important;
         }
+        
         .stuck-cell {
-            background-color: var(--stuck-block) !important;
-            color: black;
+            background: var(--stuck-block) !important;
+            color: #721c24;
             font-size: 2rem;
+            font-weight: 600;
         }
+        
         @keyframes confetti-fall {
             to {
-                transform: translateY(100vh) rotate(360deg);
+                transform: translateY(100vh) rotate(720deg);
                 opacity: 0;
             }
         }
+        
         .confetti-particle {
             animation: confetti-fall var(--duration, 3s) var(--delay, 0s) ease-out forwards;
         }
-        /* Ensure equal heights for both panels */
+        
+        @keyframes stagger-fade-in {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stagger-fade-in {
+            animation: stagger-fade-in 0.4s ease-out both;
+        }
+        
         .game-container {
             display: flex;
             align-items: stretch;
         }
+        
         .game-board-container,
         .scoring-panel-container {
             display: flex;
             flex-direction: column;
         }
+        
+        .controls-area {
+            min-height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Enhanced fruit symbol selection */
+        .fruit-selector-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .fruit-selector-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+        
+        .fruit-selector-btn:hover::after {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Score update animations */
+        .score-update {
+            animation: score-update 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        @keyframes score-update {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); color: var(--fruit-green); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Tutorial overlay styles */
+        .tutorial-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 200;
+        }
+        
+        .tutorial-content {
+            position: absolute;
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow-strong);
+            max-width: 400px;
+        }
+        
+        /* Particle effects for placements */
+        .placement-particles {
+            position: absolute;
+            pointer-events: none;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            z-index: 10;
+        }
+        
+        @keyframes placement-particle {
+            0% { 
+                opacity: 1; 
+                transform: scale(0) translate(0, 0); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(1) translate(var(--dx), var(--dy)); 
+            }
+        }
+        
+        .placement-particle {
+            animation: placement-particle 0.8s ease-out forwards;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
+    <audio id="audio-unlocker" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" preload="auto"></audio>
     
     <!-- Centered Title -->
     <div class="fixed top-8 left-1/2 transform -translate-x-1/2 z-10">
@@ -229,81 +431,82 @@
 
     <main id="game-container" class="w-full max-w-5xl mx-auto game-container flex-col lg:flex-row gap-6 items-stretch p-4 pt-24">
         <div class="w-full lg:w-2/3 game-board-container">
-            <div class="flex-1 p-4 rounded-card fruit-shadow">
-                <div class="grid grid-cols-8 gap-2 h-full">
-                    <div id="game-board" class="col-span-7 fruit-grid grid-cols-7 gap-2"></div>
-                    <div id="row-scores-display" class="col-span-1 fruit-grid grid-rows-7 gap-2"></div>
-                    <div id="col-scores-display" class="col-span-7 fruit-grid grid-cols-7 gap-2 mt-2"></div>
+            <div class="flex-1 p-6 rounded-card fruit-shadow">
+                <div class="grid grid-cols-8 gap-3 h-full">
+                    <div id="game-board" class="col-span-7 fruit-grid grid-cols-7 gap-3"></div>
+                    <div id="row-scores-display" class="col-span-1 fruit-grid grid-rows-7 gap-3"></div>
+                    <div id="col-scores-display" class="col-span-7 fruit-grid grid-cols-7 gap-3 mt-3"></div>
                 </div>
             </div>
         </div>
         
         <div class="w-full lg:w-1/3 scoring-panel-container">
-            <div class="flex-1 flex flex-col gap-3 p-4 bg-white/10 glass-card rounded-2xl">
+            <div class="flex-1 flex flex-col gap-4 p-6 glass-card rounded-2xl">
                 <!-- Header Section with Rules -->
-                <div class="flex justify-between items-center">
-                    <div class="flex gap-4">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="flex gap-6">
                         <div class="text-center">
-                            <h2 class="text-sm font-semibold uppercase tracking-wide" style="color: #FF6B6B;">High Score</h2>
+                            <h2 class="text-xs font-semibold uppercase tracking-wider" style="color: #FF6B6B;">High Score</h2>
                             <p id="high-score" class="text-2xl font-bold" style="color: #FFD700;">0</p>
                         </div>
                         <div class="text-center">
-                            <h2 class="text-sm font-semibold uppercase tracking-wide" style="color: #FF6B6B;">Turn</h2>
+                            <h2 class="text-xs font-semibold uppercase tracking-wider" style="color: #FF6B6B;">Turn</h2>
                             <p id="turn-counter" class="text-2xl font-bold" style="color: #FF6B6B;">0/24</p>
                         </div>
                     </div>
-                    <button id="help-btn" class="px-3 py-1.5 fruit-button rounded-lg text-sm font-semibold" style="color: #FF6B6B; background-color: #FFE4E1;">Rules</button>
+                    <button id="help-btn" class="px-4 py-2 fruit-button rounded-xl text-sm font-semibold" style="color: #FF6B6B; background: rgba(255, 228, 225, 0.8);">Rules</button>
                 </div>
                 
                 <!-- Controls Area (Fixed Height) -->
-                <div id="controls-area" class="py-4 min-h-[140px] flex items-center px-3">
+                <div id="controls-area" class="controls-area">
                 </div>
                 
                 <!-- Main Score Section -->
-                <div class="text-center bg-gradient-to-br from-[#FFE4E1] to-[#FFF0F0] rounded-lg p-4">
-                    <h2 class="text-sm font-semibold uppercase tracking-wide mb-1" style="color: #FF6B6B;">Total Score</h2>
-                    <p id="total-score" class="text-4xl font-bold" style="color: #FF6B6B;">0</p>
+                <div class="text-center glass-card-prominent rounded-xl p-5">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider mb-2" style="color: #FF6B6B;">Total Score</h2>
+                    <p id="total-score" class="text-4xl font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
                 </div>
                 
                 <!-- Score Breakdown Grid -->
-                <div class="grid grid-cols-2 gap-2 text-center">
-                    <div class="bg-gray-50 rounded-lg p-2 border border-[#FFE4E1]">
-                        <h3 class="text-xs font-semibold uppercase tracking-wide" style="color: #FF6B6B;">Rows</h3>
-                        <p id="rows-total-score" class="text-lg font-bold" style="color: #FF6B6B;">0</p>
+                <div class="grid grid-cols-2 gap-3 text-center">
+                    <div class="glass-card rounded-xl p-3 border border-[#FFE4E1]/30">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Rows</h3>
+                        <p id="rows-total-score" class="text-lg font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
                     </div>
-                    <div class="bg-gray-50 rounded-lg p-2 border border-[#FFE4E1]">
-                        <h3 class="text-xs font-semibold uppercase tracking-wide" style="color: #FF6B6B;">Columns</h3>
-                        <p id="cols-total-score" class="text-lg font-bold" style="color: #FF6B6B;">0</p>
+                    <div class="glass-card rounded-xl p-3 border border-[#FFE4E1]/30">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Columns</h3>
+                        <p id="cols-total-score" class="text-lg font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
                     </div>
-                    <div class="bg-gradient-to-br from-[#FFD700]/20 to-[#FFD700]/10 rounded-lg p-2 border border-[#FFD700]/30">
-                        <h3 class="text-xs font-semibold uppercase tracking-wide" style="color: #FF6B6B;">Diagonal</h3>
-                        <p id="diag-total-score" class="text-lg font-bold" style="color: #FFD700;">0</p>
+                    <div class="glass-card rounded-xl p-3 border border-[#FFD700]/40" style="background: rgba(255, 215, 0, 0.1);">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Diagonal</h3>
+                        <p id="diag-total-score" class="text-lg font-bold transition-all duration-300" style="color: #FFD700;">0</p>
                     </div>
-                    <div class="bg-gradient-to-br from-[#FFD700]/20 to-[#FFD700]/10 rounded-lg p-2 border border-[#FFD700]/30">
-                        <h3 class="text-xs font-semibold uppercase tracking-wide" style="color: #FF6B6B;">Bonus Grid</h3>
-                        <p id="bonus-grid-score" class="text-lg font-bold" style="color: #FFD700;">0</p>
+                    <div class="glass-card rounded-xl p-3 border border-[#FFD700]/40" style="background: rgba(255, 215, 0, 0.1);">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Bonus Grid</h3>
+                        <p id="bonus-grid-score" class="text-lg font-bold transition-all duration-300" style="color: #FFD700;">0</p>
                     </div>
                 </div>
                 
                 <!-- Penalty Section -->
-                <div class="bg-gradient-to-br from-[#FF6B6B]/10 to-[#FF6B6B]/5 rounded-lg p-2 border border-[#FF6B6B]/20">
+                <div class="glass-card rounded-xl p-3 border border-[#FF6B6B]/30" style="background: rgba(255, 107, 107, 0.05);">
                     <div class="text-center">
-                        <h3 class="text-xs font-semibold uppercase tracking-wide" style="color: #FF6B6B;">Empty Block Penalty</h3>
-                        <p id="empty-block-penalty" class="text-lg font-bold" style="color: #FF6B6B;">0</p>
+                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Empty Block Penalty</h3>
+                        <p id="empty-block-penalty" class="text-lg font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </main>
     
     <!-- Help Modal -->
-    <div id="help-modal" class="modal fixed inset-0 bg-black/50 flex items-center justify-center p-4 opacity-0 invisible z-50">
-        <div class="modal-content w-full max-w-lg bg-white p-6 rounded-xl transform scale-95 -translate-y-4" style="border: 2px solid #FF6B6B;">
+    <div id="help-modal" class="modal fixed inset-0 bg-black/60 flex items-center justify-center p-4 opacity-0 invisible z-50 backdrop-blur-sm">
+        <div class="modal-content w-full max-w-lg fruit-modal p-6 transform scale-95 -translate-y-4" style="border: 2px solid #FF6B6B;">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-3xl font-bold" style="font-family: 'Pacifico', cursive; color: #FF6B6B;">How to Play Fruit Flush</h2>
-                <button id="close-help-btn" class="w-8 h-8 rounded-full text-lg transition hover:bg-[#FFE4E1] flex items-center justify-center">×</button>
+                <button id="close-help-btn" class="w-10 h-10 rounded-full text-xl transition hover:bg-[#FFE4E1] flex items-center justify-center font-bold">×</button>
             </div>
-            <div class="space-y-4 text-gray-700 text-sm max-h-[70vh] overflow-y-auto pr-2">
+            <div class="space-y-4 text-gray-700 text-sm max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
                 <div>
                     <h3 class="font-bold text-lg mb-2" style="color: #FF6B6B;">The Objective</h3>
                     <p class="text-gray-800">The goal is to get the highest score possible by strategically placing fruit symbols on the grid to create sequences of 3 or more identical symbols in a line.</p>
@@ -326,7 +529,7 @@
                         <li><strong>6 Symbols</strong> in a line = 14 points</li>
                         <li><strong>7 Symbols</strong> in a line = 20 points</li>
                     </ul>
-                    <p class="mt-3 p-3 bg-[#FFD700]/30 rounded-lg border border-[#FFD700]/50 text-gray-800">
+                    <p class="mt-3 p-3 glass-card rounded-lg border border-[#FFD700]/50 text-gray-800" style="background: rgba(255, 215, 0, 0.1);">
                         <strong class="text-[#FF6B6B]">Diagonal Bonus:</strong> The score for any sequence on the specially colored diagonal line is <em>doubled!</em> This is key to a high score.
                     </p>
                     <div>
@@ -341,10 +544,10 @@
                             <li><strong>7x7 Grid</strong> = 49 points</li>
                         </ul>
                     </div>
-                    <p class="mt-3 p-3 bg-[#FF6B6B]/30 rounded-lg border border-[#FF6B6B]/50 text-gray-800">
+                    <p class="mt-3 p-3 glass-card rounded-lg border border-[#FF6B6B]/50 text-gray-800" style="background: rgba(255, 107, 107, 0.1);">
                         <strong class="text-[#FF6B6B]">Empty Block Penalty:</strong> Any empty block that is completely surrounded by filled cells and cannot be filled will incur a <strong>-1 point penalty</strong>. These blocks are highlighted with a red background and a 💣 symbol.
                     </p>
-                    <p class="mt-3 p-3 bg-[#FF6B6B]/30 rounded-lg border border-[#FF6B6B]/50 text-gray-800">
+                    <p class="mt-3 p-3 glass-card rounded-lg border border-[#FF6B6B]/50 text-gray-800" style="background: rgba(255, 107, 107, 0.1);">
                         <strong class="text-[#FF6B6B]">Penalty:</strong> Be careful! Any row or column where it's <strong>no longer possible</strong> to form a 3-symbol sequence will receive a <strong>-5 point penalty</strong>.
                     </p>
                 </div>
@@ -355,19 +558,140 @@
             </div>
         </div>
     </div>
+    
     <!-- Game Over Modal -->
-    <div id="game-over-modal" class="modal fixed inset-0 bg-black/50 flex items-center justify-center p-4 opacity-0 invisible z-50">
-        <div class="modal-content w-full max-w-md text-center bg-white p-8 rounded-xl transform scale-95 -translate-y-4 relative" style="border: 2px solid #FF6B6B;">
-            <button id="close-game-over-btn" class="absolute top-4 right-4 w-8 h-8 rounded-full text-lg transition hover:bg-[#FFE4E1] flex items-center justify-center">×</button>
-            <h2 class="text-4xl font-bold" style="color: #FF6B6B; font-family: 'Pacifico', cursive;">Game Over!</h2>
-            <p id="game-over-reason" class="text-lg mt-2" style="color: #FF6B6B;"></p>
+    <div id="game-over-modal" class="modal fixed inset-0 bg-black/60 flex items-center justify-center p-4 opacity-0 invisible z-50 backdrop-blur-sm">
+        <div class="modal-content w-full max-w-md text-center fruit-modal p-8 transform scale-95 -translate-y-4 relative" style="border: 2px solid #FF6B6B;">
+            <button id="close-game-over-btn" class="absolute top-4 right-4 w-10 h-10 rounded-full text-xl transition hover:bg-[#FFE4E1] flex items-center justify-center font-bold">×</button>
+            <h2 class="text-4xl font-bold mb-2" style="color: #FF6B6B; font-family: 'Pacifico', cursive;">Game Over!</h2>
+            <p id="game-over-reason" class="text-lg mt-2 mb-4" style="color: #FF6B6B;"></p>
             <p class="mt-4" style="color: #FF6B6B;">Your final score is:</p>
-            <p id="final-score-modal" class="text-7xl font-bold my-4" style="color: #FF6B6B;">0</p>
+            <p id="final-score-modal" class="text-7xl font-bold my-4 transition-all duration-300" style="color: #FF6B6B;">0</p>
+            
+            <!-- Score Breakdown in Modal -->
+            <div id="score-breakdown" class="mb-6 p-4 glass-card rounded-xl">
+                <h3 class="text-sm font-semibold mb-3" style="color: #FF6B6B;">Score Breakdown</h3>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="text-left">
+                        <span>Rows:</span>
+                        <span id="final-rows-score" class="float-right font-bold">0</span>
+                    </div>
+                    <div class="text-left">
+                        <span>Columns:</span>
+                        <span id="final-cols-score" class="float-right font-bold">0</span>
+                    </div>
+                    <div class="text-left">
+                        <span>Diagonal:</span>
+                        <span id="final-diag-score" class="float-right font-bold" style="color: #FFD700;">0</span>
+                    </div>
+                    <div class="text-left">
+                        <span>Bonus Grids:</span>
+                        <span id="final-bonus-score" class="float-right font-bold" style="color: #FFD700;">0</span>
+                    </div>
+                    <div class="text-left col-span-2 border-t pt-2 mt-2">
+                        <span>Empty Penalty:</span>
+                        <span id="final-penalty-score" class="float-right font-bold text-red-500">0</span>
+                    </div>
+                </div>
+            </div>
+            
             <p style="color: #FF6B6B;">Your high score: <span id="high-score-modal" class="font-bold" style="color: #FFD700;">0</span></p>
-            <button id="play-again-btn" class="w-full mt-6 bg-[#FF6B6B] text-white font-bold py-3 px-4 rounded-lg text-xl transition-all hover:bg-[#FF5252]">Play Again</button>
+            <button id="play-again-btn" class="w-full mt-6 fruit-button text-white font-bold py-3 px-4 rounded-xl text-xl" style="background: var(--accent-gradient);">Play Again</button>
         </div>
     </div>
+
     <script>
+        // Game State Management System
+        class GameState {
+            constructor() {
+                this.states = {
+                    PRE_GAME: 'PRE_GAME',
+                    AWAITING_ROLL: 'AWAITING_ROLL',
+                    ANIMATING_ROLL: 'ANIMATING_ROLL',
+                    AWAITING_PLACEMENT: 'AWAITING_PLACEMENT',
+                    PROCESSING_TURN: 'PROCESSING_TURN',
+                    GAME_OVER: 'GAME_OVER'
+                };
+                this.currentState = this.states.PRE_GAME;
+                this.validTransitions = {
+                    [this.states.PRE_GAME]: [this.states.AWAITING_ROLL],
+                    [this.states.AWAITING_ROLL]: [this.states.ANIMATING_ROLL, this.states.PRE_GAME],
+                    [this.states.ANIMATING_ROLL]: [this.states.AWAITING_PLACEMENT],
+                    [this.states.AWAITING_PLACEMENT]: [this.states.PROCESSING_TURN, this.states.AWAITING_ROLL],
+                    [this.states.PROCESSING_TURN]: [this.states.AWAITING_ROLL, this.states.GAME_OVER],
+                    [this.states.GAME_OVER]: [this.states.PRE_GAME]
+                };
+            }
+
+            setState(newState) {
+                if (!this.validTransitions[this.currentState]?.includes(newState)) {
+                    console.warn(`Invalid state transition from ${this.currentState} to ${newState}`);
+                    return false;
+                }
+                this.currentState = newState;
+                return true;
+            }
+
+            is(state) {
+                return this.currentState === state;
+            }
+
+            get current() {
+                return this.currentState;
+            }
+        }
+
+        // Enhanced Caching System
+        class CacheManager {
+            constructor(maxSize = 1000) {
+                this.cache = new Map();
+                this.maxSize = maxSize;
+                this.accessCount = new Map();
+            }
+
+            set(key, value) {
+                if (this.cache.size >= this.maxSize) {
+                    this.evictLeastUsed();
+                }
+                this.cache.set(key, value);
+                this.accessCount.set(key, 1);
+            }
+
+            get(key) {
+                if (this.cache.has(key)) {
+                    this.accessCount.set(key, (this.accessCount.get(key) || 0) + 1);
+                    return this.cache.get(key);
+                }
+                return undefined;
+            }
+
+            evictLeastUsed() {
+                let leastUsedKey = null;
+                let minAccess = Infinity;
+                
+                for (const [key, count] of this.accessCount) {
+                    if (count < minAccess) {
+                        minAccess = count;
+                        leastUsedKey = key;
+                    }
+                }
+                
+                if (leastUsedKey) {
+                    this.cache.delete(leastUsedKey);
+                    this.accessCount.delete(leastUsedKey);
+                }
+            }
+
+            clear() {
+                this.cache.clear();
+                this.accessCount.clear();
+            }
+
+            size() {
+                return this.cache.size;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // Constants
             const FRUIT_SYMBOLS = {
@@ -395,101 +719,256 @@
             const STUCK_BLOCK_PENALTY = -1;
             const MIN_SEQUENCE_LENGTH = 3;
             const MAX_SEQUENCE_LENGTH = 7;
-            const CONFETTI_COUNT = 50;
-            const CONFETTI_DURATION = 2000;
-            const DICE_ANIMATION_DURATION = 500;
-            const SCORE_FLASH_DURATION = 500;
+            const CONFETTI_COUNT = 60;
+            const CONFETTI_DURATION = 3000;
+            const DICE_ANIMATION_DURATION = 600;
+            const SCORE_FLASH_DURATION = 600;
 
-            // Game state
-            let gameState, gridData, currentRoll, firstPlacementCell, turnCount, highScore, stuckBlocks;
-            let scoreCache = new Map();
+            // Game state and managers
+            let gameStateManager, gridData, currentRoll, firstPlacementCell, turnCount, highScore, stuckBlocks;
+            let cacheManager = new CacheManager(500);
+            let scoreCalculatorCache = new CacheManager(300);
             let confettiPool = [];
-
-            // DOM elements
-            const DOMElements = {
-                gameBoard: document.getElementById('game-board'),
-                controlsArea: document.getElementById('controls-area'),
-                rowScoresDisplay: document.getElementById('row-scores-display'),
-                colScoresDisplay: document.getElementById('col-scores-display'),
-                totalScore: document.getElementById('total-score'),
-                highScore: document.getElementById('high-score'),
-                rowsTotalScore: document.getElementById('rows-total-score'),
-                colsTotalScore: document.getElementById('cols-total-score'),
-                diagTotalScore: document.getElementById('diag-total-score'),
-                bonusGridScore: document.getElementById('bonus-grid-score'),
-                emptyBlockPenalty: document.getElementById('empty-block-penalty'),
-                turnCounter: document.getElementById('turn-counter'),
-                helpBtn: document.getElementById('help-btn'),
-                helpModal: document.getElementById('help-modal'),
-                closeHelpBtn: document.getElementById('close-help-btn'),
-                gameOverModal: document.getElementById('game-over-modal'),
-                closeGameOverBtn: document.getElementById('close-game-over-btn'),
-                finalScoreModal: document.getElementById('final-score-modal'),
-                highScoreModal: document.getElementById('high-score-modal'),
-                playAgainBtn: document.getElementById('play-again-btn')
+            let gridCells = [];
+            let statistics = {
+                gamesPlayed: 0,
+                totalScore: 0,
+                bestGame: 0
             };
 
-            // Confetti system with object pooling
+            // DOM elements with enhanced caching (removed statistics elements)
+            const DOMElements = (() => {
+                const elements = {};
+                const elementIds = [
+                    'game-board', 'controls-area', 'row-scores-display', 'col-scores-display',
+                    'total-score', 'high-score', 'rows-total-score', 'cols-total-score',
+                    'diag-total-score', 'bonus-grid-score', 'empty-block-penalty', 'turn-counter',
+                    'help-btn', 'help-modal', 'close-help-btn', 'game-over-modal', 
+                    'close-game-over-btn', 'final-score-modal', 'high-score-modal', 'play-again-btn',
+                    'score-breakdown', 'final-rows-score', 'final-cols-score', 'final-diag-score', 
+                    'final-bonus-score', 'final-penalty-score'
+                ];
+                
+                elementIds.forEach(id => {
+                    elements[id] = document.getElementById(id);
+                });
+                
+                return elements;
+            })();
+
+            // Enhanced Audio System with better fallbacks
+            const audioSystem = {
+                unlocked: false,
+                context: null,
+                sounds: new Map(),
+                fallbackSounds: new Map(),
+                
+                init() {
+                    this.createAudioContext();
+                    this.createSounds();
+                    this.createFallbackSounds();
+                },
+                
+                createAudioContext() {
+                    try {
+                        this.context = new (window.AudioContext || window.webkitAudioContext)();
+                    } catch (e) {
+                        console.warn('Web Audio API not supported, using fallback');
+                    }
+                },
+                
+                createSounds() {
+                    if (!this.context) return;
+                    
+                    this.sounds.set('place', () => this.playTone(440, 0.1, 0.1));
+                    this.sounds.set('roll', () => this.playTone(220, 0.2, 0.2));
+                    this.sounds.set('hover', () => this.playTone(660, 0.05, 0.1));
+                    this.sounds.set('combo-3', () => this.playSequence([523, 659], 0.15));
+                    this.sounds.set('combo-4', () => this.playSequence([523, 659, 784], 0.2));
+                    this.sounds.set('combo-5', () => this.playSequence([523, 659, 784, 880], 0.25));
+                    this.sounds.set('combo-6', () => this.playSequence([523, 659, 784, 880, 1047], 0.3));
+                    this.sounds.set('combo-7', () => this.playSequence([523, 659, 784, 880, 1047, 1319], 0.35));
+                    this.sounds.set('invalid', () => this.playTone(150, 0.3, 0.2));
+                },
+                
+                createFallbackSounds() {
+                    // Create simple beep sounds as fallback
+                    const createBeep = (freq, duration) => {
+                        return () => {
+                            if (this.unlocked) {
+                                // Simple fallback using oscillator without full Web Audio API
+                                try {
+                                    const oscillator = new OscillatorNode(this.context || new AudioContext());
+                                    oscillator.frequency.setValueAtTime(freq, 0);
+                                    oscillator.connect(this.context?.destination || oscillator.context.destination);
+                                    oscillator.start();
+                                    oscillator.stop(this.context?.currentTime + duration || 0.1);
+                                } catch (e) {
+                                    // Silent fallback
+                                }
+                            }
+                        };
+                    };
+                    
+                    this.fallbackSounds.set('place', createBeep(440, 0.1));
+                    this.fallbackSounds.set('roll', createBeep(220, 0.2));
+                    this.fallbackSounds.set('hover', createBeep(660, 0.05));
+                },
+                
+                playTone(frequency, volume, duration) {
+                    if (!this.unlocked || !this.context) return;
+                    try {
+                        const oscillator = this.context.createOscillator();
+                        const gainNode = this.context.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(this.context.destination);
+                        
+                        oscillator.frequency.setValueAtTime(frequency, this.context.currentTime);
+                        gainNode.gain.setValueAtTime(0, this.context.currentTime);
+                        gainNode.gain.linearRampToValueAtTime(volume * 0.1, this.context.currentTime + 0.01);
+                        gainNode.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + duration);
+                        
+                        oscillator.start(this.context.currentTime);
+                        oscillator.stop(this.context.currentTime + duration);
+                    } catch (e) {
+                        this.playFallback(arguments[0]);
+                    }
+                },
+                
+                playSequence(frequencies, baseDuration) {
+                    frequencies.forEach((freq, index) => {
+                        setTimeout(() => {
+                            this.playTone(freq, 0.1, baseDuration / frequencies.length);
+                        }, index * (baseDuration * 1000 / frequencies.length));
+                    });
+                },
+                
+                playFallback(identifier) {
+                    const fallback = this.fallbackSounds.get(identifier);
+                    if (fallback) fallback();
+                },
+                
+                unlock() {
+                    if (this.unlocked) return;
+                    const audioUnlocker = document.getElementById('audio-unlocker');
+                    if (audioUnlocker) {
+                        audioUnlocker.play().then(() => {
+                            this.unlocked = true;
+                        }).catch(() => {
+                            this.unlocked = true; // Allow visual feedback even without audio
+                        });
+                    }
+                },
+                
+                play(soundName) {
+                    const sound = this.sounds.get(soundName);
+                    if (sound) {
+                        sound();
+                    } else {
+                        this.playFallback(soundName);
+                    }
+                }
+            };
+
+            // Enhanced Confetti System with better performance
             const confettiSystem = {
                 pool: [],
-                colors: ['#FF6B6B', '#FFD700', '#5AC8FA', '#FF9500', '#FF2D55', '#88D8C0'],
+                colors: ['#FF6B6B', '#FFD700', '#5AC8FA', '#FF9500', '#FF2D55', '#88D8C0', '#AF52DE'],
+                particles: [],
                 
                 init() {
                     // Pre-create confetti elements for better performance
-                    if (this.pool.length) return; // prevent duplicates on multiple inits
                     for (let i = 0; i < CONFETTI_COUNT; i++) {
                         const particle = document.createElement('div');
                         particle.className = 'fruit-confetti confetti-particle';
                         particle.style.display = 'none';
+                        particle.style.zIndex = '100';
                         document.body.appendChild(particle);
                         this.pool.push(particle);
                     }
                 },
                 
-                trigger() {
-                    this.pool.forEach((particle, index) => {
-                        const color = this.colors[Math.floor(Math.random() * this.colors.length)];
-                        const delay = Math.random() * 0.5;
-                        const duration = 2 + Math.random();
+                trigger(intensity = 1) {
+                    const particleCount = Math.min(CONFETTI_COUNT, CONFETTI_COUNT * intensity);
+                    
+                    for (let i = 0; i < particleCount; i++) {
+                        if (i >= this.pool.length) break;
                         
-                        particle.style.left = Math.random() * 100 + 'vw';
-                        particle.style.top = '-10px';
+                        const particle = this.pool[i];
+                        const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+                        const delay = Math.random() * 0.8;
+                        const duration = 2.5 + Math.random() * 1.5;
+                        const startX = Math.random() * 100;
+                        
+                        particle.style.left = startX + 'vw';
+                        particle.style.top = '-20px';
                         particle.style.backgroundColor = color;
+                        particle.style.width = (6 + Math.random() * 8) + 'px';
+                        particle.style.height = particle.style.width;
                         particle.style.setProperty('--delay', delay + 's');
                         particle.style.setProperty('--duration', duration + 's');
                         particle.style.display = 'block';
                         
-                        // Assign explicit animation to ensure restart
-                        particle.style.animation = `confetti-fall ${duration}s ${delay}s ease-out forwards`;
+                        // Reset and trigger animation
+                        particle.style.animation = 'none';
+                        particle.offsetHeight; // Force reflow
+                        particle.style.animation = null;
                         
                         // Hide particle after animation
                         setTimeout(() => {
                             particle.style.display = 'none';
-                        }, (duration + delay) * 1000);
-                    });
+                        }, (duration + delay) * 1000 + 100);
+                    }
                 },
                 
                 cleanup() {
                     this.pool.forEach(particle => {
                         particle.style.display = 'none';
+                        particle.style.animation = 'none';
                     });
                 }
             };
 
-            // Score calculation utilities with caching
+            // Enhanced Particle Effects for Placements
+            const particleEffects = {
+                createPlacementParticles(x, y) {
+                    const particleCount = 8;
+                    for (let i = 0; i < particleCount; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'placement-particles';
+                        
+                        const angle = (i / particleCount) * Math.PI * 2;
+                        const distance = 30 + Math.random() * 20;
+                        const dx = Math.cos(angle) * distance;
+                        const dy = Math.sin(angle) * distance;
+                        
+                        particle.style.left = x + 'px';
+                        particle.style.top = y + 'px';
+                        particle.style.setProperty('--dx', dx + 'px');
+                        particle.style.setProperty('--dy', dy + 'px');
+                        
+                        document.body.appendChild(particle);
+                        
+                        setTimeout(() => {
+                            particle.remove();
+                        }, 800);
+                    }
+                }
+            };
+
+            // Enhanced Score Calculator with better caching and optimizations
             const scoreCalculator = {
-                cache: new Map(),
-                
                 clearCache() {
-                    this.cache.clear();
+                    scoreCalculatorCache.clear();
                 },
                 
                 getCachedLineScore(lineKey) {
-                    return this.cache.get(lineKey);
+                    return scoreCalculatorCache.get(lineKey);
                 },
                 
                 setCachedLineScore(lineKey, score) {
-                    this.cache.set(lineKey, score);
+                    scoreCalculatorCache.set(lineKey, score);
                 },
                 
                 calculateLineScore(line) {
@@ -507,14 +986,14 @@
                     let foundSequence = false;
                     let tempLine = [...line];
                     
-                    // Check for sequences from longest to shortest
+                    // Check for sequences from longest to shortest for maximum scoring
                     for (let len = MAX_SEQUENCE_LENGTH; len >= MIN_SEQUENCE_LENGTH; len--) {
                         for (let i = 0; i <= tempLine.length - len; i++) {
                             const slice = tempLine.slice(i, i + len);
                             if (slice[0] !== null && slice.every(s => s && s === slice[0])) {
                                 score += SCORING_RULES[len];
                                 foundSequence = true;
-                                // Mark as processed
+                                // Mark as processed to avoid double counting
                                 for (let j = 0; j < len; j++) {
                                     tempLine[i + j] = null;
                                 }
@@ -523,41 +1002,47 @@
                     }
                     
                     if (foundSequence) {
-                        return { score: score };
+                        return { score: score, hasSequence: true };
                     } else if (this.isLineDead(line)) {
-                        return { score: LINE_DEATH_PENALTY };
+                        return { score: LINE_DEATH_PENALTY, isDead: true };
                     } else {
                         return { score: 0 };
                     }
                 },
                 
                 isLineDead(line) {
-                    // Robust dead-line detection: if any sliding window of size MIN_SEQUENCE_LENGTH
-                    // can still be completed (by filling nulls), then the line is NOT dead.
-                    for (let i = 0; i <= line.length - MIN_SEQUENCE_LENGTH; i++) {
-                        const window = line.slice(i, i + MIN_SEQUENCE_LENGTH);
-                        const nullCount = window.filter(x => x === null).length;
-                        const counts = {};
-                        for (const s of window) {
-                            if (s === null) continue;
-                            counts[s] = (counts[s] || 0) + 1;
+                    // Check if it's impossible to form a 3-symbol sequence
+                    const filledPositions = line.map((cell, index) => cell ? index : -1).filter(i => i !== -1);
+                    const symbols = new Set(line.filter(cell => cell !== null));
+                    
+                    // If we have multiple different symbols and limited space, check feasibility
+                    if (symbols.size > 1) {
+                        for (let i = 0; i <= line.length - MIN_SEQUENCE_LENGTH; i++) {
+                            const window = line.slice(i, i + MIN_SEQUENCE_LENGTH);
+                            const symbolsInWindow = window.filter(s => s !== null);
+                            const uniqueSymbols = new Set(symbolsInWindow);
+                            
+                            // If window has room and not too many different symbols
+                            if (symbolsInWindow.length < MIN_SEQUENCE_LENGTH && uniqueSymbols.size <= 1) {
+                                return false;
+                            }
                         }
-                        // If any symbol can reach MIN_SEQUENCE_LENGTH by filling nulls, not dead
-                        for (const sym in counts) {
-                            if (counts[sym] + nullCount >= MIN_SEQUENCE_LENGTH) return false;
-                        }
-                        if (nullCount >= MIN_SEQUENCE_LENGTH) return false;
+                        return true;
                     }
-                    return true;
+                    return false;
                 },
                 
-                // Existing grid-based detection preserved (can be optimized later)
+                // Optimized bonus grid detection with memoization
                 calculateBonusGrids(gridData) {
+                    const gridKey = gridData.map(row => row.join(',')).join(';');
+                    const cached = cacheManager.get('bonus:' + gridKey);
+                    if (cached !== undefined) return cached;
+                    
                     let bonusPoints = 0;
                     const processed = new Set();
                     
                     // Check from largest to smallest to prioritize larger grids
-                    for (let size = MAX_SEQUENCE_LENGTH; size >= 2; size--) {
+                    for (let size = Math.min(MAX_SEQUENCE_LENGTH, GRID_SIZE); size >= 2; size--) {
                         for (let r = 0; r <= GRID_SIZE - size; r++) {
                             for (let c = 0; c <= GRID_SIZE - size; c++) {
                                 const key = `${r},${c},${size}`;
@@ -566,6 +1051,7 @@
                                 const symbol = gridData[r][c];
                                 if (!symbol) continue;
                                 
+                                // Check if it's a valid grid
                                 let isGrid = true;
                                 for (let i = r; i < r + size && isGrid; i++) {
                                     for (let j = c; j < c + size && isGrid; j++) {
@@ -577,7 +1063,7 @@
                                 
                                 if (isGrid) {
                                     bonusPoints += size * size;
-                                    // Mark overlapping smaller grids as processed
+                                    // Mark overlapping smaller grids as processed to avoid double counting
                                     for (let smallerSize = 2; smallerSize < size; smallerSize++) {
                                         for (let sr = r; sr <= r + size - smallerSize; sr++) {
                                             for (let sc = c; sc <= c + size - smallerSize; sc++) {
@@ -589,107 +1075,169 @@
                             }
                         }
                     }
+                    
+                    cacheManager.set('bonus:' + gridKey, bonusPoints);
                     return bonusPoints;
                 }
             };
 
-            // Compute stuck blocks (pure function)
-            function computeStuckBlocks() {
-                const newStuck = new Set();
-                const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-                for (let r = 0; r < GRID_SIZE; r++) {
-                    for (let c = 0; c < GRID_SIZE; c++) {
-                        if (gridData[r][c] !== null) continue;
-                        const isStuck = neighbors.every(([dr, dc]) => {
-                            const nr = r + dr;
-                            const nc = c + dc;
-                            return nr < 0 || nr >= GRID_SIZE || nc < 0 || nc >= GRID_SIZE || gridData[nr][nc] !== null;
-                        });
-                        if (isStuck) newStuck.add(`${r},${c}`);
+            // Statistics Manager (simplified since display was removed)
+            const statisticsManager = {
+                load() {
+                    try {
+                        const saved = localStorage.getItem('fruitFlushStats');
+                        if (saved) {
+                            statistics = { ...statistics, ...JSON.parse(saved) };
+                        }
+                    } catch (e) {
+                        console.warn('Failed to load statistics');
                     }
+                },
+                
+                save() {
+                    try {
+                        localStorage.setItem('fruitFlushStats', JSON.stringify(statistics));
+                    } catch (e) {
+                        console.warn('Failed to save statistics');
+                    }
+                },
+                
+                recordGame(score) {
+                    statistics.gamesPlayed++;
+                    statistics.totalScore += score;
+                    statistics.bestGame = Math.max(statistics.bestGame, score);
+                    this.save();
                 }
-                return newStuck;
-            }
+            };
 
-            // Game logic functions
+            // Enhanced Grid Management
+            const gridManager = {
+                createCellElement(r, c) {
+                    const cell = document.createElement('div');
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    cell.className = this.getCellClasses(r, c);
+                    return cell;
+                },
+                
+                getCellClasses(r, c) {
+                    let classes = 'fruit-cell bg-[#FFF0F0] fruit-shadow';
+                    
+                    if (r + c === GRID_SIZE - 1) classes += ' diagonal-cell';
+                    if (r === 0 && c === 0 && gameStateManager.is('PRE_GAME')) classes += ' border-2 border-[#FF6B6B]';
+                    if (stuckBlocks.has(`${r},${c}`)) classes += ' stuck-cell';
+                    
+                    return classes;
+                },
+                
+                updateCell(cell, r, c) {
+                    const symbol = gridData[r][c];
+                    cell.className = this.getCellClasses(r, c);
+                    
+                    if (symbol) {
+                        cell.textContent = symbol;
+                        cell.classList.add(SYMBOL_COLORS[symbol], 'pop-in');
+                    } else if (stuckBlocks.has(`${r},${c}`)) {
+                        cell.textContent = '💣';
+                    } else {
+                        cell.textContent = '';
+                    }
+                },
+                
+                addCellEventListeners(cell) {
+                    cell.addEventListener('click', handleCellClick);
+                    cell.addEventListener('mouseenter', () => {
+                        if (gameStateManager.is('AWAITING_PLACEMENT')) {
+                            audioSystem.play('hover');
+                        }
+                    });
+                }
+            };
+
+            // Game logic functions with enhanced state management
             function initGame() {
-                gameState = 'PRE_GAME';
+                gameStateManager = new GameState();
                 gridData = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
                 currentRoll = [];
                 firstPlacementCell = null;
                 turnCount = 0;
                 stuckBlocks = new Set();
-                // defensive UI reset so previous UI values don't persist
-                DOMElements.emptyBlockPenalty.textContent = '0';
-
-                highScore = parseInt(localStorage.getItem('fruitFlushHighScore') || '0', 10);
+                highScore = parseInt(localStorage.getItem('fruitFlushHighScore')) || 0;
                 
                 // Clear caches
-                scoreCache.clear();
+                cacheManager.clear();
                 scoreCalculator.clearCache();
                 
                 // Initialize systems
+                audioSystem.init();
                 confettiSystem.init();
+                statisticsManager.load();
                 
-                DOMElements.highScore.textContent = highScore;
-                DOMElements.gameOverModal.classList.remove('is-open');
+                DOMElements['high-score'].textContent = highScore;
+                DOMElements['game-over-modal'].classList.remove('is-open');
                 
                 renderGrid();
                 renderScorePlaceholders();
                 renderControls();
                 updateScoreDisplays(0, 0, 0, 0, 0);
-                DOMElements.turnCounter.textContent = `0/${MAX_TURNS}`;
+                DOMElements['turn-counter'].textContent = `0/${MAX_TURNS}`;
             }
 
             function renderGrid() {
-                // Use DocumentFragment for slightly better performance
-                DOMElements.gameBoard.innerHTML = '';
-                const frag = document.createDocumentFragment();
-
+                const fragment = document.createDocumentFragment();
+                DOMElements['game-board'].innerHTML = '';
+                gridCells = [];
+                
                 for (let r = 0; r < GRID_SIZE; r++) {
+                    const row = [];
                     for (let c = 0; c < GRID_SIZE; c++) {
-                        const cell = document.createElement('div');
-                        cell.dataset.row = r;
-                        cell.dataset.col = c;
-                        let baseClasses = 'fruit-cell bg-[#FFF0F0] fruit-shadow';
-                        
-                        if (r + c === GRID_SIZE - 1) baseClasses += ' diagonal-cell';
-                        if (r === 0 && c === 0 && gameState === 'PRE_GAME') baseClasses += ' border-2 border-[#FF6B6B]';
-                        if (stuckBlocks.has(`${r},${c}`)) baseClasses += ' stuck-cell';
-                        
-                        cell.className = baseClasses;
-                        cell.tabIndex = 0;
-                        cell.setAttribute('role', 'button');
-                        cell.setAttribute('aria-label', `Cell ${r+1}-${c+1}`);
-                        
-                        const symbol = gridData[r][c];
-                        if (symbol) {
-                            cell.textContent = symbol;
-                            cell.classList.add(SYMBOL_COLORS[symbol], 'pop-in');
-                        } else if (stuckBlocks.has(`${r},${c}`)) {
-                            cell.textContent = '💣';
-                        }
-                        
-                        frag.appendChild(cell);
+                        const cell = gridManager.createCellElement(r, c);
+                        gridManager.updateCell(cell, r, c);
+                        gridManager.addCellEventListeners(cell);
+                        fragment.appendChild(cell);
+                        row.push(cell);
                     }
+                    gridCells.push(row);
                 }
+                
+                DOMElements['game-board'].appendChild(fragment);
+            }
 
-                DOMElements.gameBoard.appendChild(frag);
+            function updateGridCell(r, c) {
+                if (gridCells[r] && gridCells[r][c]) {
+                    gridManager.updateCell(gridCells[r][c], r, c);
+                }
             }
 
             function renderScorePlaceholders() {
-                DOMElements.rowScoresDisplay.innerHTML = '';
-                DOMElements.colScoresDisplay.innerHTML = '';
+                const rowFragment = document.createDocumentFragment();
+                const colFragment = document.createDocumentFragment();
+                
+                DOMElements['row-scores-display'].innerHTML = '';
+                DOMElements['col-scores-display'].innerHTML = '';
+                
                 for (let i = 0; i < GRID_SIZE; i++) {
-                    DOMElements.rowScoresDisplay.innerHTML += `<div id="row-score-${i}" class="fruit-cell bg-[#FFF0F0] fruit-score">0</div>`;
-                    DOMElements.colScoresDisplay.innerHTML += `<div id="col-score-${i}" class="fruit-cell bg-[#FFF0F0] fruit-score">0</div>`;
+                    const rowScore = document.createElement('div');
+                    rowScore.id = `row-score-${i}`;
+                    rowScore.className = 'fruit-cell bg-[#FFF0F0] fruit-score';
+                    rowScore.textContent = '0';
+                    rowFragment.appendChild(rowScore);
+                    
+                    const colScore = document.createElement('div');
+                    colScore.id = `col-score-${i}`;
+                    colScore.className = 'fruit-cell bg-[#FFF0F0] fruit-score';
+                    colScore.textContent = '0';
+                    colFragment.appendChild(colScore);
                 }
+                
+                DOMElements['row-scores-display'].appendChild(rowFragment);
+                DOMElements['col-scores-display'].appendChild(colFragment);
             }
 
             function renderControls() {
-                DOMElements.controlsArea.innerHTML = '';
+                DOMElements['controls-area'].innerHTML = '';
                 
-                if (gameState === 'PRE_GAME') {
+                if (gameStateManager.is('PRE_GAME')) {
                     renderPreGameControls();
                 } else {
                     renderGameControls();
@@ -701,22 +1249,29 @@
                 container.className = 'w-full flex flex-col justify-center';
                 
                 const title = document.createElement('h2');
-                title.className = 'text-sm font-medium text-center mb-3 uppercase tracking-wide';
+                title.className = 'text-sm font-medium text-center mb-4 uppercase tracking-wider stagger-fade-in';
                 title.style.color = '#FF6B6B';
                 title.textContent = 'Choose Your Fruit';
                 container.appendChild(title);
                 
+                const preview = document.createElement('div');
+                preview.className = 'text-center mb-3 text-xs text-gray-600';
+                preview.textContent = 'Will be placed in the top-left corner';
+                container.appendChild(preview);
+                
                 const selector = document.createElement('div');
-                selector.className = 'grid grid-cols-6 gap-1.5';
-                SYMBOLS.forEach(symbol => {
+                selector.className = 'grid grid-cols-6 gap-2';
+                SYMBOLS.forEach((symbol, index) => {
                     const btn = document.createElement('button');
-                    btn.className = `aspect-square rounded-md text-3xl hover:bg-[#FFE4E1] transition-colors ${SYMBOL_COLORS[symbol]} flex items-center justify-center`;
+                    btn.className = `fruit-selector-btn aspect-square rounded-xl text-3xl hover:bg-[#FFE4E1] transition-all duration-300 ${SYMBOL_COLORS[symbol]} flex items-center justify-center stagger-fade-in`;
+                    btn.style.animationDelay = `${index * 0.1}s`;
                     btn.textContent = symbol;
-                    btn.onclick = () => handleSymbolSelect(symbol);
+                    btn.addEventListener('click', () => handleSymbolSelect(symbol));
+                    btn.addEventListener('mouseenter', () => audioSystem.play('hover'));
                     selector.appendChild(btn);
                 });
                 container.appendChild(selector);
-                DOMElements.controlsArea.appendChild(container);
+                DOMElements['controls-area'].appendChild(container);
             }
 
             function renderGameControls() {
@@ -724,19 +1279,19 @@
                 wrapper.className = 'w-full flex flex-col justify-center';
                 
                 const diceContainer = document.createElement('div');
-                diceContainer.className = 'text-center mb-3';
+                diceContainer.className = 'text-center mb-4';
                 
                 const title = document.createElement('h2');
-                title.className = 'text-sm font-medium uppercase tracking-wide mb-2';
+                title.className = 'text-sm font-medium uppercase tracking-wider mb-3';
                 title.style.color = '#FF6B6B';
                 title.textContent = 'Your Roll';
                 diceContainer.appendChild(title);
                 
                 const diceFlex = document.createElement('div');
-                diceFlex.className = 'flex justify-center gap-3 mb-3';
+                diceFlex.className = 'flex justify-center gap-4 mb-4';
                 diceFlex.innerHTML = `
-                    <div id="dice-1" class="w-16 h-16 rounded-xl bg-white/50 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl">?</div>
-                    <div id="dice-2" class="w-16 h-16 rounded-xl bg-white/50 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl">?</div>`;
+                    <div id="dice-1" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl transition-all duration-300">?</div>
+                    <div id="dice-2" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl transition-all duration-300">?</div>`;
                 diceContainer.appendChild(diceFlex);
                 
                 const buttonContainer = document.createElement('div');
@@ -744,36 +1299,41 @@
                 
                 const rollBtn = document.createElement('button');
                 rollBtn.id = 'roll-dice-btn';
-                rollBtn.className = 'flex-1 py-3 px-4 bg-[#FF6B6B]/80 glass-card text-white font-semibold rounded-2xl text-sm disabled:bg-[#FFB3B3]/60 disabled:cursor-not-allowed';
+                rollBtn.className = 'flex-1 py-3 px-4 fruit-button text-white font-semibold rounded-2xl text-sm disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300';
+                rollBtn.style.background = 'var(--accent-gradient)';
                 rollBtn.textContent = 'Roll Dice';
-                rollBtn.onclick = handleRollDice;
+                rollBtn.addEventListener('click', handleRollDice);
+                rollBtn.addEventListener('mouseenter', () => audioSystem.play('hover'));
                 
                 const newGameBtn = document.createElement('button');
                 newGameBtn.id = 'new-game-btn';
-                newGameBtn.className = 'flex-1 py-3 px-4 bg-white/15 glass-card text-[#FF6B6B] font-semibold rounded-2xl text-sm';
+                newGameBtn.className = 'flex-1 py-3 px-4 glass-card text-[#FF6B6B] font-semibold rounded-2xl text-sm transition-all duration-300';
                 newGameBtn.textContent = 'New Game';
-                newGameBtn.onclick = initGame;
+                newGameBtn.addEventListener('click', initGame);
+                newGameBtn.addEventListener('mouseenter', () => audioSystem.play('hover'));
                 
                 buttonContainer.appendChild(rollBtn);
                 buttonContainer.appendChild(newGameBtn);
                 wrapper.appendChild(diceContainer);
                 wrapper.appendChild(buttonContainer);
-                DOMElements.controlsArea.appendChild(wrapper);
+                DOMElements['controls-area'].appendChild(wrapper);
                 
                 updateControlsState();
             }
 
             function updateControlsState() {
-                if (gameState === 'PRE_GAME') return;
+                if (gameStateManager.is('PRE_GAME')) return;
                 
                 const rollBtn = document.getElementById('roll-dice-btn');
-                if (rollBtn) rollBtn.disabled = gameState !== 'AWAITING_ROLL';
+                if (rollBtn) {
+                    rollBtn.disabled = !gameStateManager.is('AWAITING_ROLL');
+                }
                 
                 const dice1 = document.getElementById('dice-1');
                 const dice2 = document.getElementById('dice-2');
                 if (!dice1 || !dice2) return;
                 
-                if (gameState === 'AWAITING_PLACEMENT') {
+                if (gameStateManager.is('AWAITING_PLACEMENT')) {
                     updateDiceDisplay(dice1, dice2);
                 } else {
                     resetDiceDisplay(dice1, dice2);
@@ -782,32 +1342,37 @@
 
             function updateDiceDisplay(dice1, dice2) {
                 dice1.textContent = currentRoll[0];
-                dice1.className = `w-16 h-16 rounded-xl bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[0]]}`;
+                dice1.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl transition-all duration-300 ${SYMBOL_COLORS[currentRoll[0]]}`;
                 dice2.textContent = currentRoll[1];
-                dice2.className = `w-16 h-16 rounded-xl bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[1]]}`;
+                dice2.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl transition-all duration-300 ${SYMBOL_COLORS[currentRoll[1]]}`;
             }
 
             function resetDiceDisplay(dice1, dice2) {
                 dice1.textContent = '?';
-                dice1.className = 'w-16 h-16 rounded-xl bg-white/50 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl fruit-text';
+                dice1.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl fruit-text transition-all duration-300';
                 dice2.textContent = '?';
-                dice2.className = 'w-16 h-16 rounded-xl bg-white/50 backdrop-blur-sm shadow-lg flex items-center justify-center text-4xl fruit-text';
+                dice2.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl fruit-text transition-all duration-300';
             }
 
             function handleSymbolSelect(symbol) {
-                if (gameState !== 'PRE_GAME') return;
+                if (!gameStateManager.is('PRE_GAME')) return;
+                
+                audioSystem.unlock();
+                audioSystem.play('place');
                 
                 gridData[0][0] = symbol;
-                gameState = 'AWAITING_ROLL';
-                renderGrid();
+                gameStateManager.setState('AWAITING_ROLL');
+                
+                updateGridCell(0, 0);
                 renderControls();
             }
 
             function handleRollDice() {
-                if (gameState !== 'AWAITING_ROLL') return;
+                if (!gameStateManager.is('AWAITING_ROLL')) return;
                 
-                gameState = 'ANIMATING_ROLL';
+                gameStateManager.setState('ANIMATING_ROLL');
                 updateControlsState();
+                audioSystem.play('roll');
                 
                 const dice1El = document.getElementById('dice-1');
                 const dice2El = document.getElementById('dice-2');
@@ -821,40 +1386,42 @@
                         SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)], 
                         SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]
                     ];
-                    gameState = 'AWAITING_PLACEMENT';
+                    gameStateManager.setState('AWAITING_PLACEMENT');
                     updateControlsState();
                 }, DICE_ANIMATION_DURATION);
             }
 
             function handleCellClick(e) {
                 const cell = e.target.closest('[data-row]');
-                if (gameState !== 'AWAITING_PLACEMENT' || !cell) return;
+                if (!gameStateManager.is('AWAITING_PLACEMENT') || !cell) return;
                 
                 const row = parseInt(cell.dataset.row);
                 const col = parseInt(cell.dataset.col);
+                const rect = cell.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
                 
                 if (firstPlacementCell) {
-                    handleSecondPlacement(row, col, cell);
+                    handleSecondPlacement(row, col, cell, x, y);
                 } else {
-                    handleFirstPlacement(row, col, cell);
+                    handleFirstPlacement(row, col, cell, x, y);
                 }
             }
 
-            function handleFirstPlacement(row, col, cell) {
+            function handleFirstPlacement(row, col, cell, x, y) {
                 if (!gridData[row][col]) {
-                    if (!hasValidNeighbor(row, col)) {
-                        showInvalidMoveAnimation(cell);
-                        return;
-                    }
                     
                     gridData[row][col] = currentRoll[0];
                     firstPlacementCell = { r: row, c: col };
-                    renderGrid();
+                    
+                    updateGridCell(row, col);
                     highlightValidMoves(row, col);
+                    audioSystem.play('place');
+                    particleEffects.createPlacementParticles(x, y);
                 }
             }
 
-            function handleSecondPlacement(row, col, cell) {
+            function handleSecondPlacement(row, col, cell, x, y) {
                 const { r, c } = firstPlacementCell;
                 
                 if (r === row && c === col) {
@@ -862,42 +1429,123 @@
                     gridData[r][c] = null;
                     firstPlacementCell = null;
                     clearHighlights();
-                    renderGrid();
+                    updateGridCell(r, c);
                     return;
                 }
                 
                 const isAdjacent = Math.abs(r - row) + Math.abs(c - col) === 1;
                 if (isAdjacent && !gridData[row][col]) {
-                    completeMove(row, col);
+                    completeMove(row, col, x, y);
+                } else {
+                    showInvalidMoveAnimation(cell);
+                    audioSystem.play('invalid');
                 }
             }
 
-            function completeMove(row, col) {
+            function completeMove(row, col, x, y) {
+                gameStateManager.setState('PROCESSING_TURN');
+                
                 const longestSequenceBefore = findLongestSequence(gridData);
                 gridData[row][col] = currentRoll[1];
                 firstPlacementCell = null;
                 turnCount++;
-                DOMElements.turnCounter.textContent = `${turnCount}/${MAX_TURNS}`;
+                DOMElements['turn-counter'].textContent = `${turnCount}/${MAX_TURNS}`;
+                
                 clearHighlights();
-                renderGrid();
+                updateGridCell(row, col);
+                audioSystem.play('place');
+                particleEffects.createPlacementParticles(x, y);
                 
                 const longestSequenceAfter = findLongestSequence(gridData);
                 if (longestSequenceAfter > longestSequenceBefore && longestSequenceAfter >= MIN_SEQUENCE_LENGTH) {
-                    if (longestSequenceAfter >= 5) {
-                        confettiSystem.trigger();
-                    }
+                    setTimeout(() => {
+                        audioSystem.play(`combo-${longestSequenceAfter}`);
+                        highlightCompletedSequences();
+                        if (longestSequenceAfter >= 5) {
+                            confettiSystem.trigger(longestSequenceAfter / 7);
+                        }
+                    }, 200);
                 }
                 
-                processTurnEnd();
+                setTimeout(() => {
+                    processTurnEnd();
+                }, 300);
+            }
+
+            function highlightCompletedSequences() {
+                // Highlight newly formed sequences
+                const sequences = findAllSequences(gridData);
+                sequences.forEach(sequence => {
+                    sequence.forEach(([r, c]) => {
+                        if (gridCells[r] && gridCells[r][c]) {
+                            gridCells[r][c].classList.add('sequence-highlight');
+                            setTimeout(() => {
+                                gridCells[r][c].classList.remove('sequence-highlight');
+                            }, 1000);
+                        }
+                    });
+                });
+            }
+
+            function findAllSequences(board) {
+                const sequences = [];
+                
+                // Check rows
+                for (let r = 0; r < GRID_SIZE; r++) {
+                    const rowSequences = findSequencesInLine(board[r], r, 'row');
+                    sequences.push(...rowSequences);
+                }
+                
+                // Check columns
+                for (let c = 0; c < GRID_SIZE; c++) {
+                    const col = board.map(row => row[c]);
+                    const colSequences = findSequencesInLine(col, c, 'col');
+                    sequences.push(...colSequences);
+                }
+                
+                // Check diagonal
+                const diagonal = Array.from({ length: GRID_SIZE }, (_, i) => board[i][GRID_SIZE - 1 - i]);
+                const diagSequences = findSequencesInLine(diagonal, 0, 'diag');
+                sequences.push(...diagSequences);
+                
+                return sequences;
+            }
+
+            function findSequencesInLine(line, lineIndex, type) {
+                const sequences = [];
+                let currentSequence = [];
+                let currentSymbol = null;
+                
+                line.forEach((symbol, index) => {
+                    if (symbol && symbol === currentSymbol) {
+                        currentSequence.push(getCoordinates(index, lineIndex, type));
+                    } else {
+                        if (currentSequence.length >= MIN_SEQUENCE_LENGTH) {
+                            sequences.push([...currentSequence]);
+                        }
+                        currentSequence = symbol ? [getCoordinates(index, lineIndex, type)] : [];
+                        currentSymbol = symbol;
+                    }
+                });
+                
+                if (currentSequence.length >= MIN_SEQUENCE_LENGTH) {
+                    sequences.push(currentSequence);
+                }
+                
+                return sequences;
+            }
+
+            function getCoordinates(index, lineIndex, type) {
+                switch (type) {
+                    case 'row': return [lineIndex, index];
+                    case 'col': return [index, lineIndex];
+                    case 'diag': return [index, GRID_SIZE - 1 - index];
+                    default: return [0, 0];
+                }
             }
 
             function processTurnEnd() {
-                // Compute stuck blocks (pure computation) and update UI immediately
-                stuckBlocks = computeStuckBlocks();
-                DOMElements.emptyBlockPenalty.textContent = `-${stuckBlocks.size}`;
-                // Re-render board so bombs appear immediately
-                renderGrid();
-
+                detectStuckBlocks();
                 calculateAllScores();
                 
                 const isGridFull = turnCount >= MAX_TURNS;
@@ -912,33 +1560,57 @@
                     return;
                 }
                 
-                gameState = 'AWAITING_ROLL';
+                gameStateManager.setState('AWAITING_ROLL');
                 renderControls();
             }
 
             function endGame(reason = "") {
-                gameState = 'GAME_OVER';
+                gameStateManager.setState('GAME_OVER');
                 calculateAllScores();
                 
-                const finalScore = parseInt(DOMElements.totalScore.textContent);
+                const finalScore = parseInt(DOMElements['total-score'].textContent);
+                statisticsManager.recordGame(finalScore);
+                
                 if (finalScore > highScore) {
                     highScore = finalScore;
                     localStorage.setItem('fruitFlushHighScore', highScore);
-                    DOMElements.highScore.textContent = highScore;
+                    DOMElements['high-score'].textContent = highScore;
+                    confettiSystem.trigger(1.5); // Extra celebration for new high score
                 }
                 
+                // Update game over modal with breakdown
                 document.getElementById('game-over-reason').textContent = reason;
-                DOMElements.finalScoreModal.textContent = finalScore;
-                DOMElements.highScoreModal.textContent = highScore;
-                DOMElements.gameOverModal.classList.add('is-open');
+                DOMElements['final-score-modal'].textContent = finalScore;
+                DOMElements['high-score-modal'].textContent = highScore;
+                
+                // Update score breakdown
+                DOMElements['final-rows-score'].textContent = DOMElements['rows-total-score'].textContent;
+                DOMElements['final-cols-score'].textContent = DOMElements['cols-total-score'].textContent;
+                DOMElements['final-diag-score'].textContent = DOMElements['diag-total-score'].textContent;
+                DOMElements['final-bonus-score'].textContent = DOMElements['bonus-grid-score'].textContent;
+                DOMElements['final-penalty-score'].textContent = DOMElements['empty-block-penalty'].textContent;
+                
+                setTimeout(() => {
+                    DOMElements['game-over-modal'].classList.add('is-open');
+                }, 500);
             }
 
             function hasValidMoves(board) {
                 for (let r = 0; r < GRID_SIZE; r++) {
                     for (let c = 0; c < GRID_SIZE; c++) {
                         if (board[r][c] === null) {
-                            if (c + 1 < GRID_SIZE && board[r][c + 1] === null) return true;
-                            if (r + 1 < GRID_SIZE && board[r + 1][c] === null) return true;
+                            // Check if this cell has an adjacent empty cell
+                            const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+                            for (const [dr, dc] of neighbors) {
+                                const nr = r + dr;
+                                const nc = c + dc;
+                                if (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE && board[nr][nc] === null) {
+                                    // Check if both cells have valid neighbors (are connected to the existing structure)
+                                    if (hasValidNeighbor(r, c) || hasValidNeighbor(nr, nc)) {
+                                        return true;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -950,13 +1622,13 @@
                 return neighbors.some(([dr, dc]) => {
                     const r = row + dr;
                     const c = col + dc;
-                    return r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE && !gridData[r][c];
+                    return r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE && gridData[r][c] !== null;
                 });
             }
 
             function showInvalidMoveAnimation(cell) {
                 cell.classList.add('invalid-move-shake');
-                setTimeout(() => cell.classList.remove('invalid-move-shake'), 300);
+                setTimeout(() => cell.classList.remove('invalid-move-shake'), 400);
             }
 
             function findLongestSequence(board) {
@@ -991,6 +1663,39 @@
                 maxLen = Math.max(maxLen, checkLine(Array.from({ length: GRID_SIZE }, (_, i) => board[i][GRID_SIZE - 1 - i])));
                 
                 return maxLen;
+            }
+
+            function detectStuckBlocks() {
+                const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+                const newStuckBlocks = new Set(stuckBlocks);
+                const cellsToUpdate = [];
+                
+                for (let r = 0; r < GRID_SIZE; r++) {
+                    for (let c = 0; c < GRID_SIZE; c++) {
+                        const key = `${r},${c}`;
+                        if (gridData[r][c] === null && !stuckBlocks.has(key)) {
+                            const isStuck = neighbors.every(([dr, dc]) => {
+                                const nr = r + dr;
+                                const nc = c + dc;
+                                return nr < 0 || nr >= GRID_SIZE || nc < 0 || nc >= GRID_SIZE || gridData[nr][nc] !== null;
+                            });
+                            if (isStuck) {
+                                newStuckBlocks.add(key);
+                                cellsToUpdate.push([r, c]);
+                            }
+                        }
+                    }
+                }
+                
+                // Update stuckBlocks BEFORE updating the grid cells
+                stuckBlocks = newStuckBlocks;
+
+                // Now update all the cells that became stuck
+                cellsToUpdate.forEach(([r, c]) => {
+                    updateGridCell(r, c);
+                });
+
+                DOMElements['empty-block-penalty'].textContent = -stuckBlocks.size;
             }
 
             function calculateAllScores() {
@@ -1039,11 +1744,21 @@
             function updateScoreDisplays(rowsTotal, colsTotal, diagTotal, bonusTotal, stuckCount) {
                 const totalScore = rowsTotal + colsTotal + diagTotal + bonusTotal - stuckCount;
                 
-                DOMElements.totalScore.textContent = totalScore;
-                DOMElements.rowsTotalScore.textContent = rowsTotal;
-                DOMElements.colsTotalScore.textContent = colsTotal;
-                DOMElements.diagTotalScore.textContent = diagTotal;
-                DOMElements.bonusGridScore.textContent = bonusTotal;
+                animateScoreUpdate(DOMElements['total-score'], totalScore);
+                animateScoreUpdate(DOMElements['rows-total-score'], rowsTotal);
+                animateScoreUpdate(DOMElements['cols-total-score'], colsTotal);
+                animateScoreUpdate(DOMElements['diag-total-score'], diagTotal);
+                animateScoreUpdate(DOMElements['bonus-grid-score'], bonusTotal);
+            }
+
+            function animateScoreUpdate(element, newValue) {
+                if (element.textContent != newValue) {
+                    element.classList.add('score-update');
+                    element.textContent = newValue;
+                    setTimeout(() => {
+                        element.classList.remove('score-update');
+                    }, 500);
+                }
             }
 
             function updateIndividualScores(rowScores, colScores) {
@@ -1057,7 +1772,7 @@
                     el.textContent = score;
                     el.classList.toggle('text-[#ff3b30]', score < 0);
                     el.classList.toggle('fruit-text', score >= 0);
-                    if (score > 0) {
+                    if (score !== 0) {
                         el.classList.add('score-flash');
                         setTimeout(() => el.classList.remove('score-flash'), SCORE_FLASH_DURATION);
                     }
@@ -1065,29 +1780,81 @@
             }
 
             function highlightValidMoves(row, col) {
-                [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dr, dc]) => {
-                    const r = row + dr, c = col + dc;
-                    const cell = DOMElements.gameBoard.querySelector(`[data-row='${r}'][data-col='${c}']`);
-                    if (cell && !gridData[r][c]) {
-                        cell.classList.add('fruit-highlight');
+                const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+                neighbors.forEach(([dr, dc]) => {
+                    const r = row + dr;
+                    const c = col + dc;
+                    if (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE && !gridData[r][c] && gridCells[r] && gridCells[r][c]) {
+                        gridCells[r][c].classList.add('fruit-highlight');
                     }
                 });
             }
 
             function clearHighlights() {
-                DOMElements.gameBoard.querySelectorAll('[data-row]').forEach(cell => {
-                    cell.classList.remove('fruit-highlight');
+                gridCells.forEach(row => {
+                    row.forEach(cell => {
+                        cell.classList.remove('fruit-highlight');
+                    });
                 });
             }
 
-            // Event listeners
-            DOMElements.helpBtn.onclick = () => DOMElements.helpModal.classList.add('is-open');
-            DOMElements.closeHelpBtn.onclick = () => DOMElements.helpModal.classList.remove('is-open');
-            DOMElements.closeGameOverBtn.onclick = () => DOMElements.gameOverModal.classList.remove('is-open');
-            DOMElements.playAgainBtn.onclick = initGame;
-            DOMElements.gameBoard.onclick = handleCellClick;
+            // Enhanced Event Listeners with better performance
+            const setupEventListeners = () => {
+                // Modal events
+                DOMElements['help-btn'].addEventListener('click', () => {
+                    DOMElements['help-modal'].classList.add('is-open');
+                    audioSystem.play('hover');
+                });
+                
+                DOMElements['close-help-btn'].addEventListener('click', () => {
+                    DOMElements['help-modal'].classList.remove('is-open');
+                    audioSystem.play('hover');
+                });
+                
+                DOMElements['close-game-over-btn'].addEventListener('click', () => {
+                    DOMElements['game-over-modal'].classList.remove('is-open');
+                    audioSystem.play('hover');
+                });
+                
+                DOMElements['play-again-btn'].addEventListener('click', () => {
+                    DOMElements['game-over-modal'].classList.remove('is-open');
+                    audioSystem.play('place');
+                    setTimeout(initGame, 200);
+                });
 
-            // Initialize game
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        if (DOMElements['help-modal'].classList.contains('is-open')) {
+                            DOMElements['help-modal'].classList.remove('is-open');
+                        }
+                        if (DOMElements['game-over-modal'].classList.contains('is-open')) {
+                            DOMElements['game-over-modal'].classList.remove('is-open');
+                        }
+                    }
+                    
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        if (gameStateManager.is('AWAITING_ROLL')) {
+                            handleRollDice();
+                        }
+                    }
+                    
+                    if (e.key === 'h' || e.key === 'H') {
+                        if (!DOMElements['help-modal'].classList.contains('is-open')) {
+                            DOMElements['help-modal'].classList.add('is-open');
+                        }
+                    }
+                });
+
+                // Performance monitoring
+                if (performance.mark) {
+                    performance.mark('game-loaded');
+                }
+            };
+
+            // Initialize game and event listeners
+            setupEventListeners();
             initGame();
         });
     </script>
