@@ -219,7 +219,7 @@
         }
         
         .controls-area {
-            min-height: 160px;
+            min-height: 165px; /* Adjusted min-height for consistency */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -259,8 +259,9 @@
         }
 
         .superpower-btn {
-            background: var(--glass-secondary);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            border: none;
+            box-shadow: none;
             color: var(--accent);
             font-weight: 500;
             border-radius: 12px;
@@ -271,20 +272,18 @@
 
         .superpower-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            background: rgba(255, 228, 225, 0.5);
-            box-shadow: var(--shadow-soft);
+            text-decoration: underline;
         }
 
         .superpower-btn--active {
-            background: var(--accent-light) !important;
-            box-shadow: var(--shadow-medium) !important;
-            border-color: var(--accent) !important;
+            font-weight: 700;
             transform: translateY(-2px) !important;
         }
 
         .superpower-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -309,46 +308,34 @@
         </div>
         
         <div class="w-full lg:w-1/3">
-            <div class="flex-1 flex flex-col gap-4 p-6 glass-card rounded-2xl">
-                <div class="flex justify-between items-center mb-2">
-                    <div class="flex gap-6">
-                        <div class="text-center">
-                            <h2 class="text-xs font-semibold uppercase tracking-wider" style="color: #FF6B6B;">High Score</h2>
-                            <p id="high-score" class="text-2xl font-bold" style="color: #FFD700;">0</p>
-                        </div>
-                        <div class="text-center">
-                            <h2 class="text-xs font-semibold uppercase tracking-wider" style="color: #FF6B6B;">Turn</h2>
-                            <p id="turn-counter" class="text-2xl font-bold" style="color: #FF6B6B;">0/24</p>
-                        </div>
-                    </div>
-                    <button id="rules-btn" class="px-4 py-2 fruit-button rounded-xl text-sm font-semibold" style="color: #FF6B6B; background: rgba(255, 228, 225, 0.8);">Rules</button>
+            <div class="flex-1 flex flex-col gap-3 p-6 glass-card rounded-2xl">
+                <div class="flex justify-center items-center gap-3">
+                    <button id="new-game-btn" class="flex-1 py-2 px-4 fruit-button text-white font-semibold rounded-xl text-sm" style="background: var(--accent-gradient);">New Game</button>
+                    <button id="rules-btn" class="flex-1 py-2 px-4 fruit-button text-sm font-semibold" style="color: var(--accent); background: rgba(255, 228, 225, 0.8);">Rules</button>
                 </div>
-                
-                <div class="w-full h-2.5 bg-rose-100 rounded-full overflow-hidden mb-4">
+
+                <div class="w-full h-2.5 bg-rose-100 rounded-full overflow-hidden">
                     <div id="progress-bar-fill" class="h-full rounded-full transition-all duration-300" style="width: 0%; background: var(--accent-gradient);"></div>
                 </div>
                 
                 <div id="controls-area" class="controls-area"></div>
-
-                <div id="fruit-power-panel" class="text-center glass-card rounded-xl p-4 hidden">
-                    <h2 class="text-sm font-semibold uppercase tracking-wider mb-3" style="color: #FF6B6B;">Fruit Power</h2>
-                    <div class="grid grid-cols-3 gap-2 text-xs">
-                        <button id="past-lives-btn" class="superpower-btn">Past Lives</button>
-                        <button id="bomb-squash-btn" class="superpower-btn">Bomb Squash</button>
-                        <button id="exchange-please-btn" class="superpower-btn">Exchange Please</button>
+                
+                <div class="grid grid-cols-2 gap-3 text-center">
+                    <div class="glass-card rounded-xl p-3">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Total Score</h3>
+                        <p id="total-score" class="text-2xl font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
+                    </div>
+                    <div class="glass-card rounded-xl p-3">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">High Score</h3>
+                        <p id="high-score" class="text-2xl font-bold" style="color: #FFD700;">0</p>
                     </div>
                 </div>
-                
-                <div class="text-center glass-card-prominent rounded-xl p-5">
-                    <h2 class="text-sm font-semibold uppercase tracking-wider mb-2" style="color: #FF6B6B;">Total Score</h2>
-                    <p id="total-score" class="text-4xl font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
-                </div>
-                
+
                 <div class="grid grid-cols-2 gap-3 text-center">
                     <div class="glass-card rounded-xl p-3"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Rows</h3><p id="rows-total-score" class="text-lg font-bold">0</p></div>
                     <div class="glass-card rounded-xl p-3"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Columns</h3><p id="cols-total-score" class="text-lg font-bold">0</p></div>
                     <div class="glass-card rounded-xl p-3"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Diagonal</h3><p id="diag-total-score" class="text-lg font-bold" style="color: #FFD700;">0</p></div>
-                    <div class="glass-card rounded-xl p-3"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Bonus Grid</h3><p id="bonus-grid-score" class="text-lg font-bold" style="color: #FFD700;">0</p></div>
+                    <div class="glass-card rounded-xl p-3"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Grid Bonus</h3><p id="bonus-grid-score" class="text-lg font-bold" style="color: #FFD700;">0</p></div>
                 </div>
                 
                 <div class="glass-card rounded-xl p-3">
@@ -427,13 +414,12 @@
                 const elementIds = [
                     'game-board', 'controls-area', 'row-scores-display', 'col-scores-display', 'total-score', 
                     'high-score', 'rows-total-score', 'cols-total-score', 'diag-total-score', 'bonus-grid-score', 
-                    'empty-block-penalty', 'turn-counter', 'rules-btn', 'rules-modal', 'close-rules-btn', 
+                    'empty-block-penalty', 'rules-btn', 'rules-modal', 'close-rules-btn', 
                     'game-over-modal', 'game-over-reason', 'close-game-over-btn', 'final-score-modal', 
                     'high-score-modal', 'play-again-btn', 'score-breakdown', 'final-rows-score', 
                     'final-cols-score', 'final-diag-score', 'final-bonus-score', 'final-penalty-score', 
-                    'fruit-power-panel', 'past-lives-btn', 'bomb-squash-btn', 'exchange-please-btn', 
-                    'exchange-modal', 'exchange-options',
-                    'progress-bar-fill' // NEW: Added progress bar element
+                    'exchange-modal', 'exchange-options', 'progress-bar-fill',
+                    'new-game-btn'
                 ];
                 elementIds.forEach(id => { elements[id] = document.getElementById(id); });
                 return elements;
@@ -499,7 +485,6 @@
                 addCellEventListeners(cell) { cell.addEventListener('click', handleCellClick); cell.addEventListener('mouseenter', () => { if (gameStateManager.is('AWAITING_PLACEMENT') || activeSuperpower) audioSystem.play('hover'); }); }
             };
 
-            // NEW: Added function to update the progress bar
             function updateProgressBar() {
                 if (!DOMElements['progress-bar-fill']) return;
                 const percentage = (turnCount / MAX_TURNS) * 100;
@@ -515,11 +500,9 @@
                 audioSystem.init();
                 DOMElements['high-score'].textContent = highScore;
                 ['game-over-modal', 'exchange-modal', 'rules-modal'].forEach(id => DOMElements[id].classList.remove('is-open'));
-                DOMElements['fruit-power-panel'].classList.add('hidden');
                 DOMElements['empty-block-penalty'].textContent = '0';
                 renderGrid(); renderScorePlaceholders(); renderControls(); updateAllScores();
-                DOMElements['turn-counter'].textContent = `0/${MAX_TURNS}`;
-                updateProgressBar(); // NEW: Call to reset progress bar
+                updateProgressBar();
             }
 
             function renderGrid() {
@@ -551,32 +534,53 @@
 
             function renderControls() {
                 DOMElements['controls-area'].innerHTML = '';
-                if (gameStateManager.is('PRE_GAME')) { renderPreGameControls(); } 
+                if (gameStateManager.is('PRE_GAME')) {
+                    renderPreGameControls();
+                } 
                 else { 
                     renderGameControls(); 
-                    DOMElements['fruit-power-panel'].classList.remove('hidden'); 
                     setupSuperpowerEventListeners();
                     updateSuperpowerButtonsUI(); 
                 }
             }
 
             function renderPreGameControls() {
-                const container = document.createElement('div'); container.className = 'w-full flex flex-col justify-center';
-                container.innerHTML = `<h2 class="text-sm font-medium text-center mb-4 uppercase tracking-wider" style="color: #FF6B6B;">Choose Your Fruit</h2><div class="text-center mb-3 text-xs text-gray-600">Will be placed in the top-left corner</div>`;
-                const selector = document.createElement('div'); selector.className = 'grid grid-cols-6 gap-2';
+                const container = document.createElement('div');
+                container.className = 'w-full flex flex-col items-center';
+                container.innerHTML = `<h2 class="text-lg font-semibold text-center mb-4 uppercase tracking-wider" style="color: #FF6B6B;">Choose Your Fruit</h2>`;
+                const selector = document.createElement('div');
+                selector.className = 'grid grid-cols-3 gap-4';
                 SYMBOLS.forEach((symbol) => {
-                    const btn = document.createElement('button'); btn.className = `fruit-selector-btn aspect-square rounded-xl text-3xl hover:bg-rose-100 ${SYMBOL_COLORS[symbol]} flex items-center justify-center`;
-                    btn.textContent = symbol; btn.onclick = () => handleSymbolSelect(symbol); btn.onmouseenter = () => audioSystem.play('hover');
+                    const btn = document.createElement('button');
+                    btn.className = `fruit-selector-btn aspect-square rounded-xl text-5xl hover:bg-rose-100 ${SYMBOL_COLORS[symbol]} flex items-center justify-center`;
+                    btn.textContent = symbol;
+                    btn.onclick = () => handleSymbolSelect(symbol);
+                    btn.onmouseenter = () => audioSystem.play('hover');
                     selector.appendChild(btn);
                 });
-                container.appendChild(selector); DOMElements['controls-area'].appendChild(container);
+                container.appendChild(selector);
+                DOMElements['controls-area'].appendChild(container);
             }
 
             function renderGameControls() {
-                const wrapper = document.createElement('div'); wrapper.className = 'w-full flex flex-col justify-center';
-                wrapper.innerHTML = `<div class="text-center mb-4"><h2 class="text-sm font-medium uppercase tracking-wider mb-3" style="color: #FF6B6B;">Your Roll</h2><div class="flex justify-center gap-4 mb-4"><div id="dice-1" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl">?</div><div id="dice-2" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl">?</div></div></div><div class="flex gap-3"><button id="roll-dice-btn" class="flex-1 py-3 px-4 fruit-button text-white font-semibold rounded-2xl text-sm disabled:opacity-60 disabled:cursor-not-allowed" style="background: var(--accent-gradient);">Roll Dice</button><button id="new-game-btn" class="flex-1 py-3 px-4 glass-card text-[#FF6B6B] font-semibold rounded-2xl text-sm">New Game</button></div>`;
+                const wrapper = document.createElement('div');
+                wrapper.className = 'w-full flex flex-col justify-center gap-3';
+                wrapper.innerHTML = `
+                    <div class="flex justify-center items-center gap-4">
+                        <button id="roll-dice-btn" class="w-16 h-16 text-5xl flex items-center justify-center transition-transform hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" style="color: var(--accent);">🎲</button>
+                        <div id="dice-1" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl">?</div>
+                        <div id="dice-2" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl">?</div>
+                    </div>
+                    <div id="fruit-power-panel" class="glass-card rounded-xl p-3 text-center">
+                        <h2 class="text-sm font-semibold uppercase tracking-wider mb-2" style="color: #FF6B6B;">Fruit Power</h2>
+                        <div class="grid grid-cols-3 gap-2 text-xs">
+                            <button id="past-lives-btn" class="superpower-btn">Past Lives</button>
+                            <button id="bomb-squash-btn" class="superpower-btn">Bomb Squash</button>
+                            <button id="exchange-please-btn" class="superpower-btn">Exchange Please</button>
+                        </div>
+                    </div>
+                `;
                 wrapper.querySelector('#roll-dice-btn').onclick = handleRollDice;
-                wrapper.querySelector('#new-game-btn').onclick = initGame;
                 DOMElements['controls-area'].appendChild(wrapper);
                 updateControlsState();
             }
@@ -588,11 +592,15 @@
                 const dice1 = document.getElementById('dice-1'), dice2 = document.getElementById('dice-2');
                 if (!dice1 || !dice2) return;
                 if (gameStateManager.is('AWAITING_PLACEMENT') && currentRoll.length === 2) {
-                    dice1.textContent = currentRoll[0]; dice1.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[0]]}`;
-                    dice2.textContent = currentRoll[1]; dice2.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[1]]}`;
+                    dice1.textContent = currentRoll[0];
+                    dice1.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[0]]}`;
+                    dice2.textContent = currentRoll[1];
+                    dice2.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[1]]}`;
                 } else {
-                    dice1.textContent = '?'; dice1.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl';
-                    dice2.textContent = '?'; dice2.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl';
+                    dice1.textContent = '?';
+                    dice1.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl';
+                    dice2.textContent = '?';
+                    dice2.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl';
                 }
             }
 
@@ -633,13 +641,13 @@
             }
 
             function saveStateForUndo() { lastGameState = { gridData: JSON.parse(JSON.stringify(gridData)), turnCount, stuckBlocks: new Set(stuckBlocks), currentRoll: [...currentRoll] }; }
-            function completeMove(r, c) { gameStateManager.setState('PROCESSING_TURN'); gridData[r][c] = currentRoll[1]; firstPlacementCell = null; turnCount++; DOMElements['turn-counter'].textContent = `${turnCount}/${MAX_TURNS}`; updateGridCell(r, c); audioSystem.play('place'); setTimeout(processTurnEnd, 300); }
+            function completeMove(r, c) { gameStateManager.setState('PROCESSING_TURN'); gridData[r][c] = currentRoll[1]; firstPlacementCell = null; turnCount++; updateGridCell(r, c); audioSystem.play('place'); setTimeout(processTurnEnd, 300); }
             
             function processTurnEnd() {
                 if (gameStateManager.is('GAME_OVER')) return;
                 detectStuckBlocks(); 
                 updateAllScores(); 
-                updateProgressBar(); // NEW: Call to update progress bar
+                updateProgressBar(); 
                 if (turnCount >= MAX_TURNS) { endGame("Grid is full!"); return; } 
                 if (!hasValidMoves()) { endGame("No valid moves!"); return; } 
                 gameStateManager.setState('AWAITING_ROLL'); 
@@ -684,12 +692,20 @@
                 const isUsed = hasSuperpowerBeenUsed;
                 const isMidMove = firstPlacementCell !== null;
                 const isPowerActive = activeSuperpower !== null;
-                DOMElements['past-lives-btn'].disabled = isUsed || !lastGameState || isMidMove || isPowerActive;
-                DOMElements['bomb-squash-btn'].disabled = isUsed || stuckBlocks.size === 0 || isMidMove || isPowerActive;
-                DOMElements['exchange-please-btn'].disabled = isUsed || isMidMove || isPowerActive;
+                const pastLivesBtn = document.getElementById('past-lives-btn');
+                const bombSquashBtn = document.getElementById('bomb-squash-btn');
+                const exchangePleaseBtn = document.getElementById('exchange-please-btn');
+
+                if(pastLivesBtn) pastLivesBtn.disabled = isUsed || !lastGameState || isMidMove || isPowerActive;
+                if(bombSquashBtn) bombSquashBtn.disabled = isUsed || stuckBlocks.size === 0 || isMidMove || isPowerActive;
+                if(exchangePleaseBtn) exchangePleaseBtn.disabled = isUsed || isMidMove || isPowerActive;
                 
-                ['past-lives-btn', 'bomb-squash-btn', 'exchange-please-btn'].forEach(id => DOMElements[id].classList.remove('superpower-btn--active'));
-                if (activeSuperpower) { const id = { 'bombSquash': 'bomb-squash-btn', 'exchangePlease': 'exchange-please-btn' }[activeSuperpower]; if(id) DOMElements[id].classList.add('superpower-btn--active'); }
+                [pastLivesBtn, bombSquashBtn, exchangePleaseBtn].forEach(btn => btn?.classList.remove('superpower-btn--active'));
+                if (activeSuperpower) { 
+                    const id = { 'bombSquash': 'bomb-squash-btn', 'exchangePlease': 'exchange-please-btn' }[activeSuperpower];
+                    const activeBtn = document.getElementById(id);
+                    if(activeBtn) activeBtn.classList.add('superpower-btn--active');
+                }
                 document.body.classList.toggle('cursor-target', activeSuperpower === 'bombSquash');
             }
 
@@ -721,30 +737,39 @@
             function consumeSuperpower() { audioSystem.play('power-use'); hasSuperpowerBeenUsed = true; activeSuperpower = null; updateFullGrid(); updateAllScores(); updateSuperpowerButtonsUI(); }
 
             function setupSuperpowerEventListeners() {
-                DOMElements['past-lives-btn'].addEventListener('click', () => {
-                    if (DOMElements['past-lives-btn'].disabled) return;
-                    audioSystem.play('power-activate');
-                    gridData = lastGameState.gridData; turnCount = lastGameState.turnCount; stuckBlocks = lastGameState.stuckBlocks; currentRoll = lastGameState.currentRoll; lastGameState = null; 
-                    hasSuperpowerBeenUsed = true; activeSuperpower = null; audioSystem.play('power-use');
-                    DOMElements['turn-counter'].textContent = `${turnCount}/${MAX_TURNS}`;
-                    updateFullGrid(); updateAllScores(); updateSuperpowerButtonsUI();
-                    updateProgressBar(); // NEW: Call to update progress bar on undo
-                    gameStateManager.setState('AWAITING_PLACEMENT');
-                    updateControlsState();
-                });
-                DOMElements['bomb-squash-btn'].addEventListener('click', () => {
-                    if (DOMElements['bomb-squash-btn'].disabled) return;
-                    activeSuperpower = 'bombSquash';
-                    gameStateManager.setState('SUPERPOWER_ACTIVE'); audioSystem.play('power-activate'); updateSuperpowerButtonsUI();
-                });
-                DOMElements['exchange-please-btn'].addEventListener('click', () => {
-                    if (DOMElements['exchange-please-btn'].disabled) return;
-                    activeSuperpower = 'exchangePlease';
-                    gameStateManager.setState('SUPERPOWER_ACTIVE'); audioSystem.play('power-activate'); updateSuperpowerButtonsUI();
-                });
+                const pastLivesBtn = document.getElementById('past-lives-btn');
+                if (pastLivesBtn) {
+                    pastLivesBtn.addEventListener('click', () => {
+                        if (pastLivesBtn.disabled) return;
+                        audioSystem.play('power-activate');
+                        gridData = lastGameState.gridData; turnCount = lastGameState.turnCount; stuckBlocks = lastGameState.stuckBlocks; currentRoll = lastGameState.currentRoll; lastGameState = null; 
+                        hasSuperpowerBeenUsed = true; activeSuperpower = null; audioSystem.play('power-use');
+                        updateFullGrid(); updateAllScores(); updateSuperpowerButtonsUI();
+                        updateProgressBar();
+                        gameStateManager.setState('AWAITING_PLACEMENT');
+                        updateControlsState();
+                    });
+                }
+                const bombSquashBtn = document.getElementById('bomb-squash-btn');
+                if (bombSquashBtn) {
+                    bombSquashBtn.addEventListener('click', () => {
+                        if (bombSquashBtn.disabled) return;
+                        activeSuperpower = 'bombSquash';
+                        gameStateManager.setState('SUPERPOWER_ACTIVE'); audioSystem.play('power-activate'); updateSuperpowerButtonsUI();
+                    });
+                }
+                const exchangePleaseBtn = document.getElementById('exchange-please-btn');
+                if (exchangePleaseBtn) {
+                    exchangePleaseBtn.addEventListener('click', () => {
+                        if (exchangePleaseBtn.disabled) return;
+                        activeSuperpower = 'exchangePlease';
+                        gameStateManager.setState('SUPERPOWER_ACTIVE'); audioSystem.play('power-activate'); updateSuperpowerButtonsUI();
+                    });
+                }
             }
 
             function setupEventListeners() {
+                DOMElements['new-game-btn'].addEventListener('click', initGame);
                 DOMElements['rules-btn'].addEventListener('click', () => DOMElements['rules-modal'].classList.add('is-open'));
                 DOMElements['close-rules-btn'].addEventListener('click', () => DOMElements['rules-modal'].classList.remove('is-open'));
                 DOMElements['close-game-over-btn'].addEventListener('click', () => DOMElements['game-over-modal'].classList.remove('is-open'));
