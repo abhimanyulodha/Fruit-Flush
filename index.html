@@ -1176,6 +1176,9 @@
                 
                 DOMElements['high-score'].textContent = highScore;
                 DOMElements['game-over-modal'].classList.remove('is-open');
+
+                // Reset penalty display explicitly
+                DOMElements['empty-block-penalty'].textContent = '0';
                 
                 renderGrid();
                 renderScorePlaceholders();
@@ -1814,11 +1817,17 @@
                 
                 DOMElements['close-game-over-btn'].addEventListener('click', () => {
                     DOMElements['game-over-modal'].classList.remove('is-open');
+
+                // Reset penalty display explicitly
+                DOMElements['empty-block-penalty'].textContent = '0';
                     audioSystem.play('hover');
                 });
                 
                 DOMElements['play-again-btn'].addEventListener('click', () => {
                     DOMElements['game-over-modal'].classList.remove('is-open');
+
+                // Reset penalty display explicitly
+                DOMElements['empty-block-penalty'].textContent = '0';
                     audioSystem.play('place');
                     setTimeout(initGame, 200);
                 });
@@ -1831,6 +1840,9 @@
                         }
                         if (DOMElements['game-over-modal'].classList.contains('is-open')) {
                             DOMElements['game-over-modal'].classList.remove('is-open');
+
+                // Reset penalty display explicitly
+                DOMElements['empty-block-penalty'].textContent = '0';
                         }
                     }
                     
