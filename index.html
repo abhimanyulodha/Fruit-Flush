@@ -322,6 +322,10 @@
                     <button id="rules-btn" class="px-4 py-2 fruit-button rounded-xl text-sm font-semibold" style="color: #FF6B6B; background: rgba(255, 228, 225, 0.8);">Rules</button>
                 </div>
                 
+                <div class="w-full h-2.5 bg-rose-100 rounded-full overflow-hidden mb-4">
+                    <div id="progress-bar-fill" class="h-full rounded-full transition-all duration-300" style="width: 0%; background: var(--accent-gradient);"></div>
+                </div>
+                
                 <div id="controls-area" class="controls-area"></div>
 
                 <div id="fruit-power-panel" class="text-center glass-card rounded-xl p-4 hidden">
@@ -418,7 +422,17 @@
             
             const DOMElements = (() => {
                 const elements = {};
-                const elementIds = [ 'game-board', 'controls-area', 'row-scores-display', 'col-scores-display', 'total-score', 'high-score', 'rows-total-score', 'cols-total-score', 'diag-total-score', 'bonus-grid-score', 'empty-block-penalty', 'turn-counter', 'rules-btn', 'rules-modal', 'close-rules-btn', 'game-over-modal', 'game-over-reason', 'close-game-over-btn', 'final-score-modal', 'high-score-modal', 'play-again-btn', 'score-breakdown', 'final-rows-score', 'final-cols-score', 'final-diag-score', 'final-bonus-score', 'final-penalty-score', 'fruit-power-panel', 'past-lives-btn', 'bomb-squash-btn', 'exchange-please-btn', 'exchange-modal', 'exchange-options' ];
+                const elementIds = [
+                    'game-board', 'controls-area', 'row-scores-display', 'col-scores-display', 'total-score', 
+                    'high-score', 'rows-total-score', 'cols-total-score', 'diag-total-score', 'bonus-grid-score', 
+                    'empty-block-penalty', 'turn-counter', 'rules-btn', 'rules-modal', 'close-rules-btn', 
+                    'game-over-modal', 'game-over-reason', 'close-game-over-btn', 'final-score-modal', 
+                    'high-score-modal', 'play-again-btn', 'score-breakdown', 'final-rows-score', 
+                    'final-cols-score', 'final-diag-score', 'final-bonus-score', 'final-penalty-score', 
+                    'fruit-power-panel', 'past-lives-btn', 'bomb-squash-btn', 'exchange-please-btn', 
+                    'exchange-modal', 'exchange-options',
+                    'progress-bar-fill' // NEW: Added progress bar element
+                ];
                 elementIds.forEach(id => { elements[id] = document.getElementById(id); });
                 return elements;
             })();
@@ -483,6 +497,13 @@
                 addCellEventListeners(cell) { cell.addEventListener('click', handleCellClick); cell.addEventListener('mouseenter', () => { if (gameStateManager.is('AWAITING_PLACEMENT') || activeSuperpower) audioSystem.play('hover'); }); }
             };
 
+            // NEW: Added function to update the progress bar
+            function updateProgressBar() {
+                if (!DOMElements['progress-bar-fill']) return;
+                const percentage = (turnCount / MAX_TURNS) * 100;
+                DOMElements['progress-bar-fill'].style.width = `${percentage}%`;
+            }
+
             function initGame() {
                 gameStateManager = new GameState();
                 gridData = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
@@ -496,6 +517,7 @@
                 DOMElements['empty-block-penalty'].textContent = '0';
                 renderGrid(); renderScorePlaceholders(); renderControls(); updateAllScores();
                 DOMElements['turn-counter'].textContent = `0/${MAX_TURNS}`;
+                updateProgressBar(); // NEW: Call to reset progress bar
             }
 
             function renderGrid() {
@@ -610,12 +632,16 @@
 
             function saveStateForUndo() { lastGameState = { gridData: JSON.parse(JSON.stringify(gridData)), turnCount, stuckBlocks: new Set(stuckBlocks), currentRoll: [...currentRoll] }; }
             function completeMove(r, c) { gameStateManager.setState('PROCESSING_TURN'); gridData[r][c] = currentRoll[1]; firstPlacementCell = null; turnCount++; DOMElements['turn-counter'].textContent = `${turnCount}/${MAX_TURNS}`; updateGridCell(r, c); audioSystem.play('place'); setTimeout(processTurnEnd, 300); }
+            
             function processTurnEnd() {
                 if (gameStateManager.is('GAME_OVER')) return;
-                detectStuckBlocks(); updateAllScores(); 
+                detectStuckBlocks(); 
+                updateAllScores(); 
+                updateProgressBar(); // NEW: Call to update progress bar
                 if (turnCount >= MAX_TURNS) { endGame("Grid is full!"); return; } 
                 if (!hasValidMoves()) { endGame("No valid moves!"); return; } 
-                gameStateManager.setState('AWAITING_ROLL'); renderControls(); 
+                gameStateManager.setState('AWAITING_ROLL'); 
+                renderControls(); 
             }
 
             function endGame(reason = "") {
@@ -700,6 +726,7 @@
                     hasSuperpowerBeenUsed = true; activeSuperpower = null; audioSystem.play('power-use');
                     DOMElements['turn-counter'].textContent = `${turnCount}/${MAX_TURNS}`;
                     updateFullGrid(); updateAllScores(); updateSuperpowerButtonsUI();
+                    updateProgressBar(); // NEW: Call to update progress bar on undo
                     gameStateManager.setState('AWAITING_PLACEMENT');
                     updateControlsState();
                 });
