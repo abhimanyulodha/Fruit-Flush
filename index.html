@@ -17,13 +17,6 @@
             --accent: #FF6B6B;
             --accent-light: #FFE4E1;
             --accent-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
-            --fruit-red: #FF6B6B;
-            --fruit-yellow: #FFD700;
-            --fruit-green: #5AC8FA;
-            --fruit-orange: #FF9500;
-            --fruit-pink: #FF2D55;
-            --fruit-teal: #88D8C0;
-            --fruit-purple: #AF52DE;
             --diagonal-highlight: linear-gradient(135deg, #FFE6CC 0%, #FFF2E0 100%);
             --stuck-block: linear-gradient(135deg, #FFB3B3 0%, #FFC1C1 100%);
             --glass-primary: rgba(255, 255, 255, 0.25);
@@ -46,17 +39,6 @@
             border-radius: 16px;
             background: var(--card);
             box-shadow: var(--shadow-soft);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-        
-        .fruit-text {
-            font-weight: 500;
-            color: var(--text);
-        }
-        
-        .fruit-accent {
-            color: var(--accent);
         }
         
         .fruit-button {
@@ -95,10 +77,6 @@
             box-shadow: var(--shadow-medium);
         }
         
-        .fruit-shadow {
-            box-shadow: var(--shadow-soft);
-        }
-        
         .glass-card {
             background: var(--glass-secondary);
             backdrop-filter: blur(20px);
@@ -125,16 +103,6 @@
                         0 0 0 1px rgba(255, 255, 255, 0.2),
                         inset 0 1px 0 rgba(255, 255, 255, 0.35);
             border: none !important;
-        }
-        
-        .fruit-highlight {
-            background: var(--diagonal-highlight) !important;
-            animation: highlight-pulse 1s ease-in-out infinite alternate;
-        }
-        
-        @keyframes highlight-pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
-            100% { transform: scale(1.02); box-shadow: 0 0 0 8px rgba(255, 107, 107, 0); }
         }
         
         .fruit-grid {
@@ -178,27 +146,12 @@
             box-shadow: var(--shadow-soft);
         }
         
-        .fruit-score {
-            font-weight: 500;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-        }
-        
         .fruit-modal {
             border-radius: 20px;
             background: var(--card);
             box-shadow: var(--shadow-strong);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-        }
-        
-        .fruit-confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 100;
         }
         
         @keyframes pop-in {
@@ -223,62 +176,6 @@
             animation: dice-tumble 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         
-        @keyframes score-flash {
-            0% { color: var(--accent); transform: scale(1); }
-            50% { color: var(--fruit-green); transform: scale(1.1); }
-            100% { color: var(--accent); transform: scale(1); }
-        }
-        
-        .score-flash {
-            animation: score-flash 0.6s ease-out;
-        }
-        
-        @keyframes roll-up {
-            0% { transform: translateY(20px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-        
-        .score-roll-up {
-            animation: roll-up 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        
-        @keyframes sequence-highlight {
-            0% { background-color: rgba(255, 215, 0, 0.3); transform: scale(1); }
-            50% { background-color: rgba(255, 215, 0, 0.6); transform: scale(1.05); }
-            100% { background-color: rgba(255, 215, 0, 0); transform: scale(1); }
-        }
-        
-        .sequence-highlight {
-            animation: sequence-highlight 1s ease-out;
-        }
-        
-        .modal {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .modal-content {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .modal.is-open {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal.is-open .modal-content {
-            transform: scale(1) translateY(0);
-        }
-        
-        @keyframes invalid-move-shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
-            20%, 40%, 60%, 80% { transform: translateX(4px); }
-        }
-        
-        .invalid-move-shake {
-            animation: invalid-move-shake 0.4s ease;
-        }
-        
         @keyframes pulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
             50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
@@ -299,36 +196,26 @@
             font-size: 2rem;
             font-weight: 600;
         }
-        
-        @keyframes confetti-fall {
-            to {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
+
+        .cursor-target {
+            cursor: crosshair !important;
         }
         
-        .confetti-particle {
-            animation: confetti-fall var(--duration, 3s) var(--delay, 0s) ease-out forwards;
+        .modal {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        @keyframes stagger-fade-in {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .modal-content {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .stagger-fade-in {
-            animation: stagger-fade-in 0.4s ease-out both;
+        .modal.is-open {
+            opacity: 1;
+            visibility: visible;
         }
         
-        .game-container {
-            display: flex;
-            align-items: stretch;
-        }
-        
-        .game-board-container,
-        .scoring-panel-container {
-            display: flex;
-            flex-direction: column;
+        .modal.is-open .modal-content {
+            transform: scale(1) translateY(0);
         }
         
         .controls-area {
@@ -338,7 +225,6 @@
             justify-content: center;
         }
         
-        /* Enhanced fruit symbol selection */
         .fruit-selector-btn {
             position: relative;
             overflow: hidden;
@@ -362,77 +248,56 @@
             height: 100%;
         }
         
-        /* Score update animations */
-        .score-update {
-            animation: score-update 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        
         @keyframes score-update {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); color: var(--fruit-green); }
+            50% { transform: scale(1.1); color: #5AC8FA; }
             100% { transform: scale(1); }
         }
         
-        /* Tutorial overlay styles */
-        .tutorial-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            z-index: 200;
+        .score-update {
+            animation: score-update 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        
-        .tutorial-content {
-            position: absolute;
-            background: var(--card);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: var(--shadow-strong);
-            max-width: 400px;
+
+        .superpower-btn {
+            background: var(--glass-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--accent);
+            font-weight: 500;
+            border-radius: 12px;
+            padding: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
-        
-        /* Particle effects for placements */
-        .placement-particles {
-            position: absolute;
-            pointer-events: none;
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-            z-index: 10;
+
+        .superpower-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: rgba(255, 228, 225, 0.5);
+            box-shadow: var(--shadow-soft);
         }
-        
-        @keyframes placement-particle {
-            0% { 
-                opacity: 1; 
-                transform: scale(0) translate(0, 0); 
-            }
-            100% { 
-                opacity: 0; 
-                transform: scale(1) translate(var(--dx), var(--dy)); 
-            }
+
+        .superpower-btn--active {
+            background: var(--accent-light) !important;
+            box-shadow: var(--shadow-medium) !important;
+            border-color: var(--accent) !important;
+            transform: translateY(-2px) !important;
         }
-        
-        .placement-particle {
-            animation: placement-particle 0.8s ease-out forwards;
+
+        .superpower-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
     <audio id="audio-unlocker" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" preload="auto"></audio>
     
-    <!-- Centered Title -->
     <div class="fixed top-8 left-1/2 transform -translate-x-1/2 z-10">
         <h1 class="text-5xl font-bold text-center" style="font-family: 'Pacifico', cursive; color: #FF6B6B;">Fruit Flush</h1>
     </div>
 
-    <main id="game-container" class="w-full max-w-5xl mx-auto game-container flex-col lg:flex-row gap-6 items-stretch p-4 pt-24">
-        <div class="w-full lg:w-2/3 game-board-container">
-            <div class="flex-1 p-6 rounded-card fruit-shadow">
+    <main id="game-container" class="w-full max-w-5xl mx-auto flex flex-col lg:flex-row gap-6 items-stretch p-4 pt-24">
+        <div class="w-full lg:w-2/3">
+            <div class="p-6 rounded-card shadow-lg">
                 <div class="grid grid-cols-8 gap-3 h-full">
                     <div id="game-board" class="col-span-7 fruit-grid grid-cols-7 gap-3"></div>
                     <div id="row-scores-display" class="col-span-1 fruit-grid grid-rows-7 gap-3"></div>
@@ -441,9 +306,8 @@
             </div>
         </div>
         
-        <div class="w-full lg:w-1/3 scoring-panel-container">
+        <div class="w-full lg:w-1/3">
             <div class="flex-1 flex flex-col gap-4 p-6 glass-card rounded-2xl">
-                <!-- Header Section with Rules -->
                 <div class="flex justify-between items-center mb-2">
                     <div class="flex gap-6">
                         <div class="text-center">
@@ -455,1420 +319,418 @@
                             <p id="turn-counter" class="text-2xl font-bold" style="color: #FF6B6B;">0/24</p>
                         </div>
                     </div>
-                    <button id="help-btn" class="px-4 py-2 fruit-button rounded-xl text-sm font-semibold" style="color: #FF6B6B; background: rgba(255, 228, 225, 0.8);">Rules</button>
+                    <button id="rules-btn" class="px-4 py-2 fruit-button rounded-xl text-sm font-semibold" style="color: #FF6B6B; background: rgba(255, 228, 225, 0.8);">Rules</button>
                 </div>
                 
-                <!-- Controls Area (Fixed Height) -->
-                <div id="controls-area" class="controls-area">
+                <div id="controls-area" class="controls-area"></div>
+
+                <div id="fruit-power-panel" class="text-center glass-card rounded-xl p-4 hidden">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider mb-3" style="color: #FF6B6B;">Fruit Power</h2>
+                    <div class="grid grid-cols-3 gap-2 text-xs">
+                        <button id="past-lives-btn" class="superpower-btn">Past Lives</button>
+                        <button id="bomb-squash-btn" class="superpower-btn">Bomb Squash</button>
+                        <button id="exchange-please-btn" class="superpower-btn">Exchange Please</button>
+                    </div>
                 </div>
                 
-                <!-- Main Score Section -->
                 <div class="text-center glass-card-prominent rounded-xl p-5">
                     <h2 class="text-sm font-semibold uppercase tracking-wider mb-2" style="color: #FF6B6B;">Total Score</h2>
                     <p id="total-score" class="text-4xl font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
                 </div>
                 
-                <!-- Score Breakdown Grid -->
                 <div class="grid grid-cols-2 gap-3 text-center">
-                    <div class="glass-card rounded-xl p-3 border border-[#FFE4E1]/30">
-                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Rows</h3>
-                        <p id="rows-total-score" class="text-lg font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
-                    </div>
-                    <div class="glass-card rounded-xl p-3 border border-[#FFE4E1]/30">
-                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Columns</h3>
-                        <p id="cols-total-score" class="text-lg font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
-                    </div>
-                    <div class="glass-card rounded-xl p-3 border border-[#FFD700]/40" style="background: rgba(255, 215, 0, 0.1);">
-                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Diagonal</h3>
-                        <p id="diag-total-score" class="text-lg font-bold transition-all duration-300" style="color: #FFD700;">0</p>
-                    </div>
-                    <div class="glass-card rounded-xl p-3 border border-[#FFD700]/40" style="background: rgba(255, 215, 0, 0.1);">
-                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Bonus Grid</h3>
-                        <p id="bonus-grid-score" class="text-lg font-bold transition-all duration-300" style="color: #FFD700;">0</p>
-                    </div>
+                    <div class="glass-card rounded-xl p-3"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Rows</h3><p id="rows-total-score" class="text-lg font-bold">0</p></div>
+                    <div class="glass-card rounded-xl p-3"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Columns</h3><p id="cols-total-score" class="text-lg font-bold">0</p></div>
+                    <div class="glass-card rounded-xl p-3"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Diagonal</h3><p id="diag-total-score" class="text-lg font-bold" style="color: #FFD700;">0</p></div>
+                    <div class="glass-card rounded-xl p-3"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Bonus Grid</h3><p id="bonus-grid-score" class="text-lg font-bold" style="color: #FFD700;">0</p></div>
                 </div>
                 
-                <!-- Penalty Section -->
-                <div class="glass-card rounded-xl p-3 border border-[#FF6B6B]/30" style="background: rgba(255, 107, 107, 0.05);">
-                    <div class="text-center">
-                        <h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Empty Block Penalty</h3>
-                        <p id="empty-block-penalty" class="text-lg font-bold transition-all duration-300" style="color: #FF6B6B;">0</p>
-                    </div>
+                <div class="glass-card rounded-xl p-3">
+                    <div class="text-center"><h3 class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: #FF6B6B;">Empty Block Penalty</h3><p id="empty-block-penalty" class="text-lg font-bold" style="color: #FF6B6B;">0</p></div>
                 </div>
-
             </div>
         </div>
     </main>
     
-    <!-- Help Modal -->
-    <div id="help-modal" class="modal fixed inset-0 bg-black/60 flex items-center justify-center p-4 opacity-0 invisible z-50 backdrop-blur-sm">
-        <div class="modal-content w-full max-w-lg fruit-modal p-6 transform scale-95 -translate-y-4" style="border: 2px solid #FF6B6B;">
+    <div id="rules-modal" class="modal fixed inset-0 bg-black/60 flex items-center justify-center p-4 opacity-0 invisible z-50 backdrop-blur-sm">
+        <div class="modal-content w-full max-w-lg fruit-modal p-6 transform scale-95 -translate-y-4">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-3xl font-bold" style="font-family: 'Pacifico', cursive; color: #FF6B6B;">How to Play Fruit Flush</h2>
-                <button id="close-help-btn" class="w-10 h-10 rounded-full text-xl transition hover:bg-[#FFE4E1] flex items-center justify-center font-bold">×</button>
+                <h2 class="text-3xl font-bold" style="font-family: 'Pacifico', cursive; color: #FF6B6B;">How to Play</h2>
+                <button id="close-rules-btn" class="w-10 h-10 rounded-full text-xl flex items-center justify-center font-bold">×</button>
             </div>
-            <div class="space-y-4 text-gray-700 text-sm max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
-                <div>
-                    <h3 class="font-bold text-lg mb-2" style="color: #FF6B6B;">The Objective</h3>
-                    <p class="text-gray-800">The goal is to get the highest score possible by strategically placing fruit symbols on the grid to create sequences of 3 or more identical symbols in a line.</p>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-2" style="color: #FF6B6B;">Gameplay Flow</h3>
-                    <ol class="list-decimal list-inside space-y-2 pl-4 text-gray-800">
-                        <li><strong>Start the Game:</strong> First, choose a fruit symbol from the available options to place in the highlighted top-left corner of the grid.</li>
-                        <li><strong>Take Your Turn:</strong> Click the "Roll Dice" button. You will be given two random fruit symbols to place on the board.</li>
-                        <li><strong>Place Your Symbols:</strong> You must place both symbols on the board in empty squares that are adjacent to each other (either horizontally or vertically). <br><em class="text-xs">Tip: If you misclick on your first placement, simply click the same cell again to undo it.</em></li>
-                    </ol>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-2" style="color: #FF6B6B;">Scoring System</h3>
-                    <p class="mb-2 text-gray-800">Points are awarded for any horizontal or vertical line of three or more identical, adjacent symbols:</p>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-800">
-                        <li><strong>3 Symbols</strong> in a line = 3 points</li>
-                        <li><strong>4 Symbols</strong> in a line = 8 points</li>
-                        <li><strong>5 Symbols</strong> in a line = 10 points</li>
-                        <li><strong>6 Symbols</strong> in a line = 14 points</li>
-                        <li><strong>7 Symbols</strong> in a line = 20 points</li>
-                    </ul>
-                    <p class="mt-3 p-3 glass-card rounded-lg border border-[#FFD700]/50 text-gray-800" style="background: rgba(255, 215, 0, 0.1);">
-                        <strong class="text-[#FF6B6B]">Diagonal Bonus:</strong> The score for any sequence on the specially colored diagonal line is <em>doubled!</em> This is key to a high score.
-                    </p>
-                    <div>
-                        <h3 class="font-bold text-lg mb-2" style="color: #FF6B6B;">Bonus Grid</h3>
-                        <p class="mb-2 text-gray-800">Points are awarded for creating grids of the same symbol:</p>
-                        <ul class="list-disc list-inside space-y-1 pl-4 text-gray-800">
-                            <li><strong>2x2 Grid</strong> = 4 points</li>
-                            <li><strong>3x3 Grid</strong> = 9 points</li>
-                            <li><strong>4x4 Grid</strong> = 16 points</li>
-                            <li><strong>5x5 Grid</strong> = 25 points</li>
-                            <li><strong>6x6 Grid</strong> = 36 points</li>
-                            <li><strong>7x7 Grid</strong> = 49 points</li>
-                        </ul>
-                    </div>
-                    <p class="mt-3 p-3 glass-card rounded-lg border border-[#FF6B6B]/50 text-gray-800" style="background: rgba(255, 107, 107, 0.1);">
-                        <strong class="text-[#FF6B6B]">Empty Block Penalty:</strong> Any empty block that is completely surrounded by filled cells and cannot be filled will incur a <strong>-1 point penalty</strong>. These blocks are highlighted with a red background and a 💣 symbol.
-                    </p>
-                    <p class="mt-3 p-3 glass-card rounded-lg border border-[#FF6B6B]/50 text-gray-800" style="background: rgba(255, 107, 107, 0.1);">
-                        <strong class="text-[#FF6B6B]">Penalty:</strong> Be careful! Any row or column where it's <strong>no longer possible</strong> to form a 3-symbol sequence will receive a <strong>-5 point penalty</strong>.
-                    </p>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-2" style="color: #FF6B6B;">End of the Game</h3>
-                    <p class="text-gray-800">The game ends when the entire grid is filled with symbols, or when there are no more valid moves left. Your final score is the sum of all your row scores, column scores, diagonal scores, bonus grid points, and empty block penalties.</p>
-                </div>
+            <div class="space-y-4 text-gray-700 text-sm max-h-[70vh] overflow-y-auto pr-2">
+                 <h3 class="font-bold text-lg" style="color: #FF6B6B;">The Objective</h3>
+                 <p>Get the highest score by placing fruit on the grid to create sequences of 3 or more identical symbols in a line (rows or columns).</p>
+                 <h3 class="font-bold text-lg" style="color: #FF6B6B;">Gameplay</h3>
+                 <ol class="list-decimal list-inside space-y-1"><li>Choose your starting fruit.</li><li>Click "Roll Dice" to get two new fruits.</li><li>Place both fruits in any two empty, adjacent (not diagonal) squares.</li></ol>
+                 <h3 class="font-bold text-lg" style="color: #FF6B6B;">Fruit Power</h3>
+                 <p>Use one of three powerful, single-use abilities per game.</p>
+                 <ul class="list-disc list-inside space-y-1"><li><b>Past Lives:</b> Undoes your last completed move.</li><li><b>Bomb Squash:</b> Click to activate, then click a 💣 to replace it with a random fruit.</li><li><b>Exchange Please:</b> Click to activate, then click any fruit on the grid to swap it.</li></ul>
+                 <h3 class="font-bold text-lg" style="color: #FF6B6B;">Scoring</h3>
+                 <ul class="list-disc list-inside space-y-1"><li><b>3 in a line:</b> 3 points</li><li><b>4 in a line:</b> 8 points</li><li><b>5 in a line:</b> 10 points</li><li><b>6 in a line:</b> 14 points</li><li><b>7 in a line:</b> 20 points</li><li><b>Diagonal Bonus:</b> Scores on the main diagonal are doubled!</li><li><b>Grid Bonus:</b> 2x2, 3x3, etc. grids of the same fruit give bonus points (size * size).</li><li><b>Penalty:</b> A row or column that can no longer form a 3-fruit sequence gets a -5 penalty.</li></ul>
             </div>
         </div>
     </div>
     
-    <!-- Game Over Modal -->
     <div id="game-over-modal" class="modal fixed inset-0 bg-black/60 flex items-center justify-center p-4 opacity-0 invisible z-50 backdrop-blur-sm">
-        <div class="modal-content w-full max-w-md text-center fruit-modal p-8 transform scale-95 -translate-y-4 relative" style="border: 2px solid #FF6B6B;">
-            <button id="close-game-over-btn" class="absolute top-4 right-4 w-10 h-10 rounded-full text-xl transition hover:bg-[#FFE4E1] flex items-center justify-center font-bold">×</button>
+        <div class="modal-content w-full max-w-md text-center fruit-modal p-8 transform scale-95 -translate-y-4 relative">
+            <button id="close-game-over-btn" class="absolute top-4 right-4 w-10 h-10 rounded-full text-xl flex items-center justify-center font-bold">×</button>
             <h2 class="text-4xl font-bold mb-2" style="color: #FF6B6B; font-family: 'Pacifico', cursive;">Game Over!</h2>
             <p id="game-over-reason" class="text-lg mt-2 mb-4" style="color: #FF6B6B;"></p>
-            <p class="mt-4" style="color: #FF6B6B;">Your final score is:</p>
-            <p id="final-score-modal" class="text-7xl font-bold my-4 transition-all duration-300" style="color: #FF6B6B;">0</p>
-            
-            <!-- Score Breakdown in Modal -->
-            <div id="score-breakdown" class="mb-6 p-4 glass-card rounded-xl">
-                <h3 class="text-sm font-semibold mb-3" style="color: #FF6B6B;">Score Breakdown</h3>
-                <div class="grid grid-cols-2 gap-2 text-xs">
-                    <div class="text-left">
-                        <span>Rows:</span>
-                        <span id="final-rows-score" class="float-right font-bold">0</span>
-                    </div>
-                    <div class="text-left">
-                        <span>Columns:</span>
-                        <span id="final-cols-score" class="float-right font-bold">0</span>
-                    </div>
-                    <div class="text-left">
-                        <span>Diagonal:</span>
-                        <span id="final-diag-score" class="float-right font-bold" style="color: #FFD700;">0</span>
-                    </div>
-                    <div class="text-left">
-                        <span>Bonus Grids:</span>
-                        <span id="final-bonus-score" class="float-right font-bold" style="color: #FFD700;">0</span>
-                    </div>
-                    <div class="text-left col-span-2 border-t pt-2 mt-2">
-                        <span>Empty Penalty:</span>
-                        <span id="final-penalty-score" class="float-right font-bold text-red-500">0</span>
-                    </div>
+            <p id="final-score-modal" class="text-7xl font-bold my-4" style="color: #FF6B6B;">0</p>
+            <div id="score-breakdown" class="mb-6 p-4 glass-card rounded-xl text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="text-left">Rows: <span id="final-rows-score" class="float-right font-bold">0</span></div>
+                    <div class="text-left">Columns: <span id="final-cols-score" class="float-right font-bold">0</span></div>
+                    <div class="text-left">Diagonal: <span id="final-diag-score" class="float-right font-bold">0</span></div>
+                    <div class="text-left">Bonus Grids: <span id="final-bonus-score" class="float-right font-bold">0</span></div>
+                    <div class="text-left col-span-2 border-t pt-2 mt-2">Empty Penalty: <span id="final-penalty-score" class="float-right font-bold">0</span></div>
                 </div>
             </div>
-            
-            <p style="color: #FF6B6B;">Your high score: <span id="high-score-modal" class="font-bold" style="color: #FFD700;">0</span></p>
+            <p>High score: <span id="high-score-modal" class="font-bold" style="color: #FFD700;">0</span></p>
             <button id="play-again-btn" class="w-full mt-6 fruit-button text-white font-bold py-3 px-4 rounded-xl text-xl" style="background: var(--accent-gradient);">Play Again</button>
+        </div>
+    </div>
+    
+    <div id="exchange-modal" class="modal fixed inset-0 bg-black/60 flex items-center justify-center p-4 opacity-0 invisible z-50 backdrop-blur-sm">
+        <div class="modal-content w-full max-w-sm text-center fruit-modal p-6 transform scale-95 -translate-y-4">
+            <h2 class="text-xl font-bold mb-4" style="color: #FF6B6B;">Choose a new Fruit</h2>
+            <div id="exchange-options" class="grid grid-cols-3 gap-4"></div>
         </div>
     </div>
 
     <script>
-        // Game State Management System
         class GameState {
-            constructor() {
-                this.states = {
-                    PRE_GAME: 'PRE_GAME',
-                    AWAITING_ROLL: 'AWAITING_ROLL',
-                    ANIMATING_ROLL: 'ANIMATING_ROLL',
-                    AWAITING_PLACEMENT: 'AWAITING_PLACEMENT',
-                    PROCESSING_TURN: 'PROCESSING_TURN',
-                    GAME_OVER: 'GAME_OVER'
-                };
-                this.currentState = this.states.PRE_GAME;
-                this.validTransitions = {
-                    [this.states.PRE_GAME]: [this.states.AWAITING_ROLL],
-                    [this.states.AWAITING_ROLL]: [this.states.ANIMATING_ROLL, this.states.PRE_GAME],
-                    [this.states.ANIMATING_ROLL]: [this.states.AWAITING_PLACEMENT],
-                    [this.states.AWAITING_PLACEMENT]: [this.states.PROCESSING_TURN, this.states.AWAITING_ROLL],
-                    [this.states.PROCESSING_TURN]: [this.states.AWAITING_ROLL, this.states.GAME_OVER],
-                    [this.states.GAME_OVER]: [this.states.PRE_GAME]
-                };
-            }
-
-            setState(newState) {
-                if (!this.validTransitions[this.currentState]?.includes(newState)) {
-                    console.warn(`Invalid state transition from ${this.currentState} to ${newState}`);
-                    return false;
-                }
-                this.currentState = newState;
-                return true;
-            }
-
-            is(state) {
-                return this.currentState === state;
-            }
-
-            get current() {
-                return this.currentState;
-            }
-        }
-
-        // Enhanced Caching System
-        class CacheManager {
-            constructor(maxSize = 1000) {
-                this.cache = new Map();
-                this.maxSize = maxSize;
-                this.accessCount = new Map();
-            }
-
-            set(key, value) {
-                if (this.cache.size >= this.maxSize) {
-                    this.evictLeastUsed();
-                }
-                this.cache.set(key, value);
-                this.accessCount.set(key, 1);
-            }
-
-            get(key) {
-                if (this.cache.has(key)) {
-                    this.accessCount.set(key, (this.accessCount.get(key) || 0) + 1);
-                    return this.cache.get(key);
-                }
-                return undefined;
-            }
-
-            evictLeastUsed() {
-                let leastUsedKey = null;
-                let minAccess = Infinity;
-                
-                for (const [key, count] of this.accessCount) {
-                    if (count < minAccess) {
-                        minAccess = count;
-                        leastUsedKey = key;
-                    }
-                }
-                
-                if (leastUsedKey) {
-                    this.cache.delete(leastUsedKey);
-                    this.accessCount.delete(leastUsedKey);
-                }
-            }
-
-            clear() {
-                this.cache.clear();
-                this.accessCount.clear();
-            }
-
-            size() {
-                return this.cache.size;
-            }
+            constructor() { this.states = { PRE_GAME: 'PRE_GAME', AWAITING_ROLL: 'AWAITING_ROLL', ANIMATING_ROLL: 'ANIMATING_ROLL', AWAITING_PLACEMENT: 'AWAITING_PLACEMENT', SUPERPOWER_ACTIVE: 'SUPERPOWER_ACTIVE', PROCESSING_TURN: 'PROCESSING_TURN', GAME_OVER: 'GAME_OVER' }; this.currentState = this.states.PRE_GAME; this.validTransitions = { [this.states.PRE_GAME]: [this.states.AWAITING_ROLL], [this.states.AWAITING_ROLL]: [this.states.ANIMATING_ROLL, this.states.PRE_GAME, this.states.SUPERPOWER_ACTIVE], [this.states.ANIMATING_ROLL]: [this.states.AWAITING_PLACEMENT], [this.states.AWAITING_PLACEMENT]: [this.states.PROCESSING_TURN, this.states.AWAITING_ROLL, this.states.SUPERPOWER_ACTIVE], [this.states.SUPERPOWER_ACTIVE]: [this.states.AWAITING_ROLL, this.states.AWAITING_PLACEMENT, this.states.PROCESSING_TURN], [this.states.PROCESSING_TURN]: [this.states.AWAITING_ROLL, this.states.GAME_OVER], [this.states.GAME_OVER]: [this.states.PRE_GAME] }; }
+            setState(newState) { if (!this.validTransitions[this.currentState]?.includes(newState)) { console.warn(`Invalid state transition from ${this.currentState} to ${newState}`); return false; } this.currentState = newState; return true; }
+            is(state) { return this.currentState === state; }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Constants
-            const FRUIT_SYMBOLS = {
-                'Strawberry': '🍓',
-                'Lemon': '🍋',
-                'Kiwi': '🥝',
-                'Cherry': '🍒',
-                'Watermelon': '🍉',
-                'Mango': '🥭'
-            };
+            const FRUIT_SYMBOLS = { 'Strawberry': '🍓', 'Lemon': '🍋', 'Kiwi': '🥝', 'Cherry': '🍒', 'Watermelon': '🍉', 'Mango': '🥭' };
             const SYMBOLS = Object.values(FRUIT_SYMBOLS);
-            const SYMBOL_COLORS = {
-                '🍓': 'text-[#FF2D55]',
-                '🍋': 'text-[#FFCC00]',
-                '🥝': 'text-[#5AC8FA]',
-                '🍒': 'text-[#FF3B30]',
-                '🍉': 'text-[#88D8C0]',
-                '🥭': 'text-[#FF9500]'
-            };
+            const SYMBOL_COLORS = { '🍓': 'text-[#FF2D55]', '🍋': 'text-[#FFCC00]', '🥝': 'text-[#5AC8FA]', '🍒': 'text-[#FF3B30]', '🍉': 'text-[#88D8C0]', '🥭': 'text-[#FF9500]' };
             const SCORING_RULES = { 7: 20, 6: 14, 5: 10, 4: 8, 3: 3 };
-            const GRID_SIZE = 7;
-            const MAX_TURNS = 24;
-            const DIAGONAL_MULTIPLIER = 2;
-            const LINE_DEATH_PENALTY = -5;
-            const STUCK_BLOCK_PENALTY = -1;
-            const MIN_SEQUENCE_LENGTH = 3;
-            const MAX_SEQUENCE_LENGTH = 7;
-            const CONFETTI_COUNT = 60;
-            const CONFETTI_DURATION = 3000;
-            const DICE_ANIMATION_DURATION = 600;
-            const SCORE_FLASH_DURATION = 600;
-
-            // Game state and managers
+            const GRID_SIZE = 7, MAX_TURNS = 24, DIAGONAL_MULTIPLIER = 2, LINE_DEATH_PENALTY = -5, STUCK_BLOCK_PENALTY = -1, MIN_SEQUENCE_LENGTH = 3;
             let gameStateManager, gridData, currentRoll, firstPlacementCell, turnCount, highScore, stuckBlocks;
-            let cacheManager = new CacheManager(500);
-            let scoreCalculatorCache = new CacheManager(300);
-            let confettiPool = [];
+            let lastGameState, hasSuperpowerBeenUsed, activeSuperpower, cellToExchange;
             let gridCells = [];
-            let statistics = {
-                gamesPlayed: 0,
-                totalScore: 0,
-                bestGame: 0
-            };
-
-            // DOM elements with enhanced caching (removed statistics elements)
+            
             const DOMElements = (() => {
                 const elements = {};
-                const elementIds = [
-                    'game-board', 'controls-area', 'row-scores-display', 'col-scores-display',
-                    'total-score', 'high-score', 'rows-total-score', 'cols-total-score',
-                    'diag-total-score', 'bonus-grid-score', 'empty-block-penalty', 'turn-counter',
-                    'help-btn', 'help-modal', 'close-help-btn', 'game-over-modal', 
-                    'close-game-over-btn', 'final-score-modal', 'high-score-modal', 'play-again-btn',
-                    'score-breakdown', 'final-rows-score', 'final-cols-score', 'final-diag-score', 
-                    'final-bonus-score', 'final-penalty-score'
-                ];
-                
-                elementIds.forEach(id => {
-                    elements[id] = document.getElementById(id);
-                });
-                
+                const elementIds = [ 'game-board', 'controls-area', 'row-scores-display', 'col-scores-display', 'total-score', 'high-score', 'rows-total-score', 'cols-total-score', 'diag-total-score', 'bonus-grid-score', 'empty-block-penalty', 'turn-counter', 'rules-btn', 'rules-modal', 'close-rules-btn', 'game-over-modal', 'game-over-reason', 'close-game-over-btn', 'final-score-modal', 'high-score-modal', 'play-again-btn', 'score-breakdown', 'final-rows-score', 'final-cols-score', 'final-diag-score', 'final-bonus-score', 'final-penalty-score', 'fruit-power-panel', 'past-lives-btn', 'bomb-squash-btn', 'exchange-please-btn', 'exchange-modal', 'exchange-options' ];
+                elementIds.forEach(id => { elements[id] = document.getElementById(id); });
                 return elements;
             })();
 
-            // Enhanced Audio System with better fallbacks
             const audioSystem = {
-                unlocked: false,
-                context: null,
-                sounds: new Map(),
-                fallbackSounds: new Map(),
-                
-                init() {
-                    this.createAudioContext();
-                    this.createSounds();
-                    this.createFallbackSounds();
-                },
-                
-                createAudioContext() {
-                    try {
-                        this.context = new (window.AudioContext || window.webkitAudioContext)();
-                    } catch (e) {
-                        console.warn('Web Audio API not supported, using fallback');
-                    }
-                },
-                
-                createSounds() {
-                    if (!this.context) return;
-                    
-                    this.sounds.set('place', () => this.playTone(440, 0.1, 0.1));
-                    this.sounds.set('roll', () => this.playTone(220, 0.2, 0.2));
-                    this.sounds.set('hover', () => this.playTone(660, 0.05, 0.1));
-                    this.sounds.set('combo-3', () => this.playSequence([523, 659], 0.15));
-                    this.sounds.set('combo-4', () => this.playSequence([523, 659, 784], 0.2));
-                    this.sounds.set('combo-5', () => this.playSequence([523, 659, 784, 880], 0.25));
-                    this.sounds.set('combo-6', () => this.playSequence([523, 659, 784, 880, 1047], 0.3));
-                    this.sounds.set('combo-7', () => this.playSequence([523, 659, 784, 880, 1047, 1319], 0.35));
-                    this.sounds.set('invalid', () => this.playTone(150, 0.3, 0.2));
-                },
-                
-                createFallbackSounds() {
-                    // Create simple beep sounds as fallback
-                    const createBeep = (freq, duration) => {
-                        return () => {
-                            if (this.unlocked) {
-                                // Simple fallback using oscillator without full Web Audio API
-                                try {
-                                    const oscillator = new OscillatorNode(this.context || new AudioContext());
-                                    oscillator.frequency.setValueAtTime(freq, 0);
-                                    oscillator.connect(this.context?.destination || oscillator.context.destination);
-                                    oscillator.start();
-                                    oscillator.stop(this.context?.currentTime + duration || 0.1);
-                                } catch (e) {
-                                    // Silent fallback
-                                }
-                            }
-                        };
-                    };
-                    
-                    this.fallbackSounds.set('place', createBeep(440, 0.1));
-                    this.fallbackSounds.set('roll', createBeep(220, 0.2));
-                    this.fallbackSounds.set('hover', createBeep(660, 0.05));
-                },
-                
-                playTone(frequency, volume, duration) {
-                    if (!this.unlocked || !this.context) return;
-                    try {
-                        const oscillator = this.context.createOscillator();
-                        const gainNode = this.context.createGain();
-                        
-                        oscillator.connect(gainNode);
-                        gainNode.connect(this.context.destination);
-                        
-                        oscillator.frequency.setValueAtTime(frequency, this.context.currentTime);
-                        gainNode.gain.setValueAtTime(0, this.context.currentTime);
-                        gainNode.gain.linearRampToValueAtTime(volume * 0.1, this.context.currentTime + 0.01);
-                        gainNode.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + duration);
-                        
-                        oscillator.start(this.context.currentTime);
-                        oscillator.stop(this.context.currentTime + duration);
-                    } catch (e) {
-                        this.playFallback(arguments[0]);
-                    }
-                },
-                
-                playSequence(frequencies, baseDuration) {
-                    frequencies.forEach((freq, index) => {
-                        setTimeout(() => {
-                            this.playTone(freq, 0.1, baseDuration / frequencies.length);
-                        }, index * (baseDuration * 1000 / frequencies.length));
-                    });
-                },
-                
-                playFallback(identifier) {
-                    const fallback = this.fallbackSounds.get(identifier);
-                    if (fallback) fallback();
-                },
-                
-                unlock() {
-                    if (this.unlocked) return;
-                    const audioUnlocker = document.getElementById('audio-unlocker');
-                    if (audioUnlocker) {
-                        audioUnlocker.play().then(() => {
-                            this.unlocked = true;
-                        }).catch(() => {
-                            this.unlocked = true; // Allow visual feedback even without audio
-                        });
-                    }
-                },
-                
-                play(soundName) {
-                    const sound = this.sounds.get(soundName);
-                    if (sound) {
-                        sound();
-                    } else {
-                        this.playFallback(soundName);
-                    }
-                }
+                unlocked: false, context: null, sounds: new Map(),
+                init() { this.createAudioContext(); this.createSounds(); },
+                createAudioContext() { try { this.context = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} },
+                createSounds() { if (!this.context) return; const s = { 'place': [440,.1,.1], 'roll': [220,.2,.2], 'hover': [660,.05,.1], 'invalid': [150,.3,.2], 'power-activate': [880,.15,.2], 'power-use': [1047,.2,.3], 'combo-3': [[523,659],.15], 'combo-4': [[523,659,784],.2], 'combo-5': [[523,659,784,880],.25] }; for (const k in s) { if (Array.isArray(s[k][0])) this.sounds.set(k, ()=>this.playSequence(...s[k])); else this.sounds.set(k, ()=>this.playTone(...s[k])); } },
+                playTone(freq, vol, dur) { if (!this.unlocked || !this.context) return; try { const o = this.context.createOscillator(), g = this.context.createGain(); o.connect(g); g.connect(this.context.destination); o.frequency.setValueAtTime(freq, this.context.currentTime); g.gain.setValueAtTime(0, this.context.currentTime); g.gain.linearRampToValueAtTime(vol*.1, this.context.currentTime+.01); g.gain.exponentialRampToValueAtTime(.001, this.context.currentTime+dur); o.start(); o.stop(this.context.currentTime+dur); } catch (e) {} },
+                playSequence(freqs, dur) { freqs.forEach((f, i) => setTimeout(()=>this.playTone(f,.1,dur/freqs.length), i*(dur*1000/freqs.length))); },
+                unlock() { if (this.unlocked) return; document.getElementById('audio-unlocker').play().finally(() => { this.unlocked = true; }); },
+                play(soundName) { this.sounds.get(soundName)?.(); }
             };
 
-            // Enhanced Confetti System with better performance
-            const confettiSystem = {
-                pool: [],
-                colors: ['#FF6B6B', '#FFD700', '#5AC8FA', '#FF9500', '#FF2D55', '#88D8C0', '#AF52DE'],
-                particles: [],
-                
-                init() {
-                    // Pre-create confetti elements for better performance
-                    for (let i = 0; i < CONFETTI_COUNT; i++) {
-                        const particle = document.createElement('div');
-                        particle.className = 'fruit-confetti confetti-particle';
-                        particle.style.display = 'none';
-                        particle.style.zIndex = '100';
-                        document.body.appendChild(particle);
-                        this.pool.push(particle);
-                    }
-                },
-                
-                trigger(intensity = 1) {
-                    const particleCount = Math.min(CONFETTI_COUNT, CONFETTI_COUNT * intensity);
-                    
-                    for (let i = 0; i < particleCount; i++) {
-                        if (i >= this.pool.length) break;
-                        
-                        const particle = this.pool[i];
-                        const color = this.colors[Math.floor(Math.random() * this.colors.length)];
-                        const delay = Math.random() * 0.8;
-                        const duration = 2.5 + Math.random() * 1.5;
-                        const startX = Math.random() * 100;
-                        
-                        particle.style.left = startX + 'vw';
-                        particle.style.top = '-20px';
-                        particle.style.backgroundColor = color;
-                        particle.style.width = (6 + Math.random() * 8) + 'px';
-                        particle.style.height = particle.style.width;
-                        particle.style.setProperty('--delay', delay + 's');
-                        particle.style.setProperty('--duration', duration + 's');
-                        particle.style.display = 'block';
-                        
-                        // Reset and trigger animation
-                        particle.style.animation = 'none';
-                        particle.offsetHeight; // Force reflow
-                        particle.style.animation = null;
-                        
-                        // Hide particle after animation
-                        setTimeout(() => {
-                            particle.style.display = 'none';
-                        }, (duration + delay) * 1000 + 100);
-                    }
-                },
-                
-                cleanup() {
-                    this.pool.forEach(particle => {
-                        particle.style.display = 'none';
-                        particle.style.animation = 'none';
-                    });
-                }
-            };
-
-            // Enhanced Particle Effects for Placements
-            const particleEffects = {
-                createPlacementParticles(x, y) {
-                    const particleCount = 8;
-                    for (let i = 0; i < particleCount; i++) {
-                        const particle = document.createElement('div');
-                        particle.className = 'placement-particles';
-                        
-                        const angle = (i / particleCount) * Math.PI * 2;
-                        const distance = 30 + Math.random() * 20;
-                        const dx = Math.cos(angle) * distance;
-                        const dy = Math.sin(angle) * distance;
-                        
-                        particle.style.left = x + 'px';
-                        particle.style.top = y + 'px';
-                        particle.style.setProperty('--dx', dx + 'px');
-                        particle.style.setProperty('--dy', dy + 'px');
-                        
-                        document.body.appendChild(particle);
-                        
-                        setTimeout(() => {
-                            particle.remove();
-                        }, 800);
-                    }
-                }
-            };
-
-            // Enhanced Score Calculator with better caching and optimizations
             const scoreCalculator = {
-                clearCache() {
-                    scoreCalculatorCache.clear();
-                },
-                
-                getCachedLineScore(lineKey) {
-                    return scoreCalculatorCache.get(lineKey);
-                },
-                
-                setCachedLineScore(lineKey, score) {
-                    scoreCalculatorCache.set(lineKey, score);
-                },
-                
-                calculateLineScore(line) {
-                    const lineKey = line.join(',');
-                    const cached = this.getCachedLineScore(lineKey);
-                    if (cached !== undefined) return cached;
-                    
-                    const result = this.computeLineScore(line);
-                    this.setCachedLineScore(lineKey, result);
-                    return result;
-                },
-                
-                computeLineScore(line) {
-                    let score = 0;
-                    let foundSequence = false;
-                    let tempLine = [...line];
-                    
-                    // Check for sequences from longest to shortest for maximum scoring
-                    for (let len = MAX_SEQUENCE_LENGTH; len >= MIN_SEQUENCE_LENGTH; len--) {
-                        for (let i = 0; i <= tempLine.length - len; i++) {
-                            const slice = tempLine.slice(i, i + len);
-                            if (slice[0] !== null && slice.every(s => s && s === slice[0])) {
-                                score += SCORING_RULES[len];
-                                foundSequence = true;
-                                // Mark as processed to avoid double counting
-                                for (let j = 0; j < len; j++) {
-                                    tempLine[i + j] = null;
-                                }
-                            }
+                calculateLineScore(line, type, lineIndex) {
+                    let score = 0, found = false, temp = [...line];
+                    for (let len = GRID_SIZE; len >= MIN_SEQUENCE_LENGTH; len--) {
+                        for (let i = 0; i <= temp.length - len; i++) {
+                            const slice = temp.slice(i, i + len);
+                            if (slice[0] && slice.every(s => s === slice[0])) { score += SCORING_RULES[len]; found = true; temp.fill(null, i, i + len); }
                         }
                     }
-                    
-                    if (foundSequence) {
-                        return { score: score, hasSequence: true };
-                    } else if (this.isLineDead(line)) {
-                        return { score: LINE_DEATH_PENALTY, isDead: true };
-                    } else {
-                        return { score: 0 };
-                    }
+                    if (found) return { score };
+                    if (this.isLineDead(line, type, lineIndex)) return { score: LINE_DEATH_PENALTY };
+                    return { score: 0 };
                 },
-                
-                isLineDead(line) {
-                    // Check if it's impossible to form a 3-symbol sequence
-                    const filledPositions = line.map((cell, index) => cell ? index : -1).filter(i => i !== -1);
-                    const symbols = new Set(line.filter(cell => cell !== null));
-                    
-                    // If we have multiple different symbols and limited space, check feasibility
-                    if (symbols.size > 1) {
-                        for (let i = 0; i <= line.length - MIN_SEQUENCE_LENGTH; i++) {
-                            const window = line.slice(i, i + MIN_SEQUENCE_LENGTH);
-                            const symbolsInWindow = window.filter(s => s !== null);
-                            const uniqueSymbols = new Set(symbolsInWindow);
-                            
-                            // If window has room and not too many different symbols
-                            if (symbolsInWindow.length < MIN_SEQUENCE_LENGTH && uniqueSymbols.size <= 1) {
-                                return false;
-                            }
+                isLineDead(line, type, lineIndex) {
+                    for (let i = 0; i <= line.length - MIN_SEQUENCE_LENGTH; i++) {
+                        const window = line.slice(i, i + MIN_SEQUENCE_LENGTH);
+                        let winnable = true;
+                        for (let j = 0; j < MIN_SEQUENCE_LENGTH; j++) {
+                            let r, c;
+                            if (type === 'row') { r = lineIndex; c = i + j; } 
+                            else if (type === 'col') { r = i + j; c = lineIndex; } 
+                            else { r = i + j; c = GRID_SIZE - 1 - (i + j); }
+                            if (stuckBlocks.has(`${r},${c}`)) { winnable = false; break; }
                         }
-                        return true;
+                        if (!winnable) continue;
+                        const uniqueFruits = new Set(window.filter(cell => cell));
+                        if (uniqueFruits.size > 1) winnable = false;
+                        if (winnable) return false;
                     }
-                    return false;
+                    return true;
                 },
-                
-                // Optimized bonus grid detection with memoization
                 calculateBonusGrids(gridData) {
-                    const gridKey = gridData.map(row => row.join(',')).join(';');
-                    const cached = cacheManager.get('bonus:' + gridKey);
-                    if (cached !== undefined) return cached;
-                    
-                    let bonusPoints = 0;
-                    const processed = new Set();
-                    
-                    // Check from largest to smallest to prioritize larger grids
-                    for (let size = Math.min(MAX_SEQUENCE_LENGTH, GRID_SIZE); size >= 2; size--) {
-                        for (let r = 0; r <= GRID_SIZE - size; r++) {
-                            for (let c = 0; c <= GRID_SIZE - size; c++) {
-                                const key = `${r},${c},${size}`;
-                                if (processed.has(key)) continue;
-                                
-                                const symbol = gridData[r][c];
-                                if (!symbol) continue;
-                                
-                                // Check if it's a valid grid
-                                let isGrid = true;
-                                for (let i = r; i < r + size && isGrid; i++) {
-                                    for (let j = c; j < c + size && isGrid; j++) {
-                                        if (gridData[i][j] !== symbol) {
-                                            isGrid = false;
-                                        }
-                                    }
-                                }
-                                
-                                if (isGrid) {
-                                    bonusPoints += size * size;
-                                    // Mark overlapping smaller grids as processed to avoid double counting
-                                    for (let smallerSize = 2; smallerSize < size; smallerSize++) {
-                                        for (let sr = r; sr <= r + size - smallerSize; sr++) {
-                                            for (let sc = c; sc <= c + size - smallerSize; sc++) {
-                                                processed.add(`${sr},${sc},${smallerSize}`);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    let points = 0;
+                    for (let size=GRID_SIZE; size>=2; size--) for (let r=0; r<=GRID_SIZE-size; r++) for (let c=0; c<=GRID_SIZE-size; c++) {
+                        const s = gridData[r][c]; if (!s) continue; let isGrid = true;
+                        for (let i=r; i<r+size && isGrid; i++) for (let j=c; j<c+size && isGrid; j++) if(gridData[i][j] !== s) isGrid = false;
+                        if(isGrid) points += size*size;
                     }
-                    
-                    cacheManager.set('bonus:' + gridKey, bonusPoints);
-                    return bonusPoints;
+                    return points;
                 }
             };
-
-            // Statistics Manager (simplified since display was removed)
-            const statisticsManager = {
-                load() {
-                    try {
-                        const saved = localStorage.getItem('fruitFlushStats');
-                        if (saved) {
-                            statistics = { ...statistics, ...JSON.parse(saved) };
-                        }
-                    } catch (e) {
-                        console.warn('Failed to load statistics');
-                    }
-                },
-                
-                save() {
-                    try {
-                        localStorage.setItem('fruitFlushStats', JSON.stringify(statistics));
-                    } catch (e) {
-                        console.warn('Failed to save statistics');
-                    }
-                },
-                
-                recordGame(score) {
-                    statistics.gamesPlayed++;
-                    statistics.totalScore += score;
-                    statistics.bestGame = Math.max(statistics.bestGame, score);
-                    this.save();
-                }
-            };
-
-            // Enhanced Grid Management
+            
             const gridManager = {
-                createCellElement(r, c) {
-                    const cell = document.createElement('div');
-                    cell.dataset.row = r;
-                    cell.dataset.col = c;
-                    cell.className = this.getCellClasses(r, c);
-                    return cell;
-                },
-                
-                getCellClasses(r, c) {
-                    let classes = 'fruit-cell bg-[#FFF0F0] fruit-shadow';
-                    
-                    if (r + c === GRID_SIZE - 1) classes += ' diagonal-cell';
-                    if (r === 0 && c === 0 && gameStateManager.is('PRE_GAME')) classes += ' border-2 border-[#FF6B6B]';
-                    if (stuckBlocks.has(`${r},${c}`)) classes += ' stuck-cell';
-                    
-                    return classes;
-                },
-                
-                updateCell(cell, r, c) {
-                    const symbol = gridData[r][c];
-                    cell.className = this.getCellClasses(r, c);
-                    
-                    if (symbol) {
-                        cell.textContent = symbol;
-                        cell.classList.add(SYMBOL_COLORS[symbol], 'pop-in');
-                    } else if (stuckBlocks.has(`${r},${c}`)) {
-                        cell.textContent = '💣';
-                    } else {
-                        cell.textContent = '';
-                    }
-                },
-                
-                addCellEventListeners(cell) {
-                    cell.addEventListener('click', handleCellClick);
-                    cell.addEventListener('mouseenter', () => {
-                        if (gameStateManager.is('AWAITING_PLACEMENT')) {
-                            audioSystem.play('hover');
-                        }
-                    });
-                }
+                createCellElement(r, c) { const cell = document.createElement('div'); cell.dataset.row = r; cell.dataset.col = c; cell.className = this.getCellClasses(r, c); return cell; },
+                getCellClasses(r, c) { let classes = 'fruit-cell bg-[#FFF0F0]'; if (r + c === GRID_SIZE - 1) classes += ' diagonal-cell'; if (stuckBlocks.has(`${r},${c}`)) classes += ' stuck-cell'; return classes; },
+                updateCell(cell, r, c) { const symbol = gridData[r][c]; cell.className = this.getCellClasses(r, c); if (symbol) { cell.textContent = symbol; cell.classList.add(SYMBOL_COLORS[symbol], 'pop-in'); } else if (stuckBlocks.has(`${r},${c}`)) { cell.textContent = '💣'; } else { cell.textContent = ''; } },
+                addCellEventListeners(cell) { cell.addEventListener('click', handleCellClick); cell.addEventListener('mouseenter', () => { if (gameStateManager.is('AWAITING_PLACEMENT') || activeSuperpower) audioSystem.play('hover'); }); }
             };
 
-            // Game logic functions with enhanced state management
             function initGame() {
                 gameStateManager = new GameState();
                 gridData = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
-                currentRoll = [];
-                firstPlacementCell = null;
-                turnCount = 0;
-                stuckBlocks = new Set();
+                currentRoll = []; firstPlacementCell = null; turnCount = 0; stuckBlocks = new Set();
                 highScore = parseInt(localStorage.getItem('fruitFlushHighScore')) || 0;
-                
-                // Clear caches
-                cacheManager.clear();
-                scoreCalculator.clearCache();
-                
-                // Initialize systems
+                hasSuperpowerBeenUsed = false; activeSuperpower = null; lastGameState = null; cellToExchange = null;
                 audioSystem.init();
-                confettiSystem.init();
-                statisticsManager.load();
-                
                 DOMElements['high-score'].textContent = highScore;
-                DOMElements['game-over-modal'].classList.remove('is-open');
-
-                // Reset penalty display explicitly
+                ['game-over-modal', 'exchange-modal', 'rules-modal'].forEach(id => DOMElements[id].classList.remove('is-open'));
+                DOMElements['fruit-power-panel'].classList.add('hidden');
                 DOMElements['empty-block-penalty'].textContent = '0';
-                
-                renderGrid();
-                renderScorePlaceholders();
-                renderControls();
-                updateScoreDisplays(0, 0, 0, 0, 0);
+                renderGrid(); renderScorePlaceholders(); renderControls(); updateAllScores();
                 DOMElements['turn-counter'].textContent = `0/${MAX_TURNS}`;
             }
 
             function renderGrid() {
                 const fragment = document.createDocumentFragment();
-                DOMElements['game-board'].innerHTML = '';
-                gridCells = [];
-                
+                DOMElements['game-board'].innerHTML = ''; gridCells = [];
                 for (let r = 0; r < GRID_SIZE; r++) {
                     const row = [];
                     for (let c = 0; c < GRID_SIZE; c++) {
                         const cell = gridManager.createCellElement(r, c);
                         gridManager.updateCell(cell, r, c);
                         gridManager.addCellEventListeners(cell);
-                        fragment.appendChild(cell);
-                        row.push(cell);
+                        fragment.appendChild(cell); row.push(cell);
                     }
                     gridCells.push(row);
                 }
-                
                 DOMElements['game-board'].appendChild(fragment);
             }
 
-            function updateGridCell(r, c) {
-                if (gridCells[r] && gridCells[r][c]) {
-                    gridManager.updateCell(gridCells[r][c], r, c);
-                }
-            }
+            function updateFullGrid() { for (let r = 0; r < GRID_SIZE; r++) for (let c = 0; c < GRID_SIZE; c++) updateGridCell(r, c); }
+            function updateGridCell(r, c) { if (gridCells[r]?.[c]) gridManager.updateCell(gridCells[r][c], r, c); }
 
             function renderScorePlaceholders() {
-                const rowFragment = document.createDocumentFragment();
-                const colFragment = document.createDocumentFragment();
-                
-                DOMElements['row-scores-display'].innerHTML = '';
-                DOMElements['col-scores-display'].innerHTML = '';
-                
+                DOMElements['row-scores-display'].innerHTML = ''; DOMElements['col-scores-display'].innerHTML = '';
                 for (let i = 0; i < GRID_SIZE; i++) {
-                    const rowScore = document.createElement('div');
-                    rowScore.id = `row-score-${i}`;
-                    rowScore.className = 'fruit-cell bg-[#FFF0F0] fruit-score';
-                    rowScore.textContent = '0';
-                    rowFragment.appendChild(rowScore);
-                    
-                    const colScore = document.createElement('div');
-                    colScore.id = `col-score-${i}`;
-                    colScore.className = 'fruit-cell bg-[#FFF0F0] fruit-score';
-                    colScore.textContent = '0';
-                    colFragment.appendChild(colScore);
+                    const rowScore = document.createElement('div'); rowScore.id = `row-score-${i}`; rowScore.className = 'fruit-cell bg-[#FFF0F0] text-gray-400'; rowScore.textContent = '0'; DOMElements['row-scores-display'].appendChild(rowScore);
+                    const colScore = document.createElement('div'); colScore.id = `col-score-${i}`; colScore.className = 'fruit-cell bg-[#FFF0F0] text-gray-400'; colScore.textContent = '0'; DOMElements['col-scores-display'].appendChild(colScore);
                 }
-                
-                DOMElements['row-scores-display'].appendChild(rowFragment);
-                DOMElements['col-scores-display'].appendChild(colFragment);
             }
 
             function renderControls() {
                 DOMElements['controls-area'].innerHTML = '';
-                
-                if (gameStateManager.is('PRE_GAME')) {
-                    renderPreGameControls();
-                } else {
-                    renderGameControls();
+                if (gameStateManager.is('PRE_GAME')) { renderPreGameControls(); } 
+                else { 
+                    renderGameControls(); 
+                    DOMElements['fruit-power-panel'].classList.remove('hidden'); 
+                    setupSuperpowerEventListeners();
+                    updateSuperpowerButtonsUI(); 
                 }
             }
 
             function renderPreGameControls() {
-                const container = document.createElement('div');
-                container.className = 'w-full flex flex-col justify-center';
-                
-                const title = document.createElement('h2');
-                title.className = 'text-sm font-medium text-center mb-4 uppercase tracking-wider stagger-fade-in';
-                title.style.color = '#FF6B6B';
-                title.textContent = 'Choose Your Fruit';
-                container.appendChild(title);
-                
-                const preview = document.createElement('div');
-                preview.className = 'text-center mb-3 text-xs text-gray-600';
-                preview.textContent = 'Will be placed in the top-left corner';
-                container.appendChild(preview);
-                
-                const selector = document.createElement('div');
-                selector.className = 'grid grid-cols-6 gap-2';
-                SYMBOLS.forEach((symbol, index) => {
-                    const btn = document.createElement('button');
-                    btn.className = `fruit-selector-btn aspect-square rounded-xl text-3xl hover:bg-[#FFE4E1] transition-all duration-300 ${SYMBOL_COLORS[symbol]} flex items-center justify-center stagger-fade-in`;
-                    btn.style.animationDelay = `${index * 0.1}s`;
-                    btn.textContent = symbol;
-                    btn.addEventListener('click', () => handleSymbolSelect(symbol));
-                    btn.addEventListener('mouseenter', () => audioSystem.play('hover'));
+                const container = document.createElement('div'); container.className = 'w-full flex flex-col justify-center';
+                container.innerHTML = `<h2 class="text-sm font-medium text-center mb-4 uppercase tracking-wider" style="color: #FF6B6B;">Choose Your Fruit</h2><div class="text-center mb-3 text-xs text-gray-600">Will be placed in the top-left corner</div>`;
+                const selector = document.createElement('div'); selector.className = 'grid grid-cols-6 gap-2';
+                SYMBOLS.forEach((symbol) => {
+                    const btn = document.createElement('button'); btn.className = `fruit-selector-btn aspect-square rounded-xl text-3xl hover:bg-rose-100 ${SYMBOL_COLORS[symbol]} flex items-center justify-center`;
+                    btn.textContent = symbol; btn.onclick = () => handleSymbolSelect(symbol); btn.onmouseenter = () => audioSystem.play('hover');
                     selector.appendChild(btn);
                 });
-                container.appendChild(selector);
-                DOMElements['controls-area'].appendChild(container);
+                container.appendChild(selector); DOMElements['controls-area'].appendChild(container);
             }
 
             function renderGameControls() {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'w-full flex flex-col justify-center';
-                
-                const diceContainer = document.createElement('div');
-                diceContainer.className = 'text-center mb-4';
-                
-                const title = document.createElement('h2');
-                title.className = 'text-sm font-medium uppercase tracking-wider mb-3';
-                title.style.color = '#FF6B6B';
-                title.textContent = 'Your Roll';
-                diceContainer.appendChild(title);
-                
-                const diceFlex = document.createElement('div');
-                diceFlex.className = 'flex justify-center gap-4 mb-4';
-                diceFlex.innerHTML = `
-                    <div id="dice-1" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl transition-all duration-300">?</div>
-                    <div id="dice-2" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl transition-all duration-300">?</div>`;
-                diceContainer.appendChild(diceFlex);
-                
-                const buttonContainer = document.createElement('div');
-                buttonContainer.className = 'flex gap-3';
-                
-                const rollBtn = document.createElement('button');
-                rollBtn.id = 'roll-dice-btn';
-                rollBtn.className = 'flex-1 py-3 px-4 fruit-button text-white font-semibold rounded-2xl text-sm disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300';
-                rollBtn.style.background = 'var(--accent-gradient)';
-                rollBtn.textContent = 'Roll Dice';
-                rollBtn.addEventListener('click', handleRollDice);
-                rollBtn.addEventListener('mouseenter', () => audioSystem.play('hover'));
-                
-                const newGameBtn = document.createElement('button');
-                newGameBtn.id = 'new-game-btn';
-                newGameBtn.className = 'flex-1 py-3 px-4 glass-card text-[#FF6B6B] font-semibold rounded-2xl text-sm transition-all duration-300';
-                newGameBtn.textContent = 'New Game';
-                newGameBtn.addEventListener('click', initGame);
-                newGameBtn.addEventListener('mouseenter', () => audioSystem.play('hover'));
-                
-                buttonContainer.appendChild(rollBtn);
-                buttonContainer.appendChild(newGameBtn);
-                wrapper.appendChild(diceContainer);
-                wrapper.appendChild(buttonContainer);
+                const wrapper = document.createElement('div'); wrapper.className = 'w-full flex flex-col justify-center';
+                wrapper.innerHTML = `<div class="text-center mb-4"><h2 class="text-sm font-medium uppercase tracking-wider mb-3" style="color: #FF6B6B;">Your Roll</h2><div class="flex justify-center gap-4 mb-4"><div id="dice-1" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl">?</div><div id="dice-2" class="w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl">?</div></div></div><div class="flex gap-3"><button id="roll-dice-btn" class="flex-1 py-3 px-4 fruit-button text-white font-semibold rounded-2xl text-sm disabled:opacity-60 disabled:cursor-not-allowed" style="background: var(--accent-gradient);">Roll Dice</button><button id="new-game-btn" class="flex-1 py-3 px-4 glass-card text-[#FF6B6B] font-semibold rounded-2xl text-sm">New Game</button></div>`;
+                wrapper.querySelector('#roll-dice-btn').onclick = handleRollDice;
+                wrapper.querySelector('#new-game-btn').onclick = initGame;
                 DOMElements['controls-area'].appendChild(wrapper);
-                
                 updateControlsState();
             }
 
             function updateControlsState() {
                 if (gameStateManager.is('PRE_GAME')) return;
-                
                 const rollBtn = document.getElementById('roll-dice-btn');
-                if (rollBtn) {
-                    rollBtn.disabled = !gameStateManager.is('AWAITING_ROLL');
-                }
-                
-                const dice1 = document.getElementById('dice-1');
-                const dice2 = document.getElementById('dice-2');
+                if (rollBtn) rollBtn.disabled = !gameStateManager.is('AWAITING_ROLL');
+                const dice1 = document.getElementById('dice-1'), dice2 = document.getElementById('dice-2');
                 if (!dice1 || !dice2) return;
-                
-                if (gameStateManager.is('AWAITING_PLACEMENT')) {
-                    updateDiceDisplay(dice1, dice2);
+                if (gameStateManager.is('AWAITING_PLACEMENT') && currentRoll.length === 2) {
+                    dice1.textContent = currentRoll[0]; dice1.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[0]]}`;
+                    dice2.textContent = currentRoll[1]; dice2.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl ${SYMBOL_COLORS[currentRoll[1]]}`;
                 } else {
-                    resetDiceDisplay(dice1, dice2);
+                    dice1.textContent = '?'; dice1.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl';
+                    dice2.textContent = '?'; dice2.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl';
                 }
             }
 
-            function updateDiceDisplay(dice1, dice2) {
-                dice1.textContent = currentRoll[0];
-                dice1.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl transition-all duration-300 ${SYMBOL_COLORS[currentRoll[0]]}`;
-                dice2.textContent = currentRoll[1];
-                dice2.className = `w-16 h-16 rounded-xl glass-card-prominent shadow-lg flex items-center justify-center text-4xl transition-all duration-300 ${SYMBOL_COLORS[currentRoll[1]]}`;
-            }
-
-            function resetDiceDisplay(dice1, dice2) {
-                dice1.textContent = '?';
-                dice1.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl fruit-text transition-all duration-300';
-                dice2.textContent = '?';
-                dice2.className = 'w-16 h-16 rounded-xl glass-card shadow-lg flex items-center justify-center text-4xl fruit-text transition-all duration-300';
-            }
-
-            function handleSymbolSelect(symbol) {
-                if (!gameStateManager.is('PRE_GAME')) return;
-                
-                audioSystem.unlock();
-                audioSystem.play('place');
-                
-                gridData[0][0] = symbol;
-                gameStateManager.setState('AWAITING_ROLL');
-                
-                updateGridCell(0, 0);
-                renderControls();
-            }
+            function handleSymbolSelect(symbol) { if (!gameStateManager.is('PRE_GAME')) return; audioSystem.unlock(); audioSystem.play('place'); gridData[0][0] = symbol; gameStateManager.setState('AWAITING_ROLL'); updateGridCell(0, 0); renderControls(); }
 
             function handleRollDice() {
-                if (!gameStateManager.is('AWAITING_ROLL')) return;
-                
+                if (!gameStateManager.is('AWAITING_ROLL') || gameStateManager.is('GAME_OVER')) return;
                 gameStateManager.setState('ANIMATING_ROLL');
                 updateControlsState();
                 audioSystem.play('roll');
-                
-                const dice1El = document.getElementById('dice-1');
-                const dice2El = document.getElementById('dice-2');
-                dice1El.classList.add('dice-tumble');
-                dice2El.classList.add('dice-tumble');
-                
+                const d1 = document.getElementById('dice-1'), d2 = document.getElementById('dice-2');
+                d1.classList.add('dice-tumble');
+                d2.classList.add('dice-tumble');
                 setTimeout(() => {
-                    dice1El.classList.remove('dice-tumble');
-                    dice2El.classList.remove('dice-tumble');
-                    currentRoll = [
-                        SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)], 
-                        SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]
-                    ];
+                    d1.classList.remove('dice-tumble');
+                    d2.classList.remove('dice-tumble');
+                    currentRoll = [SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)], SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]];
+                    saveStateForUndo();
                     gameStateManager.setState('AWAITING_PLACEMENT');
                     updateControlsState();
-                }, DICE_ANIMATION_DURATION);
+                }, 600);
             }
 
             function handleCellClick(e) {
-                const cell = e.target.closest('[data-row]');
-                if (!gameStateManager.is('AWAITING_PLACEMENT') || !cell) return;
-                
-                const row = parseInt(cell.dataset.row);
-                const col = parseInt(cell.dataset.col);
-                const rect = cell.getBoundingClientRect();
-                const x = rect.left + rect.width / 2;
-                const y = rect.top + rect.height / 2;
-                
-                if (firstPlacementCell) {
-                    handleSecondPlacement(row, col, cell, x, y);
-                } else {
-                    handleFirstPlacement(row, col, cell, x, y);
-                }
+                const cell = e.target.closest('[data-row]'); if (!cell) return;
+                const r = parseInt(cell.dataset.row), c = parseInt(cell.dataset.col);
+                if (activeSuperpower) { handleSuperpowerCellClick(r, c); return; }
+                if (!gameStateManager.is('AWAITING_PLACEMENT')) return;
+                if (firstPlacementCell) { handleSecondPlacement(r, c, cell); } else { handleFirstPlacement(r, c); }
             }
 
-            function handleFirstPlacement(row, col, cell, x, y) {
-                if (!gridData[row][col]) {
-                    
-                    gridData[row][col] = currentRoll[0];
-                    firstPlacementCell = { r: row, c: col };
-                    
-                    updateGridCell(row, col);
-                    highlightValidMoves(row, col);
-                    audioSystem.play('place');
-                    particleEffects.createPlacementParticles(x, y);
-                }
+            function handleFirstPlacement(r, c) { if (!gridData[r][c]) { gridData[r][c] = currentRoll[0]; firstPlacementCell = { r, c }; updateGridCell(r, c); updateSuperpowerButtonsUI(); } }
+            function handleSecondPlacement(r, c, cell) {
+                const { r: pR, c: pC } = firstPlacementCell;
+                if (pR === r && pC === c) { gridData[r][c] = null; firstPlacementCell = null; updateGridCell(r, c); updateSuperpowerButtonsUI(); return; }
+                if ((Math.abs(pR-r)+Math.abs(pC-c)===1) && !gridData[r][c]) { completeMove(r, c); } 
+                else { cell.classList.add('invalid-move-shake'); setTimeout(() => cell.classList.remove('invalid-move-shake'), 400); audioSystem.play('invalid'); }
             }
 
-            function handleSecondPlacement(row, col, cell, x, y) {
-                const { r, c } = firstPlacementCell;
-                
-                if (r === row && c === col) {
-                    // Undo first placement
-                    gridData[r][c] = null;
-                    firstPlacementCell = null;
-                    clearHighlights();
-                    updateGridCell(r, c);
-                    return;
-                }
-                
-                const isAdjacent = Math.abs(r - row) + Math.abs(c - col) === 1;
-                if (isAdjacent && !gridData[row][col]) {
-                    completeMove(row, col, x, y);
-                } else {
-                    showInvalidMoveAnimation(cell);
-                    audioSystem.play('invalid');
-                }
-            }
-
-            function completeMove(row, col, x, y) {
-                gameStateManager.setState('PROCESSING_TURN');
-                
-                const longestSequenceBefore = findLongestSequence(gridData);
-                gridData[row][col] = currentRoll[1];
-                firstPlacementCell = null;
-                turnCount++;
-                DOMElements['turn-counter'].textContent = `${turnCount}/${MAX_TURNS}`;
-                
-                clearHighlights();
-                updateGridCell(row, col);
-                audioSystem.play('place');
-                particleEffects.createPlacementParticles(x, y);
-                
-                const longestSequenceAfter = findLongestSequence(gridData);
-                if (longestSequenceAfter > longestSequenceBefore && longestSequenceAfter >= MIN_SEQUENCE_LENGTH) {
-                    setTimeout(() => {
-                        audioSystem.play(`combo-${longestSequenceAfter}`);
-                        highlightCompletedSequences();
-                        if (longestSequenceAfter >= 5) {
-                            confettiSystem.trigger(longestSequenceAfter / 7);
-                        }
-                    }, 200);
-                }
-                
-                setTimeout(() => {
-                    processTurnEnd();
-                }, 300);
-            }
-
-            function highlightCompletedSequences() {
-                // Highlight newly formed sequences
-                const sequences = findAllSequences(gridData);
-                sequences.forEach(sequence => {
-                    sequence.forEach(([r, c]) => {
-                        if (gridCells[r] && gridCells[r][c]) {
-                            gridCells[r][c].classList.add('sequence-highlight');
-                            setTimeout(() => {
-                                gridCells[r][c].classList.remove('sequence-highlight');
-                            }, 1000);
-                        }
-                    });
-                });
-            }
-
-            function findAllSequences(board) {
-                const sequences = [];
-                
-                // Check rows
-                for (let r = 0; r < GRID_SIZE; r++) {
-                    const rowSequences = findSequencesInLine(board[r], r, 'row');
-                    sequences.push(...rowSequences);
-                }
-                
-                // Check columns
-                for (let c = 0; c < GRID_SIZE; c++) {
-                    const col = board.map(row => row[c]);
-                    const colSequences = findSequencesInLine(col, c, 'col');
-                    sequences.push(...colSequences);
-                }
-                
-                // Check diagonal
-                const diagonal = Array.from({ length: GRID_SIZE }, (_, i) => board[i][GRID_SIZE - 1 - i]);
-                const diagSequences = findSequencesInLine(diagonal, 0, 'diag');
-                sequences.push(...diagSequences);
-                
-                return sequences;
-            }
-
-            function findSequencesInLine(line, lineIndex, type) {
-                const sequences = [];
-                let currentSequence = [];
-                let currentSymbol = null;
-                
-                line.forEach((symbol, index) => {
-                    if (symbol && symbol === currentSymbol) {
-                        currentSequence.push(getCoordinates(index, lineIndex, type));
-                    } else {
-                        if (currentSequence.length >= MIN_SEQUENCE_LENGTH) {
-                            sequences.push([...currentSequence]);
-                        }
-                        currentSequence = symbol ? [getCoordinates(index, lineIndex, type)] : [];
-                        currentSymbol = symbol;
-                    }
-                });
-                
-                if (currentSequence.length >= MIN_SEQUENCE_LENGTH) {
-                    sequences.push(currentSequence);
-                }
-                
-                return sequences;
-            }
-
-            function getCoordinates(index, lineIndex, type) {
-                switch (type) {
-                    case 'row': return [lineIndex, index];
-                    case 'col': return [index, lineIndex];
-                    case 'diag': return [index, GRID_SIZE - 1 - index];
-                    default: return [0, 0];
-                }
-            }
-
+            function saveStateForUndo() { lastGameState = { gridData: JSON.parse(JSON.stringify(gridData)), turnCount, stuckBlocks: new Set(stuckBlocks), currentRoll: [...currentRoll] }; }
+            function completeMove(r, c) { gameStateManager.setState('PROCESSING_TURN'); gridData[r][c] = currentRoll[1]; firstPlacementCell = null; turnCount++; DOMElements['turn-counter'].textContent = `${turnCount}/${MAX_TURNS}`; updateGridCell(r, c); audioSystem.play('place'); setTimeout(processTurnEnd, 300); }
             function processTurnEnd() {
-                detectStuckBlocks();
-                calculateAllScores();
-                
-                const isGridFull = turnCount >= MAX_TURNS;
-                if (isGridFull) {
-                    endGame("The grid is full!");
-                    return;
-                }
-                
-                const noMovesLeft = !hasValidMoves(gridData);
-                if (noMovesLeft) {
-                    endGame("No more valid moves!");
-                    return;
-                }
-                
-                gameStateManager.setState('AWAITING_ROLL');
-                renderControls();
+                if (gameStateManager.is('GAME_OVER')) return;
+                detectStuckBlocks(); updateAllScores(); 
+                if (turnCount >= MAX_TURNS) { endGame("Grid is full!"); return; } 
+                if (!hasValidMoves()) { endGame("No valid moves!"); return; } 
+                gameStateManager.setState('AWAITING_ROLL'); renderControls(); 
             }
 
             function endGame(reason = "") {
+                if (gameStateManager.is('GAME_OVER')) return;
                 gameStateManager.setState('GAME_OVER');
-                calculateAllScores();
-                
-                const finalScore = parseInt(DOMElements['total-score'].textContent);
-                statisticsManager.recordGame(finalScore);
-                
-                if (finalScore > highScore) {
-                    highScore = finalScore;
-                    localStorage.setItem('fruitFlushHighScore', highScore);
-                    DOMElements['high-score'].textContent = highScore;
-                    confettiSystem.trigger(1.5); // Extra celebration for new high score
-                }
-                
-                // Update game over modal with breakdown
-                document.getElementById('game-over-reason').textContent = reason;
-                DOMElements['final-score-modal'].textContent = finalScore;
+                updateAllScores();
+                const finalScore = calculateTotalScore();
+                if (finalScore > highScore) { highScore = finalScore; localStorage.setItem('fruitFlushHighScore', highScore); }
+                DOMElements['game-over-reason'].textContent = reason; 
+                DOMElements['final-score-modal'].textContent = finalScore; 
                 DOMElements['high-score-modal'].textContent = highScore;
-                
-                // Update score breakdown
                 DOMElements['final-rows-score'].textContent = DOMElements['rows-total-score'].textContent;
                 DOMElements['final-cols-score'].textContent = DOMElements['cols-total-score'].textContent;
                 DOMElements['final-diag-score'].textContent = DOMElements['diag-total-score'].textContent;
                 DOMElements['final-bonus-score'].textContent = DOMElements['bonus-grid-score'].textContent;
                 DOMElements['final-penalty-score'].textContent = DOMElements['empty-block-penalty'].textContent;
+                setTimeout(() => DOMElements['game-over-modal'].classList.add('is-open'), 500);
+            }
+
+            function hasValidMoves() { for (let r=0; r<GRID_SIZE; r++) for (let c=0; c<GRID_SIZE; c++) if (!gridData[r][c]) { const n = [[-1,0],[1,0],[0,-1],[0,1]]; for (const [dr, dc] of n) { const nr=r+dr, nc=c+dc; if (nr>=0&&nr<GRID_SIZE&&nc>=0&&nc<GRID_SIZE&&!gridData[nr][nc]) return true; } } return false; }
+            function detectStuckBlocks() { stuckBlocks.clear(); for (let r=0; r<GRID_SIZE; r++) for (let c=0; c<GRID_SIZE; c++) if (!gridData[r][c]) { const n=[[-1,0],[1,0],[0,-1],[0,1]]; if (n.every(([dr,dc])=>{const nr=r+dr,nc=c+dc; return nr<0||nr>=GRID_SIZE||nc<0||nc>=GRID_SIZE||gridData[nr][nc]})) stuckBlocks.add(`${r},${c}`); } updateFullGrid(); DOMElements['empty-block-penalty'].textContent = -stuckBlocks.size; }
+            
+            function updateAllScores() {
+                const rS = calculateRowScores(), cS = calculateColumnScores(), dS = calculateDiagonalScore(), bS = scoreCalculator.calculateBonusGrids(gridData);
+                updateScoreDisplays(rS.total, cS.total, dS, bS, stuckBlocks.size); updateIndividualScores(rS.individual, cS.individual);
+            }
+            function calculateTotalScore() { return calculateRowScores().total + calculateColumnScores().total + calculateDiagonalScore() + scoreCalculator.calculateBonusGrids(gridData) - stuckBlocks.size; }
+            function calculateRowScores() { let t=0, ind=[]; for (let i=0; i<GRID_SIZE; i++) { const {score:s} = scoreCalculator.calculateLineScore(gridData[i],'row',i); ind.push(s); t+=s; } return {total:t, individual:ind}; }
+            function calculateColumnScores() { let t=0, ind=[]; for (let i=0; i<GRID_SIZE; i++) { const col=gridData.map(row=>row[i]); const {score:s} = scoreCalculator.calculateLineScore(col,'col',i); ind.push(s); t+=s; } return {total:t, individual:ind}; }
+            function calculateDiagonalScore() { const d=Array.from({length:GRID_SIZE},(_,i)=>gridData[i][GRID_SIZE-1-i]); const {score:s} = scoreCalculator.calculateLineScore(d,'diag',0); return s*DIAGONAL_MULTIPLIER; }
+
+            function updateScoreDisplays(r,c,d,b,s) { const t=r+c+d+b-s; animateScoreUpdate(DOMElements['total-score'], t); animateScoreUpdate(DOMElements['rows-total-score'], r); animateScoreUpdate(DOMElements['cols-total-score'], c); animateScoreUpdate(DOMElements['diag-total-score'], d); animateScoreUpdate(DOMElements['bonus-grid-score'], b); }
+            function animateScoreUpdate(el, val) { if (parseInt(el.textContent) !== val) { el.classList.add('score-update'); el.textContent = val; setTimeout(() => el.classList.remove('score-update'), 500); } }
+            function updateIndividualScores(rS, cS) { rS.forEach((s,i)=>updateScoreElement(`row-score-${i}`,s)); cS.forEach((s,i)=>updateScoreElement(`col-score-${i}`,s)); }
+            function updateScoreElement(id, score) { const el=document.getElementById(id); if (el&&parseInt(el.textContent)!==score) { el.textContent=score; el.classList.toggle('text-red-500', score<0); if(score!==0) { el.classList.add('score-flash'); setTimeout(()=>el.classList.remove('score-flash'),600); } } }
+
+            function updateSuperpowerButtonsUI() {
+                const isUsed = hasSuperpowerBeenUsed;
+                const isMidMove = firstPlacementCell !== null;
+                const isPowerActive = activeSuperpower !== null;
+                DOMElements['past-lives-btn'].disabled = isUsed || !lastGameState || isMidMove || isPowerActive;
+                DOMElements['bomb-squash-btn'].disabled = isUsed || stuckBlocks.size === 0 || isMidMove || isPowerActive;
+                DOMElements['exchange-please-btn'].disabled = isUsed || isMidMove || isPowerActive;
                 
-                setTimeout(() => {
-                    DOMElements['game-over-modal'].classList.add('is-open');
-                }, 500);
+                ['past-lives-btn', 'bomb-squash-btn', 'exchange-please-btn'].forEach(id => DOMElements[id].classList.remove('superpower-btn--active'));
+                if (activeSuperpower) { const id = { 'bombSquash': 'bomb-squash-btn', 'exchangePlease': 'exchange-please-btn' }[activeSuperpower]; if(id) DOMElements[id].classList.add('superpower-btn--active'); }
+                document.body.classList.toggle('cursor-target', activeSuperpower === 'bombSquash');
             }
 
-            function hasValidMoves(board) {
-                for (let r = 0; r < GRID_SIZE; r++) {
-                    for (let c = 0; c < GRID_SIZE; c++) {
-                        if (board[r][c] === null) {
-                            // Check if this cell has an adjacent empty cell
-                            const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-                            for (const [dr, dc] of neighbors) {
-                                const nr = r + dr;
-                                const nc = c + dc;
-                                if (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE && board[nr][nc] === null) {
-                                    // Check if both cells have valid neighbors (are connected to the existing structure)
-                                    if (hasValidNeighbor(r, c) || hasValidNeighbor(nr, nc)) {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                return false;
+            function handleSuperpowerCellClick(r, c) {
+                if (activeSuperpower === 'bombSquash' && stuckBlocks.has(`${r},${c}`)) {
+                    stuckBlocks.delete(`${r},${c}`); gridData[r][c] = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+                    consumeSuperpower(); gameStateManager.setState('AWAITING_ROLL'); renderControls();
+                } else if (activeSuperpower === 'exchangePlease' && gridData[r][c]) {
+                    showFruitSelectorForExchange(r, c);
+                } else { audioSystem.play('invalid'); }
+            }
+            
+            function showFruitSelectorForExchange(r, c) {
+                 cellToExchange = {r, c}; DOMElements['exchange-options'].innerHTML = '';
+                 SYMBOLS.filter(s => s !== gridData[r][c]).forEach(symbol => {
+                    const btn = document.createElement('button'); btn.className = 'fruit-selector-btn w-20 h-20 text-4xl rounded-lg hover:bg-rose-100 flex items-center justify-center'; btn.textContent = symbol;
+                    btn.onclick = () => handleFruitExchange(symbol); DOMElements['exchange-options'].appendChild(btn);
+                 });
+                 DOMElements['exchange-modal'].classList.add('is-open');
+            }
+            
+            function handleFruitExchange(newSymbol) {
+                if (!cellToExchange) return;
+                const {r, c} = cellToExchange; gridData[r][c] = newSymbol;
+                DOMElements['exchange-modal'].classList.remove('is-open'); cellToExchange = null;
+                consumeSuperpower(); gameStateManager.setState('AWAITING_ROLL'); renderControls();
             }
 
-            function hasValidNeighbor(row, col) {
-                const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-                return neighbors.some(([dr, dc]) => {
-                    const r = row + dr;
-                    const c = col + dc;
-                    return r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE && gridData[r][c] !== null;
+            function consumeSuperpower() { audioSystem.play('power-use'); hasSuperpowerBeenUsed = true; activeSuperpower = null; updateFullGrid(); updateAllScores(); updateSuperpowerButtonsUI(); }
+
+            function setupSuperpowerEventListeners() {
+                DOMElements['past-lives-btn'].addEventListener('click', () => {
+                    if (DOMElements['past-lives-btn'].disabled) return;
+                    audioSystem.play('power-activate');
+                    gridData = lastGameState.gridData; turnCount = lastGameState.turnCount; stuckBlocks = lastGameState.stuckBlocks; currentRoll = lastGameState.currentRoll; lastGameState = null; 
+                    hasSuperpowerBeenUsed = true; activeSuperpower = null; audioSystem.play('power-use');
+                    DOMElements['turn-counter'].textContent = `${turnCount}/${MAX_TURNS}`;
+                    updateFullGrid(); updateAllScores(); updateSuperpowerButtonsUI();
+                    gameStateManager.setState('AWAITING_PLACEMENT');
+                    updateControlsState();
+                });
+                DOMElements['bomb-squash-btn'].addEventListener('click', () => {
+                    if (DOMElements['bomb-squash-btn'].disabled) return;
+                    activeSuperpower = 'bombSquash';
+                    gameStateManager.setState('SUPERPOWER_ACTIVE'); audioSystem.play('power-activate'); updateSuperpowerButtonsUI();
+                });
+                DOMElements['exchange-please-btn'].addEventListener('click', () => {
+                    if (DOMElements['exchange-please-btn'].disabled) return;
+                    activeSuperpower = 'exchangePlease';
+                    gameStateManager.setState('SUPERPOWER_ACTIVE'); audioSystem.play('power-activate'); updateSuperpowerButtonsUI();
                 });
             }
 
-            function showInvalidMoveAnimation(cell) {
-                cell.classList.add('invalid-move-shake');
-                setTimeout(() => cell.classList.remove('invalid-move-shake'), 400);
-            }
-
-            function findLongestSequence(board) {
-                let maxLen = 0;
-                
-                const checkLine = (line) => {
-                    if (line.length === 0) return 0;
-                    let max = 0, current = 0, lastSymbol = null;
-                    for (const symbol of line) {
-                        if (symbol && symbol === lastSymbol) {
-                            current++;
-                        } else {
-                            max = Math.max(max, current);
-                            current = symbol ? 1 : 0;
-                            lastSymbol = symbol;
-                        }
-                    }
-                    return Math.max(max, current);
-                };
-                
-                // Check rows
-                for (let i = 0; i < GRID_SIZE; i++) {
-                    maxLen = Math.max(maxLen, checkLine(board[i]));
-                }
-                
-                // Check columns
-                for (let i = 0; i < GRID_SIZE; i++) {
-                    maxLen = Math.max(maxLen, checkLine(board.map(row => row[i])));
-                }
-                
-                // Check diagonal
-                maxLen = Math.max(maxLen, checkLine(Array.from({ length: GRID_SIZE }, (_, i) => board[i][GRID_SIZE - 1 - i])));
-                
-                return maxLen;
-            }
-
-            function detectStuckBlocks() {
-                const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-                const newStuckBlocks = new Set(stuckBlocks);
-                const cellsToUpdate = [];
-                
-                for (let r = 0; r < GRID_SIZE; r++) {
-                    for (let c = 0; c < GRID_SIZE; c++) {
-                        const key = `${r},${c}`;
-                        if (gridData[r][c] === null && !stuckBlocks.has(key)) {
-                            const isStuck = neighbors.every(([dr, dc]) => {
-                                const nr = r + dr;
-                                const nc = c + dc;
-                                return nr < 0 || nr >= GRID_SIZE || nc < 0 || nc >= GRID_SIZE || gridData[nr][nc] !== null;
-                            });
-                            if (isStuck) {
-                                newStuckBlocks.add(key);
-                                cellsToUpdate.push([r, c]);
-                            }
-                        }
-                    }
-                }
-                
-                // Update stuckBlocks BEFORE updating the grid cells
-                stuckBlocks = newStuckBlocks;
-
-                // Now update all the cells that became stuck
-                cellsToUpdate.forEach(([r, c]) => {
-                    updateGridCell(r, c);
-                });
-
-                DOMElements['empty-block-penalty'].textContent = -stuckBlocks.size;
-            }
-
-            function calculateAllScores() {
-                const scores = calculateRowScores();
-                const colScores = calculateColumnScores();
-                const diagScore = calculateDiagonalScore();
-                const bonusGridScore = scoreCalculator.calculateBonusGrids(gridData);
-                
-                updateScoreDisplays(scores.total, colScores.total, diagScore, bonusGridScore, stuckBlocks.size);
-                updateIndividualScores(scores.individual, colScores.individual);
-            }
-
-            function calculateRowScores() {
-                let totalScore = 0;
-                const individualScores = [];
-                
-                for (let i = 0; i < GRID_SIZE; i++) {
-                    const { score } = scoreCalculator.calculateLineScore(gridData[i]);
-                    individualScores.push(score);
-                    totalScore += score;
-                }
-                
-                return { total: totalScore, individual: individualScores };
-            }
-
-            function calculateColumnScores() {
-                let totalScore = 0;
-                const individualScores = [];
-                
-                for (let i = 0; i < GRID_SIZE; i++) {
-                    const colLine = gridData.map(row => row[i]);
-                    const { score } = scoreCalculator.calculateLineScore(colLine);
-                    individualScores.push(score);
-                    totalScore += score;
-                }
-                
-                return { total: totalScore, individual: individualScores };
-            }
-
-            function calculateDiagonalScore() {
-                const diagLine = Array.from({ length: GRID_SIZE }, (_, i) => gridData[i][GRID_SIZE - 1 - i]);
-                const { score: diagBaseScore } = scoreCalculator.calculateLineScore(diagLine);
-                return diagBaseScore * DIAGONAL_MULTIPLIER;
-            }
-
-            function updateScoreDisplays(rowsTotal, colsTotal, diagTotal, bonusTotal, stuckCount) {
-                const totalScore = rowsTotal + colsTotal + diagTotal + bonusTotal - stuckCount;
-                
-                animateScoreUpdate(DOMElements['total-score'], totalScore);
-                animateScoreUpdate(DOMElements['rows-total-score'], rowsTotal);
-                animateScoreUpdate(DOMElements['cols-total-score'], colsTotal);
-                animateScoreUpdate(DOMElements['diag-total-score'], diagTotal);
-                animateScoreUpdate(DOMElements['bonus-grid-score'], bonusTotal);
-            }
-
-            function animateScoreUpdate(element, newValue) {
-                if (element.textContent != newValue) {
-                    element.classList.add('score-update');
-                    element.textContent = newValue;
-                    setTimeout(() => {
-                        element.classList.remove('score-update');
-                    }, 500);
-                }
-            }
-
-            function updateIndividualScores(rowScores, colScores) {
-                rowScores.forEach((score, i) => updateScoreElement(`row-score-${i}`, score));
-                colScores.forEach((score, i) => updateScoreElement(`col-score-${i}`, score));
-            }
-
-            function updateScoreElement(id, score) {
-                const el = document.getElementById(id);
-                if (el && el.textContent != score) {
-                    el.textContent = score;
-                    el.classList.toggle('text-[#ff3b30]', score < 0);
-                    el.classList.toggle('fruit-text', score >= 0);
-                    if (score !== 0) {
-                        el.classList.add('score-flash');
-                        setTimeout(() => el.classList.remove('score-flash'), SCORE_FLASH_DURATION);
-                    }
-                }
-            }
-
-            function highlightValidMoves(row, col) {
-                const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-                neighbors.forEach(([dr, dc]) => {
-                    const r = row + dr;
-                    const c = col + dc;
-                    if (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE && !gridData[r][c] && gridCells[r] && gridCells[r][c]) {
-                        gridCells[r][c].classList.add('fruit-highlight');
-                    }
-                });
-            }
-
-            function clearHighlights() {
-                gridCells.forEach(row => {
-                    row.forEach(cell => {
-                        cell.classList.remove('fruit-highlight');
-                    });
-                });
-            }
-
-            // Enhanced Event Listeners with better performance
-            const setupEventListeners = () => {
-                // Modal events
-                DOMElements['help-btn'].addEventListener('click', () => {
-                    DOMElements['help-modal'].classList.add('is-open');
-                    audioSystem.play('hover');
-                });
-                
-                DOMElements['close-help-btn'].addEventListener('click', () => {
-                    DOMElements['help-modal'].classList.remove('is-open');
-                    audioSystem.play('hover');
-                });
-                
-                DOMElements['close-game-over-btn'].addEventListener('click', () => {
-                    DOMElements['game-over-modal'].classList.remove('is-open');
-
-                // Reset penalty display explicitly
-                DOMElements['empty-block-penalty'].textContent = '0';
-                    audioSystem.play('hover');
-                });
-                
-                DOMElements['play-again-btn'].addEventListener('click', () => {
-                    DOMElements['game-over-modal'].classList.remove('is-open');
-
-                // Reset penalty display explicitly
-                DOMElements['empty-block-penalty'].textContent = '0';
-                    audioSystem.play('place');
-                    setTimeout(initGame, 200);
-                });
-
-                // Keyboard shortcuts
+            function setupEventListeners() {
+                DOMElements['rules-btn'].addEventListener('click', () => DOMElements['rules-modal'].classList.add('is-open'));
+                DOMElements['close-rules-btn'].addEventListener('click', () => DOMElements['rules-modal'].classList.remove('is-open'));
+                DOMElements['close-game-over-btn'].addEventListener('click', () => DOMElements['game-over-modal'].classList.remove('is-open'));
+                DOMElements['play-again-btn'].addEventListener('click', () => { DOMElements['game-over-modal'].classList.remove('is-open'); setTimeout(initGame, 200); });
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') {
-                        if (DOMElements['help-modal'].classList.contains('is-open')) {
-                            DOMElements['help-modal'].classList.remove('is-open');
-                        }
-                        if (DOMElements['game-over-modal'].classList.contains('is-open')) {
-                            DOMElements['game-over-modal'].classList.remove('is-open');
-
-                // Reset penalty display explicitly
-                DOMElements['empty-block-penalty'].textContent = '0';
-                        }
+                        if (activeSuperpower) { activeSuperpower = null; updateSuperpowerButtonsUI(); gameStateManager.setState(firstPlacementCell ? 'AWAITING_PLACEMENT' : 'AWAITING_ROLL'); } 
+                        else { ['rules-modal', 'game-over-modal', 'exchange-modal'].forEach(id => DOMElements[id].classList.remove('is-open')); }
                     }
-                    
-                    if (e.key === ' ' || e.key === 'Enter') {
-                        e.preventDefault();
-                        if (gameStateManager.is('AWAITING_ROLL')) {
-                            handleRollDice();
-                        }
-                    }
-                    
-                    if (e.key === 'h' || e.key === 'H') {
-                        if (!DOMElements['help-modal'].classList.contains('is-open')) {
-                            DOMElements['help-modal'].classList.add('is-open');
-                        }
-                    }
+                    if ((e.key === ' ' || e.key === 'Enter') && gameStateManager.is('AWAITING_ROLL')) { e.preventDefault(); handleRollDice(); }
                 });
-
-                // Performance monitoring
-                if (performance.mark) {
-                    performance.mark('game-loaded');
-                }
             };
 
-            // Initialize game and event listeners
-            setupEventListeners();
             initGame();
+            setupEventListeners();
         });
     </script>
 </body>
